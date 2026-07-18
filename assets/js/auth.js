@@ -7,6 +7,7 @@ import {
     validateEmail,
     validateNickname,
     validatePassword,
+    safeReturnPath,
     translateAuthError
 } from "./auth-utils.js";
 
@@ -64,6 +65,29 @@ function setButtonLoading(
     button.textContent = isLoading
         ? loadingText
         : button.dataset.defaultText;
+}
+
+function getLoginReturnPath() {
+    const queryParameters =
+        new URLSearchParams(window.location.search);
+
+    const queryReturnPath =
+        queryParameters.get("returnTo");
+
+    const storedReturnPath =
+        window.sessionStorage.getItem(
+            "authReturnPath"
+        );
+
+    window.sessionStorage.removeItem(
+        "authReturnPath"
+    );
+
+    return safeReturnPath(
+        queryReturnPath ||
+        storedReturnPath ||
+        "index.html"
+    );
 }
 
 function showPanel(panelName) {
@@ -184,19 +208,26 @@ function initializePanelNavigation() {
 function initializeLoginForm() {
     const form = document.querySelector("#login-form");
 
-    form?.addEventListener("submit", (event) => {
+    const submitButton =
+        document.querySelector("#login-submit");
+
+    form?.addEventListener("submit", async (event) => {
         event.preventDefault();
         clearFormErrors(form);
         hideMessage();
 
-        const email =
-            document.querySelector("#login-email").value;
+        const emailInput =
+            document.querySelector("#login-email");
 
-        const password =
-            document.querySelector("#login-password").value;
+        const passwordInput =
+            document.querySelector("#login-password");
+
+        const email = emailInput.value.trim();
+        const password = passwordInput.value;
 
         const emailResult = validateEmail(email);
-        const passwordResult = validatePassword(password);
+        const passwordResult =
+            validatePassword(password);
 
         setFieldError(
             "login-email",
@@ -218,10 +249,68 @@ function initializeLoginForm() {
             return;
         }
 
-        showMessage(
-            "登录表单校验通过。下一阶段连接 Supabase 后即可登录。",
-            "success"
+        if (!isSupabaseConfigured()) {
+            showMessage(
+                "登录服务配置尚未完成。",
+                "error"
+            );
+            return;
+        }
+
+        setButtonLoading(
+            submitButton,
+            true,
+            "正在登录……"
         );
+
+        try {
+            const { data, error } =
+                await supabaseClient.auth
+                    .signInWithPassword({
+                        email,
+                        password
+                    });
+
+            if (error) {
+                throw error;
+            }
+
+            if (!data.user?.email_confirmed_at) {
+                await supabaseClient.auth.signOut();
+
+                throw new Error(
+                    "Email not confirmed"
+                );
+            }
+
+            showMessage(
+                "登录成功，正在返回原页面……",
+                "success"
+            );
+
+            const returnPath =
+                getLoginReturnPath();
+
+            window.setTimeout(() => {
+                window.location.assign(returnPath);
+            }, 600);
+        } catch (error) {
+            console.error(
+                "Login failed:",
+                error?.message
+            );
+
+            showMessage(
+                translateAuthError(error),
+                "error"
+            );
+        } finally {
+            setButtonLoading(
+                submitButton,
+                false,
+                "正在登录……"
+            );
+        }
     });
 }
 
