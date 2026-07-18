@@ -74,6 +74,43 @@ body {
     letter-spacing: 2px;
 }
 
+.site-nav {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.nav-link {
+    position: relative;
+    padding: 8px 12px;
+    color: var(--color-ink-soft);
+    font-size: 14px;
+    transition: color 0.25s ease;
+}
+
+.nav-link::after {
+    content: "";
+    position: absolute;
+    right: 12px;
+    bottom: 3px;
+    left: 12px;
+    height: 2px;
+    background: var(--color-red);
+    transform: scaleX(0);
+    transform-origin: center;
+    transition: transform 0.25s ease;
+}
+
+.nav-link:hover,
+.nav-link.active {
+    color: var(--color-red);
+}
+
+.nav-link:hover::after,
+.nav-link.active::after {
+    transform: scaleX(1);
+}
+
 /* 首页首屏 */
 .hero {
     position: relative;
@@ -293,9 +330,28 @@ body {
 
 /* 手机适配 */
 @media (max-width: 850px) {
-    .header-label {
-        display: none;
-    }
+.header-inner {
+    min-height: 70px;
+    flex-wrap: wrap;
+    gap: 8px 18px;
+    padding: 10px 0;
+}
+
+.header-label {
+    display: none;
+}
+
+.site-nav {
+    width: 100%;
+    justify-content: center;
+    border-top: 1px solid var(--color-border);
+    padding-top: 7px;
+}
+
+.nav-link {
+    padding: 6px 10px;
+    font-size: 13px;
+}
 
     .hero {
         padding: 76px 0 64px;
