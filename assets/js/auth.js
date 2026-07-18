@@ -1,4 +1,9 @@
 import {
+    isSupabaseConfigured,
+    supabaseClient
+} from "./supabase-client.js";
+
+import {
     validateEmail,
     validateNickname,
     validatePassword
@@ -391,3 +396,38 @@ initializeLoginForm();
 initializeRegisterForm();
 initializeForgotPasswordForm();
 initializeResetPasswordForm();
+
+async function checkSupabaseConnection() {
+    if (!isSupabaseConfigured()) {
+        showMessage(
+            "Supabase 配置尚未完成，请检查 Project URL 和 Publishable Key。",
+            "error"
+        );
+        return;
+    }
+
+    try {
+        const { error } =
+            await supabaseClient.auth.getSession();
+
+        if (error) {
+            throw error;
+        }
+
+        console.info(
+            "Supabase 连接成功，当前尚未登录。"
+        );
+    } catch (error) {
+        console.error(
+            "Supabase connection failed:",
+            error?.message
+        );
+
+        showMessage(
+            "登录服务连接失败，请检查网络或 Supabase 配置。",
+            "error"
+        );
+    }
+}
+
+checkSupabaseConnection();
