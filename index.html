@@ -4,12 +4,112 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <meta
+        name="description"
+        content="横眉·鲁迅文化数字展馆，综合展示鲁迅的生平、作品、思想与时代背景。"
+    >
+
     <title>横眉·鲁迅文化数字展馆</title>
+
+    <link rel="stylesheet" href="assets/css/reset.css">
+    <link rel="stylesheet" href="assets/css/variables.css">
+    <link rel="stylesheet" href="assets/css/common.css">
 </head>
 
 <body>
-    <h1>横眉·鲁迅文化数字展馆</h1>
-    <p>《鲁迅文化专题网站的设计与开发》</p>
-    <p>项目环境配置成功，网站开发正式开始。</p>
+    <header class="site-header">
+        <div class="container header-inner">
+            <a class="brand" href="index.html">
+                <span class="brand-seal">横</span>
+
+                <span class="brand-text">
+                    <strong>横眉</strong>
+                    <small>鲁迅文化数字展馆</small>
+                </span>
+            </a>
+
+            <span class="header-label">鲁迅文化专题网站</span>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="container hero-grid">
+                <div class="hero-content">
+                    <span class="eyebrow">鲁迅文化数字展馆</span>
+
+                    <h1 class="hero-title">
+                        在文字与时代之间，<br>
+                        重新认识<span>鲁迅</span>
+                    </h1>
+
+                    <p class="hero-description">
+                        从生平轨迹、文学作品、人物关系与时代背景出发，
+                        构建一个兼具文化深度、现代交互与数字展示体验的鲁迅专题网站。
+                    </p>
+
+                    <div class="hero-actions">
+                        <a class="button button-primary" href="#project-status">
+                            进入展馆
+                        </a>
+
+                        <a class="button button-secondary" href="#project-status">
+                            了解项目
+                        </a>
+                    </div>
+                </div>
+
+                <aside class="hero-card">
+                    <div class="hero-card-number">01</div>
+
+                    <h2>以数字方式重读经典</h2>
+
+                    <p>
+                        网站将陆续收录鲁迅生平、代表作品、经典语录、
+                        人物关系、时代背景、作品赏析与历史图片。
+                    </p>
+
+                    <div class="hero-card-meta">
+                        HTML · CSS · JavaScript · Supabase
+                    </div>
+                </aside>
+            </div>
+        </section>
+
+        <section class="project-status" id="project-status">
+            <div class="container status-inner">
+                <div>
+                    <span class="section-kicker">PROJECT STATUS</span>
+                    <h2>项目环境配置完成</h2>
+                </div>
+
+                <div class="status-list">
+                    <article class="status-item">
+                        <strong>GitHub</strong>
+                        <span>代码仓库已经建立</span>
+                    </article>
+
+                    <article class="status-item">
+                        <strong>Supabase</strong>
+                        <span>云数据库项目已经建立</span>
+                    </article>
+
+                    <article class="status-item">
+                        <strong>Vercel</strong>
+                        <span>网站已经成功公开部署</span>
+                    </article>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <p>
+                © 2026 横眉·鲁迅文化数字展馆
+                ·《数据技术实训》课程大作业
+            </p>
+        </div>
+    </footer>
 </body>
 </html>
