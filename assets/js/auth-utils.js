@@ -177,5 +177,8 @@ export function translateAuthError(error) {
         return "网络连接失败，请检查网络后重试。";
     }
 
+	if (message.includes("database error saving new user")) {
+    return "昵称可能已被使用，或注册资料不符合要求。";
+}
     return "操作未能完成，请稍后重试。";
 }

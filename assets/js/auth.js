@@ -6,13 +6,16 @@ import {
 import {
     validateEmail,
     validateNickname,
-    validatePassword
+    validatePassword,
+    translateAuthError
 } from "./auth-utils.js";
 
 const authTabs = document.querySelector(".auth-tabs");
 const tabButtons = document.querySelectorAll("[data-auth-tab]");
 const formPanels = document.querySelectorAll("[data-auth-panel]");
 const authMessage = document.querySelector("#auth-message");
+const PRODUCTION_AUTH_URL =
+    "https://hengmei-luxun.vercel.app/auth.html";
 
 function showMessage(message, type = "info") {
     if (!authMessage) {
@@ -40,6 +43,27 @@ function hideMessage() {
     authMessage.hidden = true;
     authMessage.textContent = "";
     authMessage.className = "auth-message";
+}
+
+function setButtonLoading(
+    button,
+    isLoading,
+    loadingText
+) {
+    if (!button) {
+        return;
+    }
+
+    if (!button.dataset.defaultText) {
+        button.dataset.defaultText =
+            button.textContent.trim();
+    }
+
+    button.disabled = isLoading;
+
+    button.textContent = isLoading
+        ? loadingText
+        : button.dataset.defaultText;
 }
 
 function showPanel(panelName) {
@@ -203,30 +227,38 @@ function initializeLoginForm() {
 
 function initializeRegisterForm() {
     const form = document.querySelector("#register-form");
+    const submitButton =
+        document.querySelector("#register-submit");
 
-    form?.addEventListener("submit", (event) => {
+    form?.addEventListener("submit", async (event) => {
         event.preventDefault();
         clearFormErrors(form);
         hideMessage();
 
-        const nickname =
-            document.querySelector("#register-nickname").value;
+        const nicknameInput =
+            document.querySelector("#register-nickname");
 
-        const email =
-            document.querySelector("#register-email").value;
+        const emailInput =
+            document.querySelector("#register-email");
 
-        const password =
-            document.querySelector("#register-password").value;
+        const passwordInput =
+            document.querySelector("#register-password");
 
-        const passwordConfirm =
+        const confirmInput =
             document.querySelector(
                 "#register-password-confirm"
-            ).value;
+            );
 
-        const agreement =
+        const agreementInput =
             document.querySelector(
                 "#register-agreement"
-            ).checked;
+            );
+
+        const nickname = nicknameInput.value.trim();
+        const email = emailInput.value.trim();
+        const password = passwordInput.value;
+        const passwordConfirm = confirmInput.value;
+        const agreement = agreementInput.checked;
 
         const nicknameResult =
             validateNickname(nickname);
@@ -292,10 +324,61 @@ function initializeRegisterForm() {
             return;
         }
 
-        showMessage(
-            "注册表单校验通过。下一阶段连接 Supabase 后即可提交注册。",
-            "success"
+        if (!isSupabaseConfigured()) {
+            showMessage(
+                "登录服务配置尚未完成。",
+                "error"
+            );
+            return;
+        }
+
+        setButtonLoading(
+            submitButton,
+            true,
+            "正在注册……"
         );
+
+        try {
+            const { error } =
+                await supabaseClient.auth.signUp({
+                    email,
+                    password,
+                    options: {
+                        data: {
+                            nickname
+                        },
+                        emailRedirectTo:
+                            PRODUCTION_AUTH_URL
+                    }
+                });
+
+            if (error) {
+                throw error;
+            }
+
+            form.reset();
+
+            showMessage(
+                "注册申请已提交，请前往邮箱完成验证。验证完成后，请返回本页面手动登录。",
+                "success"
+            );
+        } catch (error) {
+            console.error(
+                "Registration failed:",
+                error?.message
+            );
+
+            showMessage(
+                translateAuthError(error),
+                "error"
+            );
+        } finally {
+            setButtonLoading(
+                submitButton,
+                false,
+                "正在注册……"
+            );
+        }
     });
 }
 
@@ -431,3 +514,73 @@ async function checkSupabaseConnection() {
 }
 
 checkSupabaseConnection();
+			
+async function handleEmailConfirmation() {
+    if (!isSupabaseConfigured()) {
+        return;
+    }
+
+    const hashParameters =
+        new URLSearchParams(
+            window.location.hash.slice(1)
+        );
+
+    const queryParameters =
+        new URLSearchParams(
+            window.location.search
+        );
+
+    const callbackType =
+        hashParameters.get("type") ||
+        queryParameters.get("type");
+
+    if (callbackType !== "signup") {
+        return;
+    }
+
+    try {
+        await new Promise((resolve) => {
+            window.setTimeout(resolve, 700);
+        });
+
+        const { data, error } =
+            await supabaseClient.auth.getSession();
+
+        if (error) {
+            throw error;
+        }
+
+        if (!data.session?.user) {
+            throw new Error(
+                "Email confirmation session not found"
+            );
+        }
+
+        await supabaseClient.auth.signOut();
+
+        window.history.replaceState(
+            {},
+            document.title,
+            window.location.pathname
+        );
+
+        showPanel("login");
+
+        showMessage(
+            "邮箱验证成功，请使用邮箱和密码手动登录。",
+            "success"
+        );
+    } catch (error) {
+        console.error(
+            "Email confirmation failed:",
+            error?.message
+        );
+
+        showMessage(
+            "邮箱验证链接无效或已经过期，请重新发送验证邮件。",
+            "error"
+        );
+    }
+}
+
+handleEmailConfirmation();
