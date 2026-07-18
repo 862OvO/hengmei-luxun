@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="description"
+        content="横眉·鲁迅文化数字展馆用户个人中心。"
+    >
+
+    <title>个人中心｜横眉·鲁迅文化数字展馆</title>
+
+    <link rel="stylesheet" href="assets/css/reset.css">
+    <link rel="stylesheet" href="assets/css/variables.css">
+    <link rel="stylesheet" href="assets/css/common.css">
+    <link rel="stylesheet" href="assets/css/auth.css">
+</head>
+
+<body class="auth-page profile-page">
+    <header class="site-header auth-header">
+        <div class="container header-inner">
+            <a class="brand" href="index.html">
+                <span class="brand-seal">横</span>
+
+                <span class="brand-text">
+                    <strong>横眉</strong>
+                    <small>鲁迅文化数字展馆</small>
+                </span>
+            </a>
+
+            <a class="auth-home-link" href="index.html">
+                返回展馆首页
+            </a>
+        </div>
+    </header>
+
+    <main class="profile-main">
+        <div class="container profile-layout">
+            <section class="profile-intro">
+                <span class="eyebrow">MEMBER PROFILE</span>
+
+                <h1 class="auth-intro-title">
+                    我的<span>个人中心</span>
+                </h1>
+
+                <p class="auth-intro-description">
+                    在这里查看账号资料、邮箱验证状态和注册时间，
+                    并管理您在数字展馆中使用的唯一昵称。
+                </p>
+
+                <div class="auth-intro-divider"></div>
+
+                <div class="profile-intro-note">
+                    <span class="profile-intro-number">10</span>
+
+                    <div>
+                        <h2>用户资料管理</h2>
+
+                        <p>
+                            第一阶段仅开放昵称修改功能。
+                            登录邮箱暂不支持修改，以减少重新验证和安全风险。
+                        </p>
+                    </div>
+                </div>
+
+                <a class="profile-back-link" href="index.html">
+                    继续浏览数字展馆
+                </a>
+            </section>
+
+            <section
+                class="profile-panel"
+                aria-labelledby="profile-panel-title"
+            >
+                <div class="auth-panel-heading">
+                    <span class="auth-panel-number">10</span>
+
+                    <div>
+                        <p class="auth-panel-label">ACCOUNT PROFILE</p>
+                        <h2 id="profile-panel-title">账号资料</h2>
+                    </div>
+                </div>
+
+                <div
+                    class="auth-message"
+                    id="profile-message"
+                    role="status"
+                    aria-live="polite"
+                    hidden
+                ></div>
+
+                <div
+                    class="profile-loading"
+                    id="profile-loading"
+                >
+                    正在读取用户资料……
+                </div>
+
+                <div id="profile-content">
+                    <dl class="profile-details">
+                        <div class="profile-detail-item">
+                            <dt>唯一昵称</dt>
+                            <dd id="profile-nickname">尚未加载</dd>
+                        </div>
+
+                        <div class="profile-detail-item">
+                            <dt>登录邮箱</dt>
+                            <dd id="profile-email">尚未加载</dd>
+                        </div>
+
+                        <div class="profile-detail-item">
+                            <dt>邮箱验证状态</dt>
+                            <dd>
+                                <span
+                                    class="profile-status"
+                                    id="profile-email-status"
+                                >
+                                    尚未加载
+                                </span>
+                            </dd>
+                        </div>
+
+                        <div class="profile-detail-item">
+                            <dt>注册时间</dt>
+                            <dd id="profile-created-at">尚未加载</dd>
+                        </div>
+                    </dl>
+
+                    <div class="profile-divider"></div>
+
+                    <section
+                        class="profile-edit"
+                        aria-labelledby="profile-edit-title"
+                    >
+                        <div class="auth-form-heading">
+                            <h3 id="profile-edit-title">修改昵称</h3>
+
+                            <p>
+                                昵称为 2～20 个字符，允许中文、
+                                英文字母、数字和下划线。
+                            </p>
+                        </div>
+
+                        <form
+                            id="profile-form"
+                            class="auth-form"
+                            novalidate
+                        >
+                            <div class="form-group">
+                                <label for="profile-nickname-input">
+                                    新昵称
+                                </label>
+
+                                <input
+                                    id="profile-nickname-input"
+                                    name="nickname"
+                                    type="text"
+                                    minlength="2"
+                                    maxlength="20"
+                                    autocomplete="nickname"
+                                    placeholder="请输入新的唯一昵称"
+                                    required
+                                >
+
+                                <p class="form-help">
+                                    英文字母不区分大小写，
+                                    例如 LuXun 与 luxun 视为同一昵称。
+                                </p>
+
+                                <p
+                                    class="form-error"
+                                    id="profile-nickname-error"
+                                    aria-live="polite"
+                                ></p>
+                            </div>
+
+                            <button
+                                class="auth-submit"
+                                id="profile-submit"
+                                type="submit"
+                            >
+                                保存昵称
+                            </button>
+                        </form>
+                    </section>
+
+                    <button
+                        class="profile-logout-button"
+                        id="profile-logout"
+                        type="button"
+                    >
+                        退出当前账号
+                    </button>
+                </div>
+
+                <p class="auth-panel-footer">
+                    用户只能读取和修改自己的资料，
+                    实际权限由数据库 RLS 策略控制。
+                </p>
+            </section>
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <p>
+                © 2026 横眉·鲁迅文化数字展馆
+                ·《数据技术实训》课程大作业
+            </p>
+        </div>
+    </footer>
+</body>
+</html>

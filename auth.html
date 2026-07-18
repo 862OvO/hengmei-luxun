@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="description"
+        content="横眉·鲁迅文化数字展馆用户登录、注册与密码找回页面。"
+    >
+
+    <title>登录与注册｜横眉·鲁迅文化数字展馆</title>
+
+    <link rel="stylesheet" href="assets/css/reset.css">
+    <link rel="stylesheet" href="assets/css/variables.css">
+    <link rel="stylesheet" href="assets/css/common.css">
+    <link rel="stylesheet" href="assets/css/auth.css">
+</head>
+
+<body class="auth-page">
+    <header class="site-header auth-header">
+        <div class="container header-inner">
+            <a class="brand" href="index.html">
+                <span class="brand-seal">横</span>
+
+                <span class="brand-text">
+                    <strong>横眉</strong>
+                    <small>鲁迅文化数字展馆</small>
+                </span>
+            </a>
+
+            <a class="auth-home-link" href="index.html">
+                返回展馆首页
+            </a>
+        </div>
+    </header>
+
+    <main class="auth-main">
+        <div class="container auth-layout">
+            <section class="auth-intro">
+                <span class="eyebrow">MEMBER ACCESS</span>
+
+                <h1 class="auth-intro-title">
+                    进入<span>数字展馆</span>
+                </h1>
+
+                <p class="auth-intro-description">
+                    注册并登录后，您可以收藏感兴趣的作品、
+                    参与文化留言，并在个人中心管理自己的用户资料。
+                </p>
+
+                <div class="auth-intro-divider"></div>
+
+                <div class="auth-feature-list">
+                    <article class="auth-feature-item">
+                        <span class="auth-feature-number">01</span>
+
+                        <div>
+                            <h2>收藏文化内容</h2>
+                            <p>保存感兴趣的作品、文章与历史资料。</p>
+                        </div>
+                    </article>
+
+                    <article class="auth-feature-item">
+                        <span class="auth-feature-number">02</span>
+
+                        <div>
+                            <h2>参与文化交流</h2>
+                            <p>登录后发表留言，并管理自己的留言内容。</p>
+                        </div>
+                    </article>
+
+                    <article class="auth-feature-item">
+                        <span class="auth-feature-number">03</span>
+
+                        <div>
+                            <h2>安全管理资料</h2>
+                            <p>邮箱验证与数据库权限共同保护账号信息。</p>
+                        </div>
+                    </article>
+                </div>
+
+                <p class="auth-security-note">
+                    本站不会在网页中保存您的密码。
+                    密码与邮箱验证由 Supabase Auth 安全处理。
+                </p>
+            </section>
+
+            <section class="auth-panel" aria-labelledby="auth-panel-title">
+                <div class="auth-panel-heading">
+                    <span class="auth-panel-number">09</span>
+
+                    <div>
+                        <p class="auth-panel-label">USER ACCOUNT</p>
+                        <h2 id="auth-panel-title">用户账号</h2>
+                    </div>
+                </div>
+
+                <div
+                    class="auth-message"
+                    id="auth-message"
+                    role="status"
+                    aria-live="polite"
+                    hidden
+                ></div>
+
+                <div
+                    class="auth-tabs"
+                    role="tablist"
+                    aria-label="登录与注册"
+                >
+                    <button
+                        class="auth-tab active"
+                        id="login-tab"
+                        type="button"
+                        role="tab"
+                        aria-selected="true"
+                        aria-controls="login-panel"
+                        data-auth-tab="login"
+                    >
+                        登录
+                    </button>
+
+                    <button
+                        class="auth-tab"
+                        id="register-tab"
+                        type="button"
+                        role="tab"
+                        aria-selected="false"
+                        aria-controls="register-panel"
+                        data-auth-tab="register"
+                    >
+                        注册
+                    </button>
+                </div>
+
+                <!-- 登录表单 -->
+                <section
+                    class="auth-form-panel active"
+                    id="login-panel"
+                    role="tabpanel"
+                    aria-labelledby="login-tab"
+                    data-auth-panel="login"
+                >
+                    <div class="auth-form-heading">
+                        <h3>欢迎回来</h3>
+                        <p>请输入已完成邮箱验证的账号。</p>
+                    </div>
+
+                    <form id="login-form" class="auth-form" novalidate>
+                        <div class="form-group">
+                            <label for="login-email">邮箱地址</label>
+
+                            <input
+                                id="login-email"
+                                name="email"
+                                type="email"
+                                inputmode="email"
+                                autocomplete="email"
+                                placeholder="例如：name@example.com"
+                                required
+                            >
+
+                            <p
+                                class="form-error"
+                                id="login-email-error"
+                                aria-live="polite"
+                            ></p>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="login-password">密码</label>
+
+                            <div class="password-field">
+                                <input
+                                    id="login-password"
+                                    name="password"
+                                    type="password"
+                                    autocomplete="current-password"
+                                    placeholder="请输入密码"
+                                    required
+                                >
+
+                                <button
+                                    class="password-toggle"
+                                    type="button"
+                                    aria-label="显示登录密码"
+                                    data-password-toggle="login-password"
+                                >
+                                    显示
+                                </button>
+                            </div>
+
+                            <p
+                                class="form-error"
+                                id="login-password-error"
+                                aria-live="polite"
+                            ></p>
+                        </div>
+
+                        <div class="auth-form-options">
+                            <span>登录状态将保持到主动退出</span>
+
+                            <button
+                                class="text-button"
+                                id="show-forgot-password"
+                                type="button"
+                            >
+                                忘记密码？
+                            </button>
+                        </div>
+
+                        <button
+                            class="auth-submit"
+                            id="login-submit"
+                            type="submit"
+                        >
+                            登录账号
+                        </button>
+
+                        <button
+                            class="auth-secondary-action"
+                            id="resend-verification"
+                            type="button"
+                            hidden
+                        >
+                            重新发送验证邮件
+                        </button>
+                    </form>
+                </section>
+
+                <!-- 注册表单 -->
+                <section
+                    class="auth-form-panel"
+                    id="register-panel"
+                    role="tabpanel"
+                    aria-labelledby="register-tab"
+                    data-auth-panel="register"
+                    hidden
+                >
+                    <div class="auth-form-heading">
+                        <h3>创建账号</h3>
+                        <p>注册后需要前往邮箱完成验证。</p>
+                    </div>
+
+                    <form id="register-form" class="auth-form" novalidate>
+                        <div class="form-group">
+                            <label for="register-nickname">唯一昵称</label>
+
+                            <input
+                                id="register-nickname"
+                                name="nickname"
+                                type="text"
+                                minlength="2"
+                                maxlength="20"
+                                autocomplete="nickname"
+                                placeholder="2～20 个字符"
+                                required
+                            >
+
+                            <p class="form-help">
+                                允许中文、英文字母、数字和下划线，
+                                英文字母不区分大小写。
+                            </p>
+
+                            <p
+                                class="form-error"
+                                id="register-nickname-error"
+                                aria-live="polite"
+                            ></p>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="register-email">邮箱地址</label>
+
+                            <input
+                                id="register-email"
+                                name="email"
+                                type="email"
+                                inputmode="email"
+                                autocomplete="email"
+                                placeholder="例如：name@example.com"
+                                required
+                            >
+
+                            <p
+                                class="form-error"
+                                id="register-email-error"
+                                aria-live="polite"
+                            ></p>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="register-password">设置密码</label>
+
+                            <div class="password-field">
+                                <input
+                                    id="register-password"
+                                    name="password"
+                                    type="password"
+                                    minlength="8"
+                                    autocomplete="new-password"
+                                    placeholder="至少 8 位，包含字母和数字"
+                                    required
+                                >
+
+                                <button
+                                    class="password-toggle"
+                                    type="button"
+                                    aria-label="显示注册密码"
+                                    data-password-toggle="register-password"
+                                >
+                                    显示
+                                </button>
+                            </div>
+
+                            <p
+                                class="form-error"
+                                id="register-password-error"
+                                aria-live="polite"
+                            ></p>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="register-password-confirm">
+                                确认密码
+                            </label>
+
+                            <div class="password-field">
+                                <input
+                                    id="register-password-confirm"
+                                    name="passwordConfirm"
+                                    type="password"
+                                    minlength="8"
+                                    autocomplete="new-password"
+                                    placeholder="请再次输入密码"
+                                    required
+                                >
+
+                                <button
+                                    class="password-toggle"
+                                    type="button"
+                                    aria-label="显示确认密码"
+                                    data-password-toggle="register-password-confirm"
+                                >
+                                    显示
+                                </button>
+                            </div>
+
+                            <p
+                                class="form-error"
+                                id="register-password-confirm-error"
+                                aria-live="polite"
+                            ></p>
+                        </div>
+
+                        <div class="form-check">
+                            <input
+                                id="register-agreement"
+                                name="agreement"
+                                type="checkbox"
+                                required
+                            >
+
+                            <label for="register-agreement">
+                                我已阅读并同意本站使用说明与隐私提示
+                            </label>
+                        </div>
+
+                        <p
+                            class="form-error"
+                            id="register-agreement-error"
+                            aria-live="polite"
+                        ></p>
+
+                        <button
+                            class="auth-submit"
+                            id="register-submit"
+                            type="submit"
+                        >
+                            注册账号
+                        </button>
+                    </form>
+                </section>
+
+                <!-- 忘记密码表单 -->
+                <section
+                    class="auth-form-panel"
+                    id="forgot-password-panel"
+                    data-auth-panel="forgot-password"
+                    hidden
+                >
+                    <div class="auth-form-heading">
+                        <h3>找回密码</h3>
+                        <p>请输入注册邮箱，我们将发送密码重置邮件。</p>
+                    </div>
+
+                    <form
+                        id="forgot-password-form"
+                        class="auth-form"
+                        novalidate
+                    >
+                        <div class="form-group">
+                            <label for="forgot-email">注册邮箱</label>
+
+                            <input
+                                id="forgot-email"
+                                name="email"
+                                type="email"
+                                inputmode="email"
+                                autocomplete="email"
+                                placeholder="例如：name@example.com"
+                                required
+                            >
+
+                            <p
+                                class="form-error"
+                                id="forgot-email-error"
+                                aria-live="polite"
+                            ></p>
+                        </div>
+
+                        <button
+                            class="auth-submit"
+                            id="forgot-password-submit"
+                            type="submit"
+                        >
+                            发送重置邮件
+                        </button>
+
+                        <button
+                            class="auth-secondary-action"
+                            id="back-to-login"
+                            type="button"
+                        >
+                            返回登录
+                        </button>
+                    </form>
+                </section>
+
+                <!-- 设置新密码表单 -->
+                <section
+                    class="auth-form-panel"
+                    id="reset-password-panel"
+                    data-auth-panel="reset-password"
+                    hidden
+                >
+                    <div class="auth-form-heading">
+                        <h3>设置新密码</h3>
+                        <p>新密码至少 8 位，并同时包含字母和数字。</p>
+                    </div>
+
+                    <form
+                        id="reset-password-form"
+                        class="auth-form"
+                        novalidate
+                    >
+                        <div class="form-group">
+                            <label for="reset-password">新密码</label>
+
+                            <div class="password-field">
+                                <input
+                                    id="reset-password"
+                                    name="password"
+                                    type="password"
+                                    minlength="8"
+                                    autocomplete="new-password"
+                                    placeholder="请输入新密码"
+                                    required
+                                >
+
+                                <button
+                                    class="password-toggle"
+                                    type="button"
+                                    aria-label="显示新密码"
+                                    data-password-toggle="reset-password"
+                                >
+                                    显示
+                                </button>
+                            </div>
+
+                            <p
+                                class="form-error"
+                                id="reset-password-error"
+                                aria-live="polite"
+                            ></p>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="reset-password-confirm">
+                                确认新密码
+                            </label>
+
+                            <div class="password-field">
+                                <input
+                                    id="reset-password-confirm"
+                                    name="passwordConfirm"
+                                    type="password"
+                                    minlength="8"
+                                    autocomplete="new-password"
+                                    placeholder="请再次输入新密码"
+                                    required
+                                >
+
+                                <button
+                                    class="password-toggle"
+                                    type="button"
+                                    aria-label="显示确认新密码"
+                                    data-password-toggle="reset-password-confirm"
+                                >
+                                    显示
+                                </button>
+                            </div>
+
+                            <p
+                                class="form-error"
+                                id="reset-password-confirm-error"
+                                aria-live="polite"
+                            ></p>
+                        </div>
+
+                        <button
+                            class="auth-submit"
+                            id="reset-password-submit"
+                            type="submit"
+                        >
+                            保存新密码
+                        </button>
+                    </form>
+                </section>
+
+                <p class="auth-panel-footer">
+                    注册与登录功能需要网络连接，
+                    网站静态文化内容仍可离线浏览。
+                </p>
+            </section>
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <p>
+                © 2026 横眉·鲁迅文化数字展馆
+                ·《数据技术实训》课程大作业
+            </p>
+        </div>
+    </footer>
+	<script type="module" src="assets/js/auth.js"></script>
+</body>
+</html>
