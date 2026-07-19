@@ -1,0 +1,211 @@
+/* ========================================
+   动态内容列表
+   适用于代表作品、作品赏析、历史影像
+   ======================================== */
+
+.content-section {
+    padding: 82px 0 96px;
+    background: var(--color-paper-light);
+}
+
+.content-section-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 30px;
+    margin-bottom: 34px;
+}
+
+.content-section-title {
+    font-family: var(--font-serif);
+    font-size: clamp(30px, 4vw, 46px);
+    letter-spacing: 3px;
+}
+
+.content-section-description {
+    max-width: 640px;
+    margin-top: 12px;
+    color: var(--color-ink-soft);
+}
+
+.content-source {
+    flex: 0 0 auto;
+    padding: 8px 12px;
+    color: var(--color-ink-soft);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-small);
+    background: rgba(255, 255, 255, 0.46);
+    font-size: 12px;
+    letter-spacing: 1px;
+}
+
+.content-source[data-source="supabase"] {
+    color: var(--color-red);
+    border-color: rgba(141, 31, 31, 0.26);
+}
+
+.content-source[data-source="local"] {
+    color: var(--color-ink-soft);
+}
+
+.content-warning {
+    margin-bottom: 26px;
+    padding: 13px 16px;
+    color: var(--color-red-dark);
+    border-left: 3px solid var(--color-red);
+    background: rgba(141, 31, 31, 0.06);
+    font-size: 14px;
+}
+
+.content-warning[hidden] {
+    display: none;
+}
+
+.content-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 22px;
+}
+
+.content-card {
+    position: relative;
+    min-width: 0;
+    padding: 30px 26px 26px;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-medium);
+    background: rgba(250, 247, 240, 0.88);
+    box-shadow: var(--shadow-card);
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease,
+        border-color 0.25s ease;
+}
+
+.content-card:hover {
+    transform: translateY(-5px);
+    border-color: rgba(141, 31, 31, 0.28);
+}
+
+.content-card::before {
+    content: "";
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    width: 24px;
+    height: 24px;
+    border-top: 1px solid var(--color-red);
+    border-left: 1px solid var(--color-red);
+}
+
+.content-card-number {
+    color: var(--color-red);
+    font-family: Georgia, serif;
+    font-size: 34px;
+    line-height: 1;
+}
+
+.content-card-type {
+    margin-top: 16px;
+    color: var(--color-red);
+    font-size: 11px;
+    font-weight: bold;
+    letter-spacing: 2px;
+}
+
+.content-card-title {
+    margin-top: 9px;
+    font-family: var(--font-serif);
+    font-size: 25px;
+    line-height: 1.45;
+    letter-spacing: 2px;
+}
+
+.content-card-meta {
+    margin-top: 15px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+}
+
+.content-card-meta span {
+    padding: 4px 8px;
+    color: var(--color-ink-soft);
+    border: 1px solid var(--color-border);
+    border-radius: 999px;
+    font-size: 12px;
+}
+
+.content-card-summary {
+    margin-top: 18px;
+    color: var(--color-ink-soft);
+    line-height: 1.9;
+}
+
+.content-card-actions {
+    margin-top: auto;
+    padding-top: 24px;
+}
+
+.content-detail-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--color-red);
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.content-detail-link::after {
+    content: "→";
+    transition: transform 0.2s ease;
+}
+
+.content-detail-link:hover::after {
+    transform: translateX(4px);
+}
+
+.content-state {
+    grid-column: 1 / -1;
+    padding: 48px 28px;
+    color: var(--color-ink-soft);
+    border: 1px dashed var(--color-border);
+    border-radius: var(--radius-medium);
+    background: rgba(255, 255, 255, 0.35);
+    text-align: center;
+}
+
+.content-state strong {
+    display: block;
+    margin-bottom: 8px;
+    color: var(--color-ink);
+    font-family: var(--font-serif);
+    font-size: 22px;
+}
+
+@media (max-width: 1000px) {
+    .content-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 700px) {
+    .content-section {
+        padding: 62px 0 74px;
+    }
+
+    .content-section-header {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 18px;
+    }
+
+    .content-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .content-card {
+        padding: 28px 22px 24px;
+    }
+}
