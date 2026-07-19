@@ -8,6 +8,7 @@ import {
 } from "./auth-utils.js";
 
 import "./header-search.js";
+import "./footer-links.js";
 
 const AUTH_ACTIONS_SELECTOR =
     "[data-auth-actions]";
