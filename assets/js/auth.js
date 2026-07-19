@@ -210,6 +210,9 @@ function initializeLoginForm() {
 
     const submitButton =
         document.querySelector("#login-submit");
+	
+	const resendButton =
+    document.querySelector("#resend-verification");
 
     form?.addEventListener("submit", async (event) => {
         event.preventDefault();
@@ -282,6 +285,10 @@ function initializeLoginForm() {
                     "Email not confirmed"
                 );
             }
+	
+			if (resendButton) {
+    			resendButton.hidden = true;
+			}
 
             showMessage(
                 "登录成功，正在返回原页面……",
@@ -295,16 +302,33 @@ function initializeLoginForm() {
                 window.location.assign(returnPath);
             }, 600);
         } catch (error) {
-            console.error(
-                "Login failed:",
-                error?.message
-            );
+    console.error(
+        "Login failed:",
+        error?.message
+    );
 
-            showMessage(
-                translateAuthError(error),
-                "error"
-            );
-        } finally {
+    const errorMessage =
+        String(error?.message ?? "")
+            .toLowerCase();
+
+    const emailNotConfirmed =
+        errorMessage.includes(
+            "email not confirmed"
+        ) ||
+        errorMessage.includes(
+            "email_not_confirmed"
+        );
+
+    if (resendButton) {
+        resendButton.hidden =
+            !emailNotConfirmed;
+    }
+
+    showMessage(
+        translateAuthError(error),
+        "error"
+    );
+} finally {
             setButtonLoading(
                 submitButton,
                 false,
@@ -473,92 +497,301 @@ function initializeRegisterForm() {
 
 function initializeForgotPasswordForm() {
     const form =
-        document.querySelector("#forgot-password-form");
-
-    form?.addEventListener("submit", (event) => {
-        event.preventDefault();
-        clearFormErrors(form);
-        hideMessage();
-
-        const email =
-            document.querySelector("#forgot-email").value;
-
-        const result = validateEmail(email);
-
-        setFieldError(
-            "forgot-email",
-            "forgot-email-error",
-            result.message
+        document.querySelector(
+            "#forgot-password-form"
         );
 
-        if (!result.valid) {
-            showMessage(
-                "请填写正确的邮箱地址。",
-                "error"
+    const submitButton =
+        document.querySelector(
+            "#forgot-password-submit"
+        );
+
+    form?.addEventListener(
+        "submit",
+        async (event) => {
+            event.preventDefault();
+            clearFormErrors(form);
+            hideMessage();
+
+            const emailInput =
+                document.querySelector(
+                    "#forgot-email"
+                );
+
+            const email =
+                emailInput.value.trim();
+
+            const result =
+                validateEmail(email);
+
+            setFieldError(
+                "forgot-email",
+                "forgot-email-error",
+                result.message
             );
-            return;
-        }
 
-        showMessage(
-            "邮箱格式校验通过。连接 Supabase 后将发送重置邮件。",
-            "success"
-        );
-    });
+            if (!result.valid) {
+                showMessage(
+                    "请填写正确的邮箱地址。",
+                    "error"
+                );
+                return;
+            }
+
+            if (!isSupabaseConfigured()) {
+                showMessage(
+                    "登录服务配置尚未完成。",
+                    "error"
+                );
+                return;
+            }
+
+            setButtonLoading(
+                submitButton,
+                true,
+                "正在发送……"
+            );
+
+            try {
+                const { error } =
+                    await supabaseClient.auth
+                        .resetPasswordForEmail(
+                            email,
+                            {
+                                redirectTo:
+                                    PRODUCTION_AUTH_URL
+                            }
+                        );
+
+                if (error) {
+                    throw error;
+                }
+
+                form.reset();
+
+                showMessage(
+                    "密码重置邮件已发送。请检查邮箱并点击邮件中的链接。",
+                    "success"
+                );
+            } catch (error) {
+                console.error(
+                    "Password reset request failed:",
+                    error?.message
+                );
+
+                showMessage(
+                    translateAuthError(error),
+                    "error"
+                );
+            } finally {
+                setButtonLoading(
+                    submitButton,
+                    false,
+                    "正在发送……"
+                );
+            }
+        }
+    );
 }
 
 function initializeResetPasswordForm() {
     const form =
-        document.querySelector("#reset-password-form");
-
-    form?.addEventListener("submit", (event) => {
-        event.preventDefault();
-        clearFormErrors(form);
-        hideMessage();
-
-        const password =
-            document.querySelector("#reset-password").value;
-
-        const confirmPassword =
-            document.querySelector(
-                "#reset-password-confirm"
-            ).value;
-
-        const passwordResult =
-            validatePassword(password);
-
-        setFieldError(
-            "reset-password",
-            "reset-password-error",
-            passwordResult.message
+        document.querySelector(
+            "#reset-password-form"
         );
 
-        const confirmMessage =
-            password === confirmPassword
-                ? ""
-                : "两次输入的新密码不一致。";
-
-        setFieldError(
-            "reset-password-confirm",
-            "reset-password-confirm-error",
-            confirmMessage
+    const submitButton =
+        document.querySelector(
+            "#reset-password-submit"
         );
 
-        if (
-            !passwordResult.valid ||
-            password !== confirmPassword
-        ) {
-            showMessage(
-                "请检查新密码。",
-                "error"
+    form?.addEventListener(
+        "submit",
+        async (event) => {
+            event.preventDefault();
+            clearFormErrors(form);
+            hideMessage();
+
+            const passwordInput =
+                document.querySelector(
+                    "#reset-password"
+                );
+
+            const confirmInput =
+                document.querySelector(
+                    "#reset-password-confirm"
+                );
+
+            const password =
+                passwordInput.value;
+
+            const confirmPassword =
+                confirmInput.value;
+
+            const passwordResult =
+                validatePassword(password);
+
+            setFieldError(
+                "reset-password",
+                "reset-password-error",
+                passwordResult.message
             );
-            return;
-        }
 
-        showMessage(
-            "新密码格式校验通过。",
-            "success"
+            const confirmMessage =
+                password === confirmPassword
+                    ? ""
+                    : "两次输入的新密码不一致。";
+
+            setFieldError(
+                "reset-password-confirm",
+                "reset-password-confirm-error",
+                confirmMessage
+            );
+
+            if (
+                !passwordResult.valid ||
+                password !== confirmPassword
+            ) {
+                showMessage(
+                    "请检查新密码。",
+                    "error"
+                );
+                return;
+            }
+
+            setButtonLoading(
+                submitButton,
+                true,
+                "正在保存……"
+            );
+
+            try {
+                const { error } =
+                    await supabaseClient.auth
+                        .updateUser({
+                            password
+                        });
+
+                if (error) {
+                    throw error;
+                }
+
+                await supabaseClient.auth
+                    .signOut();
+
+                window.history.replaceState(
+                    {},
+                    document.title,
+                    window.location.pathname
+                );
+
+                form.reset();
+                showPanel("login");
+
+                showMessage(
+                    "密码修改成功，请使用新密码重新登录。",
+                    "success"
+                );
+            } catch (error) {
+                console.error(
+                    "Password update failed:",
+                    error?.message
+                );
+
+                showMessage(
+                    translateAuthError(error),
+                    "error"
+                );
+            } finally {
+                setButtonLoading(
+                    submitButton,
+                    false,
+                    "正在保存……"
+                );
+            }
+        }
+    );
+}
+
+function initializeVerificationResend() {
+    const resendButton =
+        document.querySelector(
+            "#resend-verification"
         );
-    });
+
+    const emailInput =
+        document.querySelector("#login-email");
+
+    resendButton?.addEventListener(
+        "click",
+        async () => {
+            hideMessage();
+
+            const email =
+                emailInput.value.trim();
+
+            const result =
+                validateEmail(email);
+
+            setFieldError(
+                "login-email",
+                "login-email-error",
+                result.message
+            );
+
+            if (!result.valid) {
+                showMessage(
+                    "请先填写正确的注册邮箱。",
+                    "error"
+                );
+                return;
+            }
+
+            setButtonLoading(
+                resendButton,
+                true,
+                "正在发送……"
+            );
+
+            try {
+                const { error } =
+                    await supabaseClient.auth
+                        .resend({
+                            type: "signup",
+                            email,
+                            options: {
+                                emailRedirectTo:
+                                    PRODUCTION_AUTH_URL
+                            }
+                        });
+
+                if (error) {
+                    throw error;
+                }
+
+                showMessage(
+                    "验证邮件已重新发送，请检查邮箱。若暂未收到，请同时检查垃圾邮件。",
+                    "success"
+                );
+            } catch (error) {
+                console.error(
+                    "Verification resend failed:",
+                    error?.message
+                );
+
+                showMessage(
+                    translateAuthError(error),
+                    "error"
+                );
+            } finally {
+                setButtonLoading(
+                    resendButton,
+                    false,
+                    "正在发送……"
+                );
+            }
+        }
+    );
 }
 
 initializeTabs();
@@ -568,6 +801,8 @@ initializeLoginForm();
 initializeRegisterForm();
 initializeForgotPasswordForm();
 initializeResetPasswordForm();
+initializeVerificationResend();
+initializePasswordRecovery();
 
 async function checkSupabaseConnection() {
     if (!isSupabaseConfigured()) {
@@ -603,6 +838,47 @@ async function checkSupabaseConnection() {
 }
 
 checkSupabaseConnection();
+
+function initializePasswordRecovery() {
+    if (!isSupabaseConfigured()) {
+        return;
+    }
+
+    const showRecoveryPanel = () => {
+        showPanel("reset-password");
+
+        showMessage(
+            "身份验证成功，请设置新的登录密码。",
+            "success"
+        );
+    };
+
+    const hashParameters =
+        new URLSearchParams(
+            window.location.hash.slice(1)
+        );
+
+    const queryParameters =
+        new URLSearchParams(
+            window.location.search
+        );
+
+    const callbackType =
+        hashParameters.get("type") ||
+        queryParameters.get("type");
+
+    if (callbackType === "recovery") {
+        showRecoveryPanel();
+    }
+
+    supabaseClient.auth.onAuthStateChange(
+        (event) => {
+            if (event === "PASSWORD_RECOVERY") {
+                showRecoveryPanel();
+            }
+        }
+    );
+}
 			
 async function handleEmailConfirmation() {
     if (!isSupabaseConfigured()) {
