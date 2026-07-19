@@ -14,6 +14,26 @@ const CONTENT_STATUSES = new Set([
     "published"
 ]);
 
+const CONTENT_IMAGE_BUCKET =
+    "content-images";
+
+const MAX_IMAGE_FILE_SIZE =
+    5 * 1024 * 1024;
+
+const ALLOWED_IMAGE_TYPES =
+    new Set([
+        "image/jpeg",
+        "image/png",
+        "image/webp"
+    ]);
+
+const IMAGE_EXTENSIONS =
+    Object.freeze({
+        "image/jpeg": "jpg",
+        "image/png": "png",
+        "image/webp": "webp"
+    });
+
 const SLUG_PATTERN =
     /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 
@@ -202,6 +222,223 @@ function validateContentInput(input) {
             ),
         status,
         sort_order: sortOrder
+    };
+}
+
+
+function createUniqueImageName(
+    file,
+    contentType,
+    slug
+) {
+    const extension =
+        IMAGE_EXTENSIONS[file.type];
+
+    const randomPart =
+        globalThis.crypto?.randomUUID?.() ||
+        Math.random()
+            .toString(36)
+            .slice(2);
+
+    return [
+        contentType,
+        slug,
+        `${Date.now()}-${randomPart}.${extension}`
+    ].join("/");
+}
+
+function getStorageObjectPath(
+    imagePath
+) {
+    const value =
+        normalizeText(imagePath);
+
+    if (!value) {
+        return "";
+    }
+
+    const marker =
+        `/storage/v1/object/public/${CONTENT_IMAGE_BUCKET}/`;
+
+    const markerIndex =
+        value.indexOf(marker);
+
+    if (markerIndex === -1) {
+        return "";
+    }
+
+    const encodedPath =
+        value.slice(
+            markerIndex +
+            marker.length
+        );
+
+    try {
+        return decodeURIComponent(
+            encodedPath
+        );
+    } catch {
+        return encodedPath;
+    }
+}
+
+export function validateAdminImageFile(
+    file
+) {
+    if (!(file instanceof File)) {
+        throw new Error(
+            "请选择需要上传的图片。"
+        );
+    }
+
+    if (!ALLOWED_IMAGE_TYPES.has(
+        file.type
+    )) {
+        throw new Error(
+            "图片仅支持 JPEG、PNG 或 WebP 格式。"
+        );
+    }
+
+    if (
+        file.size <= 0 ||
+        file.size >
+            MAX_IMAGE_FILE_SIZE
+    ) {
+        throw new Error(
+            "图片大小必须在 5 MB 以内。"
+        );
+    }
+
+    return true;
+}
+
+export async function uploadAdminContentImage(
+    file,
+    {
+        contentType,
+        slug
+    }
+) {
+    await requireCurrentAdmin();
+    validateAdminImageFile(file);
+
+    const normalizedContentType =
+        normalizeText(contentType);
+
+    const normalizedSlug =
+        normalizeText(slug);
+
+    if (
+        !CONTENT_TYPES.has(
+            normalizedContentType
+        ) ||
+        !SLUG_PATTERN.test(
+            normalizedSlug
+        )
+    ) {
+        throw new Error(
+            "请先填写正确的内容分类和稳定编号。"
+        );
+    }
+
+    const objectPath =
+        createUniqueImageName(
+            file,
+            normalizedContentType,
+            normalizedSlug
+        );
+
+    const {
+        data: uploadData,
+        error: uploadError
+    } =
+        await supabaseClient.storage
+            .from(
+                CONTENT_IMAGE_BUCKET
+            )
+            .upload(
+                objectPath,
+                file,
+                {
+                    cacheControl: "3600",
+                    contentType:
+                        file.type,
+                    upsert: false
+                }
+            );
+
+    if (uploadError) {
+        throw uploadError;
+    }
+
+    const {
+        data: publicUrlData
+    } =
+        supabaseClient.storage
+            .from(
+                CONTENT_IMAGE_BUCKET
+            )
+            .getPublicUrl(
+                uploadData.path
+            );
+
+    const publicUrl =
+        publicUrlData?.publicUrl;
+
+    if (!publicUrl) {
+        await supabaseClient.storage
+            .from(
+                CONTENT_IMAGE_BUCKET
+            )
+            .remove([
+                uploadData.path
+            ]);
+
+        throw new Error(
+            "图片上传成功，但无法生成公开地址。"
+        );
+    }
+
+    return {
+        path: uploadData.path,
+        publicUrl
+    };
+}
+
+export async function deleteAdminContentImage(
+    imagePath
+) {
+    await requireCurrentAdmin();
+
+    const objectPath =
+        getStorageObjectPath(
+            imagePath
+        );
+
+    if (!objectPath) {
+        return {
+            deleted: false
+        };
+    }
+
+    const {
+        error
+    } =
+        await supabaseClient.storage
+            .from(
+                CONTENT_IMAGE_BUCKET
+            )
+            .remove([
+                objectPath
+            ]);
+
+    if (error) {
+        throw error;
+    }
+
+    return {
+        deleted: true,
+        path: objectPath
     };
 }
 

@@ -296,13 +296,59 @@
                             </div>
 
                             <div class="admin-field full">
-                                <label for="admin-image">图片路径</label>
-                                <input
-                                    id="admin-image"
-                                    type="text"
-                                    data-field-image
-                                    placeholder="可暂留空；后续接入 Supabase Storage"
-                                >
+                                <label for="admin-image-file">内容图片</label>
+
+                                <div class="admin-image-editor">
+                                    <div
+                                        class="admin-image-preview"
+                                        data-image-preview
+                                    >
+                                        <img
+                                            data-image-preview-image
+                                            src=""
+                                            alt="内容图片预览"
+                                            hidden
+                                        >
+
+                                        <span data-image-preview-placeholder>
+                                            尚未选择图片
+                                        </span>
+                                    </div>
+
+                                    <div class="admin-image-controls">
+                                        <input
+                                            id="admin-image-file"
+                                            type="file"
+                                            data-field-image-file
+                                            accept="image/jpeg,image/png,image/webp"
+                                        >
+
+                                        <p class="admin-field-help">
+                                            支持 JPEG、PNG、WebP，单张不超过 5 MB。
+                                            保存内容时会自动上传到 Supabase Storage。
+                                        </p>
+
+                                        <label class="admin-image-remove">
+                                            <input
+                                                type="checkbox"
+                                                data-field-image-remove
+                                            >
+                                            <span>清除当前图片</span>
+                                        </label>
+
+                                        <label for="admin-image">
+                                            当前图片地址
+                                        </label>
+
+                                        <input
+                                            id="admin-image"
+                                            type="text"
+                                            data-field-image
+                                            placeholder="尚未上传图片"
+                                            readonly
+                                        >
+                                    </div>
+                                </div>
                             </div>
 
                             <div class="admin-field full">

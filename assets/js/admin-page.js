@@ -1,9 +1,12 @@
 import {
+    deleteAdminContentImage,
     getAdminIdentity,
     loadAdminContents,
     restoreAdminContent,
     saveAdminContent,
-    softDeleteAdminContent
+    softDeleteAdminContent,
+    uploadAdminContentImage,
+    validateAdminImageFile
 } from "./admin-content-service.js";
 
 const TYPE_LABELS = Object.freeze({
@@ -24,7 +27,8 @@ const state = {
     editingId: "",
     contentFilter: "all",
     statusFilter: "all",
-    keyword: ""
+    keyword: "",
+    imagePreviewUrl: ""
 };
 
 let toastTimer = null;
@@ -620,6 +624,199 @@ function updateOverview() {
         );
 }
 
+
+function revokeImagePreviewUrl() {
+    if (!state.imagePreviewUrl) {
+        return;
+    }
+
+    URL.revokeObjectURL(
+        state.imagePreviewUrl
+    );
+
+    state.imagePreviewUrl = "";
+}
+
+function renderImagePreview(
+    source = "",
+    alt = "内容图片预览"
+) {
+    const image =
+        getElement(
+            "[data-image-preview-image]"
+        );
+
+    const placeholder =
+        getElement(
+            "[data-image-preview-placeholder]"
+        );
+
+    if (!image || !placeholder) {
+        return;
+    }
+
+    if (!source) {
+        image.hidden = true;
+        image.removeAttribute("src");
+        placeholder.hidden = false;
+        placeholder.textContent =
+            "尚未选择图片";
+        return;
+    }
+
+    image.hidden = false;
+    image.src = source;
+    image.alt = alt;
+    placeholder.hidden = true;
+}
+
+function resetImageEditor() {
+    revokeImagePreviewUrl();
+
+    const fileInput =
+        getElement(
+            "[data-field-image-file]"
+        );
+
+    const removeInput =
+        getElement(
+            "[data-field-image-remove]"
+        );
+
+    const imagePathInput =
+        getElement(
+            "[data-field-image]"
+        );
+
+    if (fileInput) {
+        fileInput.value = "";
+    }
+
+    if (removeInput) {
+        removeInput.checked = false;
+    }
+
+    if (imagePathInput) {
+        imagePathInput.value = "";
+    }
+
+    renderImagePreview();
+}
+
+function loadCurrentImagePreview(
+    imagePath,
+    title = "内容图片预览"
+) {
+    revokeImagePreviewUrl();
+
+    const fileInput =
+        getElement(
+            "[data-field-image-file]"
+        );
+
+    const removeInput =
+        getElement(
+            "[data-field-image-remove]"
+        );
+
+    if (fileInput) {
+        fileInput.value = "";
+    }
+
+    if (removeInput) {
+        removeInput.checked = false;
+    }
+
+    renderImagePreview(
+        imagePath || "",
+        title
+    );
+}
+
+function initializeImageEditor() {
+    const fileInput =
+        getElement(
+            "[data-field-image-file]"
+        );
+
+    const removeInput =
+        getElement(
+            "[data-field-image-remove]"
+        );
+
+    const imagePathInput =
+        getElement(
+            "[data-field-image]"
+        );
+
+    fileInput?.addEventListener(
+        "change",
+        () => {
+            const file =
+                fileInput.files?.[0];
+
+            revokeImagePreviewUrl();
+
+            if (!file) {
+                renderImagePreview(
+                    imagePathInput?.value || ""
+                );
+                return;
+            }
+
+            try {
+                validateAdminImageFile(file);
+            } catch (error) {
+                fileInput.value = "";
+
+                renderImagePreview(
+                    imagePathInput?.value || ""
+                );
+
+                showToast(
+                    error?.message ||
+                    "图片文件不符合要求。",
+                    true
+                );
+
+                return;
+            }
+
+            if (removeInput) {
+                removeInput.checked = false;
+            }
+
+            state.imagePreviewUrl =
+                URL.createObjectURL(file);
+
+            renderImagePreview(
+                state.imagePreviewUrl,
+                file.name
+            );
+        }
+    );
+
+    removeInput?.addEventListener(
+        "change",
+        () => {
+            if (removeInput.checked) {
+                revokeImagePreviewUrl();
+
+                if (fileInput) {
+                    fileInput.value = "";
+                }
+
+                renderImagePreview();
+                return;
+            }
+
+            renderImagePreview(
+                imagePathInput?.value || ""
+            );
+        }
+    );
+}
+
 function resetEditorForm() {
     const form =
         getElement("[data-admin-form]");
@@ -630,6 +827,7 @@ function resetEditorForm() {
 
     form.reset();
     state.editingId = "";
+    resetImageEditor();
 
     const idInput =
         getElement("[data-field-id]");
@@ -704,6 +902,11 @@ function startEditing(item) {
                 }
             }
         );
+
+    loadCurrentImagePreview(
+        item.image_path || "",
+        item.title
+    );
 
     const heading =
         getElement(
@@ -790,6 +993,16 @@ function readEditorInput() {
             getElement(
                 "[data-field-image]"
             )?.value || "",
+        image_file:
+            getElement(
+                "[data-field-image-file]"
+            )?.files?.[0] || null,
+        remove_image:
+            Boolean(
+                getElement(
+                    "[data-field-image-remove]"
+                )?.checked
+            ),
         status:
             getElement(
                 "[data-field-status]"
@@ -833,12 +1046,58 @@ async function handleSubmit(event) {
             "正在保存……";
     }
 
+    let uploadedImage = null;
+    let originalImagePath = "";
+
     try {
         const input =
             readEditorInput();
 
+        originalImagePath =
+            input.image_path || "";
+
+        if (input.image_file) {
+            uploadedImage =
+                await uploadAdminContentImage(
+                    input.image_file,
+                    {
+                        contentType:
+                            input.content_type,
+                        slug:
+                            input.slug
+                    }
+                );
+
+            input.image_path =
+                uploadedImage.publicUrl;
+        } else if (
+            input.remove_image
+        ) {
+            input.image_path = "";
+        }
+
+        delete input.image_file;
+        delete input.remove_image;
+
         const saved =
             await saveAdminContent(input);
+
+        if (
+            originalImagePath &&
+            originalImagePath !==
+                saved.image_path
+        ) {
+            try {
+                await deleteAdminContentImage(
+                    originalImagePath
+                );
+            } catch (cleanupError) {
+                console.warn(
+                    "Old image cleanup failed:",
+                    cleanupError
+                );
+            }
+        }
 
         await reloadData();
         resetEditorForm();
@@ -850,6 +1109,19 @@ async function handleSubmit(event) {
                 : `已创建《${saved.title}》`
         );
     } catch (error) {
+        if (uploadedImage?.publicUrl) {
+            try {
+                await deleteAdminContentImage(
+                    uploadedImage.publicUrl
+                );
+            } catch (rollbackError) {
+                console.warn(
+                    "Uploaded image rollback failed:",
+                    rollbackError
+                );
+            }
+        }
+
         console.error(
             "Admin save failed:",
             error
@@ -999,6 +1271,8 @@ function initializeFilters() {
 }
 
 function initializeEditor() {
+    initializeImageEditor();
+
     const form =
         getElement("[data-admin-form]");
 
