@@ -7,6 +7,8 @@ import {
     safeReturnPath
 } from "./auth-utils.js";
 
+import "./header-search.js";
+
 const AUTH_ACTIONS_SELECTOR =
     "[data-auth-actions]";
 
