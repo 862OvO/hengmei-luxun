@@ -197,6 +197,17 @@
 .content-card-actions {
     margin-top: auto;
     padding-top: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+}
+
+.content-card-actions .favorite-button {
+    min-width: 88px;
+    min-height: 38px;
+    padding: 0 14px;
+    font-size: 13px;
 }
 
 .content-detail-link {
@@ -262,5 +273,12 @@
 
     .content-card-media {
         margin: -28px -22px 22px;
+    }
+}
+
+@media (max-width: 420px) {
+    .content-card-actions {
+        align-items: flex-start;
+        flex-direction: column;
     }
 }

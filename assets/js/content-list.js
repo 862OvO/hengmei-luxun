@@ -4,6 +4,10 @@ import {
     loadPublishedContents
 } from "./content-service.js";
 
+import {
+    initializeFavoriteButtons
+} from "./favorite-ui.js";
+
 function createElement(
     tagName,
     className,
@@ -189,17 +193,51 @@ function createContentCard(
             "content-card-actions"
         );
 
-    const detailLink =
-        createElement(
-            "a",
-            "content-detail-link",
-            "查看详情"
-        );
+const detailLink =
+    createElement(
+        "a",
+        "content-detail-link",
+        "查看详情"
+    );
 
-    detailLink.href =
-        getContentDetailUrl(item);
+detailLink.href =
+    getContentDetailUrl(item);
 
-    actions.append(detailLink);
+const favoriteButton =
+    createElement(
+        "button",
+        "favorite-button",
+        "正在检测"
+    );
+
+favoriteButton.type = "button";
+
+favoriteButton.dataset.favoriteButton =
+    "";
+
+favoriteButton.dataset.contentId =
+    item.id ?? "";
+
+favoriteButton.dataset.contentType =
+    item.content_type;
+
+favoriteButton.dataset.slug =
+    item.slug;
+
+favoriteButton.dataset.title =
+    item.title;
+
+favoriteButton.setAttribute(
+    "aria-pressed",
+    "false"
+);
+
+favoriteButton.disabled = true;
+
+actions.append(
+    detailLink,
+    favoriteButton
+);
 
     card.append(
         createElement(
@@ -422,6 +460,10 @@ async function initializeContentList() {
         );
 
         grid.replaceChildren(fragment);
+
+await initializeFavoriteButtons(
+    grid
+);
     } catch (error) {
         countElements.forEach(
             (element) => {
