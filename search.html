@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="横眉·鲁迅文化数字展馆——全站文化内容搜索。"
+    >
+
+    <title>
+        全站搜索｜横眉·鲁迅文化数字展馆
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="assets/css/reset.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="assets/css/variables.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="assets/css/common.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="assets/css/search.css"
+    >
+</head>
+
+<body>
+    <header class="site-header">
+        <div class="container header-inner">
+            <a
+                class="brand"
+                href="index.html"
+            >
+                <span class="brand-seal">
+                    横
+                </span>
+
+                <span class="brand-text">
+                    <strong>横眉</strong>
+
+                    <small>
+                        鲁迅文化数字展馆
+                    </small>
+                </span>
+            </a>
+
+            <div class="header-tools">
+                <nav
+                    class="site-nav"
+                    aria-label="主要导航"
+                >
+                    <a class="nav-link" href="index.html">
+                        首页
+                    </a>
+
+                    <a class="nav-link" href="biography.html">
+                        鲁迅生平
+                    </a>
+
+                    <a class="nav-link" href="works.html">
+                        代表作品
+                    </a>
+
+                    <a class="nav-link" href="relations.html">
+                        人物关系
+                    </a>
+
+                    <a class="nav-link" href="quotes.html">
+                        经典语录
+                    </a>
+
+                    <a class="nav-link" href="history.html">
+                        时代背景
+                    </a>
+
+                    <a class="nav-link" href="articles.html">
+                        作品赏析
+                    </a>
+
+                    <a class="nav-link" href="gallery.html">
+                        历史影像
+                    </a>
+                </nav>
+
+                <div
+                    class="account-actions"
+                    data-auth-actions
+                    aria-live="polite"
+                >
+                    <a
+                        class="account-link"
+                        href="auth.html"
+                    >
+                        登录 / 注册
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="search-main">
+        <div class="container">
+            <section class="search-hero">
+                <div class="search-kicker">
+                    SITE SEARCH
+                </div>
+
+                <h1 class="search-title">
+                    全站搜索
+                </h1>
+
+                <p class="search-description">
+                    检索代表作品、作品赏析、历史影像，以及鲁迅生平、
+                    人物关系、经典语录和时代背景等专题栏目。
+                </p>
+
+                <form
+                    class="search-form"
+                    data-search-form
+                    role="search"
+                >
+                    <label class="sr-only" for="site-search-input">
+                        搜索关键词
+                    </label>
+
+                    <input
+                        class="search-input"
+                        id="site-search-input"
+                        type="search"
+                        name="q"
+                        placeholder="例如：狂人日记、闰土、礼教、希望"
+                        autocomplete="off"
+                        data-search-input
+                    >
+
+                    <button
+                        class="search-submit"
+                        type="submit"
+                    >
+                        开始搜索
+                    </button>
+                </form>
+
+                <div class="search-overview">
+                    <span>标题优先匹配</span>
+                    <span>中文连续关键词</span>
+                    <span>英文大小写不敏感</span>
+                    <span>云端内容＋本地备用</span>
+                </div>
+            </section>
+
+            <div
+                class="search-notice"
+                data-search-notice
+                role="status"
+                hidden
+            ></div>
+
+            <section class="search-summary">
+                <div>
+                    <h2>检索结果</h2>
+
+                    <p>
+                        关键词：
+                        <strong data-search-keyword>
+                            尚未输入
+                        </strong>
+                    </p>
+                </div>
+
+                <p>
+                    共找到
+                    <strong data-search-count>0</strong>
+                    条相关内容
+                </p>
+            </section>
+
+            <div
+                data-search-results
+                aria-live="polite"
+            >
+                <div class="search-state">
+                    <strong>
+                        输入关键词开始检索
+                    </strong>
+
+                    <span>
+                        可搜索作品名、人物、时代背景、主题词和赏析内容。
+                    </span>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <p>
+                © 2026 横眉·鲁迅文化数字展馆
+                ·《数据技术实训》课程大作业
+            </p>
+        </div>
+    </footer>
+
+    <script
+        src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.110.7"
+    ></script>
+
+    <script
+        type="module"
+        src="assets/js/auth-state.js"
+    ></script>
+
+    <script
+        type="module"
+        src="assets/js/search-page.js"
+    ></script>
+</body>
+</html>
