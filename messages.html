@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="横眉·鲁迅文化数字展馆——文化留言板。"
+    >
+
+    <title>
+        文化留言板｜横眉·鲁迅文化数字展馆
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="assets/css/reset.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="assets/css/variables.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="assets/css/common.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="assets/css/messages.css"
+    >
+</head>
+
+<body>
+    <header class="site-header">
+        <div class="container header-inner">
+            <a
+                class="brand"
+                href="index.html"
+            >
+                <span class="brand-seal">
+                    横
+                </span>
+
+                <span class="brand-text">
+                    <strong>横眉</strong>
+                    <small>
+                        鲁迅文化数字展馆
+                    </small>
+                </span>
+            </a>
+
+            <div class="header-tools">
+                <nav
+                    class="site-nav"
+                    aria-label="主要导航"
+                >
+                    <a class="nav-link" href="index.html">
+                        首页
+                    </a>
+
+                    <a class="nav-link" href="biography.html">
+                        鲁迅生平
+                    </a>
+
+                    <a class="nav-link" href="works.html">
+                        代表作品
+                    </a>
+
+                    <a class="nav-link" href="relations.html">
+                        人物关系
+                    </a>
+
+                    <a class="nav-link" href="quotes.html">
+                        经典语录
+                    </a>
+
+                    <a class="nav-link" href="history.html">
+                        时代背景
+                    </a>
+
+                    <a class="nav-link" href="articles.html">
+                        作品赏析
+                    </a>
+
+                    <a class="nav-link" href="gallery.html">
+                        历史影像
+                    </a>
+                </nav>
+
+                <div
+                    class="account-actions"
+                    data-auth-actions
+                    aria-live="polite"
+                >
+                    <a
+                        class="account-link"
+                        href="auth.html"
+                    >
+                        登录 / 注册
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="messages-main">
+        <div class="container">
+            <section class="messages-hero">
+                <div class="messages-kicker">
+                    CULTURAL MESSAGE BOARD
+                </div>
+
+                <h1 class="messages-title">
+                    文化留言板
+                </h1>
+
+                <p class="messages-description">
+                    围绕鲁迅的生平、作品与时代精神展开交流。
+                    留言公开展示昵称，不公开邮箱；登录用户可以编辑或删除自己的留言。
+                </p>
+
+                <div class="messages-rules">
+                    <span>公开留言</span>
+                    <span>最多 500 字</span>
+                    <span>最新留言优先</span>
+                    <span>每页 10 条</span>
+                </div>
+            </section>
+
+            <section
+                class="message-composer"
+                data-message-composer
+            >
+                <div class="composer-heading">
+                    <div>
+                        <div class="composer-kicker">
+                            SHARE YOUR THOUGHTS
+                        </div>
+
+                        <h2 class="composer-title">
+                            写下你的观点
+                        </h2>
+                    </div>
+
+                    <p
+                        class="composer-status"
+                        data-composer-status
+                    >
+                        正在检测登录状态……
+                    </p>
+                </div>
+
+                <form
+                    class="message-form"
+                    data-message-form
+                    hidden
+                >
+                    <textarea
+                        class="message-input"
+                        data-message-input
+                        maxlength="500"
+                        rows="5"
+                        placeholder="分享你对鲁迅作品、人物精神或时代背景的理解……"
+                        aria-label="留言内容"
+                    ></textarea>
+
+                    <div class="message-form-footer">
+                        <span
+                            class="message-counter"
+                            data-message-counter
+                        >
+                            0 / 500
+                        </span>
+
+                        <button
+                            class="message-submit"
+                            data-message-submit
+                            type="submit"
+                        >
+                            发布留言
+                        </button>
+                    </div>
+                </form>
+
+                <a
+                    class="message-login-link"
+                    data-message-login
+                    href="auth.html?returnTo=messages.html"
+                >
+                    登录后发布留言
+                </a>
+            </section>
+
+            <section class="messages-board">
+                <div class="messages-board-heading">
+                    <h2 class="messages-board-title">
+                        最新留言
+                    </h2>
+
+                    <p class="messages-board-count">
+                        共
+                        <strong data-message-total>0</strong>
+                        条公开留言
+                    </p>
+                </div>
+
+                <div
+                    class="message-list"
+                    data-message-list
+                    aria-live="polite"
+                >
+                    <div class="message-state">
+                        <strong>正在读取留言</strong>
+                        <span>请稍候……</span>
+                    </div>
+                </div>
+
+                <nav
+                    class="message-pagination"
+                    data-message-pagination
+                    aria-label="留言分页"
+                    hidden
+                ></nav>
+            </section>
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <p>
+                © 2026 横眉·鲁迅文化数字展馆
+                ·《数据技术实训》课程大作业
+            </p>
+        </div>
+    </footer>
+
+    <script
+        src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.110.7"
+    ></script>
+
+    <script
+        type="module"
+        src="assets/js/auth-state.js"
+    ></script>
+
+    <script
+        type="module"
+        src="assets/js/messages-page.js"
+    ></script>
+</body>
+</html>
