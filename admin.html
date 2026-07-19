@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+    <meta
+        name="description"
+        content="横眉·鲁迅文化数字展馆管理后台。"
+    >
+
+    <title>管理后台｜横眉·鲁迅文化数字展馆</title>
+
+    <link rel="stylesheet" href="assets/css/reset.css">
+    <link rel="stylesheet" href="assets/css/variables.css">
+    <link rel="stylesheet" href="assets/css/common.css">
+    <link rel="stylesheet" href="assets/css/admin.css">
+</head>
+
+<body>
+    <header class="site-header">
+        <div class="container header-inner">
+            <a class="brand" href="index.html">
+                <span class="brand-seal">横</span>
+                <span class="brand-text">
+                    <strong>横眉</strong>
+                    <small>鲁迅文化数字展馆</small>
+                </span>
+            </a>
+
+            <div class="header-tools">
+                <nav class="site-nav" aria-label="主要导航">
+                    <a class="nav-link" href="index.html">首页</a>
+                    <a class="nav-link" href="biography.html">鲁迅生平</a>
+                    <a class="nav-link" href="works.html">代表作品</a>
+                    <a class="nav-link" href="relations.html">人物关系</a>
+                    <a class="nav-link" href="quotes.html">经典语录</a>
+                    <a class="nav-link" href="history.html">时代背景</a>
+                    <a class="nav-link" href="articles.html">作品赏析</a>
+                    <a class="nav-link" href="gallery.html">历史影像</a>
+                </nav>
+
+                <div
+                    class="account-actions"
+                    data-auth-actions
+                    aria-live="polite"
+                >
+                    <a class="account-link" href="auth.html">
+                        登录 / 注册
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="admin-main">
+        <div class="container">
+            <div class="admin-state" data-admin-loading>
+                <strong>正在验证管理员身份</strong>
+                <span>请稍候……</span>
+            </div>
+
+            <div class="admin-state" data-admin-denied hidden>
+                <strong>无法进入管理后台</strong>
+                <span data-admin-denied-message>
+                    当前账号没有管理员权限。
+                </span>
+                <br>
+                <a href="index.html">返回网站首页</a>
+            </div>
+
+            <div class="admin-shell" data-admin-app hidden>
+                <section class="admin-hero">
+                    <div class="admin-kicker">ADMINISTRATION</div>
+                    <h1 class="admin-title">管理后台</h1>
+                    <p class="admin-description">
+                        管理文化内容、草稿与回收站。普通用户不能直接修改后台数据，所有操作均受管理员身份和数据库 RLS 双重保护。
+                    </p>
+                    <div class="admin-identity">
+                        当前管理员：
+                        <span data-admin-nickname>管理员</span>
+                    </div>
+                </section>
+
+                <section class="admin-workspace">
+                    <div
+                        class="admin-tabs"
+                        role="tablist"
+                        aria-label="后台功能"
+                    >
+                        <button
+                            class="admin-tab active"
+                            type="button"
+                            role="tab"
+                            data-admin-tab="contents"
+                            aria-selected="true"
+                        >内容管理</button>
+
+                        <button
+                            class="admin-tab"
+                            type="button"
+                            role="tab"
+                            data-admin-tab="editor"
+                            aria-selected="false"
+                        >新增 / 编辑</button>
+
+                        <button
+                            class="admin-tab"
+                            type="button"
+                            role="tab"
+                            data-admin-tab="trash"
+                            aria-selected="false"
+                        >回收站</button>
+
+                        <button
+                            class="admin-tab"
+                            type="button"
+                            role="tab"
+                            data-admin-tab="users"
+                            aria-selected="false"
+                        >用户管理</button>
+                    </div>
+
+                    <section
+                        class="admin-panel"
+                        data-admin-panel="contents"
+                    >
+                        <div class="admin-panel-heading">
+                            <h2>内容管理</h2>
+                            <p>
+                                查看、筛选和编辑三类文化内容，或将内容安全移入回收站。
+                            </p>
+                        </div>
+
+                        <div class="admin-overview-grid">
+                            <article class="admin-overview-card">
+                                <strong data-overview-total>0</strong>
+                                <h3>有效内容</h3>
+                            </article>
+
+                            <article class="admin-overview-card">
+                                <strong data-overview-published>0</strong>
+                                <h3>已发布</h3>
+                            </article>
+
+                            <article class="admin-overview-card">
+                                <strong data-overview-drafts>0</strong>
+                                <h3>草稿</h3>
+                            </article>
+
+                            <article class="admin-overview-card">
+                                <strong data-overview-trash>0</strong>
+                                <h3>回收站</h3>
+                            </article>
+                        </div>
+
+                        <div class="admin-toolbar">
+                            <input
+                                type="search"
+                                data-admin-keyword
+                                placeholder="搜索标题、稳定编号或摘要"
+                                aria-label="搜索后台内容"
+                            >
+
+                            <select
+                                data-content-filter
+                                aria-label="按内容分类筛选"
+                            >
+                                <option value="all">全部分类</option>
+                                <option value="works">代表作品</option>
+                                <option value="articles">作品赏析</option>
+                                <option value="gallery">历史影像</option>
+                            </select>
+
+                            <select
+                                data-status-filter
+                                aria-label="按发布状态筛选"
+                            >
+                                <option value="all">全部状态</option>
+                                <option value="published">已发布</option>
+                                <option value="draft">草稿</option>
+                            </select>
+
+                            <button
+                                class="admin-primary-button"
+                                type="button"
+                                data-admin-create
+                            >新增内容</button>
+                        </div>
+
+                        <div class="admin-list-summary">
+                            当前显示
+                            <strong data-admin-content-count>0</strong>
+                            条内容
+                        </div>
+
+                        <div
+                            class="admin-content-list"
+                            data-admin-content-list
+                            aria-live="polite"
+                        >
+                            <div class="admin-placeholder">
+                                正在读取后台内容……
+                            </div>
+                        </div>
+                    </section>
+
+                    <section
+                        class="admin-panel"
+                        data-admin-panel="editor"
+                        hidden
+                    >
+                        <div class="admin-panel-heading">
+                            <h2 data-editor-heading>新增内容</h2>
+                            <p>
+                                草稿仅管理员可见；设为已发布后，普通访客才能在栏目页和搜索页看到。
+                            </p>
+                        </div>
+
+                        <form class="admin-form" data-admin-form>
+                            <input type="hidden" data-field-id>
+
+                            <div class="admin-field">
+                                <label for="admin-content-type">内容分类</label>
+                                <select id="admin-content-type" data-field-type required>
+                                    <option value="works">代表作品</option>
+                                    <option value="articles">作品赏析</option>
+                                    <option value="gallery">历史影像</option>
+                                </select>
+                            </div>
+
+                            <div class="admin-field">
+                                <label for="admin-status">发布状态</label>
+                                <select id="admin-status" data-field-status required>
+                                    <option value="draft">草稿</option>
+                                    <option value="published">已发布</option>
+                                </select>
+                            </div>
+
+                            <div class="admin-field">
+                                <label for="admin-slug">稳定编号</label>
+                                <input
+                                    id="admin-slug"
+                                    type="text"
+                                    data-field-slug
+                                    required
+                                    pattern="[a-z0-9]+(?:-[a-z0-9]+)*"
+                                    placeholder="例如：kongyiji"
+                                >
+                                <p class="admin-field-help">
+                                    只使用小写英文字母、数字和连字符；同一分类下不能重复。
+                                </p>
+                            </div>
+
+                            <div class="admin-field">
+                                <label for="admin-sort">排序值</label>
+                                <input
+                                    id="admin-sort"
+                                    type="number"
+                                    data-field-sort
+                                    value="0"
+                                    step="1"
+                                    required
+                                >
+                            </div>
+
+                            <div class="admin-field full">
+                                <label for="admin-title">标题</label>
+                                <input
+                                    id="admin-title"
+                                    type="text"
+                                    data-field-title
+                                    maxlength="160"
+                                    required
+                                >
+                            </div>
+
+                            <div class="admin-field full">
+                                <label for="admin-summary">摘要</label>
+                                <textarea
+                                    id="admin-summary"
+                                    data-field-summary
+                                    maxlength="1000"
+                                ></textarea>
+                            </div>
+
+                            <div class="admin-field full">
+                                <label for="admin-body">正文</label>
+                                <textarea
+                                    id="admin-body"
+                                    class="body-field"
+                                    data-field-body
+                                ></textarea>
+                            </div>
+
+                            <div class="admin-field full">
+                                <label for="admin-image">图片路径</label>
+                                <input
+                                    id="admin-image"
+                                    type="text"
+                                    data-field-image
+                                    placeholder="可暂留空；后续接入 Supabase Storage"
+                                >
+                            </div>
+
+                            <div class="admin-field full">
+                                <label for="admin-metadata">专属字段（JSON）</label>
+                                <textarea
+                                    id="admin-metadata"
+                                    class="metadata-field"
+                                    data-field-metadata
+                                    spellcheck="false"
+                                >{}</textarea>
+                                <p class="admin-field-help">
+                                    必须是合法 JSON 对象。例如作品可填写 year、genre、collection、keywords。
+                                </p>
+                            </div>
+
+                            <div class="admin-form-actions">
+                                <button
+                                    class="admin-primary-button"
+                                    type="submit"
+                                    data-admin-submit
+                                >保存内容</button>
+
+                                <button
+                                    class="admin-secondary-button"
+                                    type="button"
+                                    data-admin-reset
+                                >清空表单</button>
+                            </div>
+                        </form>
+                    </section>
+
+                    <section
+                        class="admin-panel"
+                        data-admin-panel="trash"
+                        hidden
+                    >
+                        <div class="admin-panel-heading">
+                            <h2>回收站</h2>
+                            <p>
+                                已删除内容不再公开展示，但收藏记录会保留。这里可以恢复内容。
+                            </p>
+                        </div>
+
+                        <div class="admin-list-summary">
+                            回收站共有
+                            <strong data-admin-trash-count>0</strong>
+                            条内容
+                        </div>
+
+                        <div
+                            class="admin-trash-list"
+                            data-admin-trash-list
+                            aria-live="polite"
+                        >
+                            <div class="admin-placeholder">
+                                正在读取回收站……
+                            </div>
+                        </div>
+                    </section>
+
+                    <section
+                        class="admin-panel"
+                        data-admin-panel="users"
+                        hidden
+                    >
+                        <div class="admin-panel-heading">
+                            <h2>用户管理</h2>
+                            <p>
+                                用户查看、封禁、解封和待删除功能将在 Edge Function 阶段接入。
+                            </p>
+                        </div>
+
+                        <div class="admin-placeholder">
+                            当前阶段先完成内容增删改查与回收站。
+                        </div>
+                    </section>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <div
+        class="admin-toast"
+        data-admin-toast
+        role="status"
+        aria-live="polite"
+        hidden
+    ></div>
+
+    <footer class="site-footer">
+        <div class="container">
+            <p>
+                © 2026 横眉·鲁迅文化数字展馆
+                ·《数据技术实训》课程大作业
+            </p>
+        </div>
+    </footer>
+
+    <script
+        src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.110.7"
+    ></script>
+
+    <script
+        type="module"
+        src="assets/js/auth-state.js"
+    ></script>
+
+    <script
+        type="module"
+        src="assets/js/admin-page.js"
+    ></script>
+</body>
+</html>
