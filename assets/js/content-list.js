@@ -83,6 +83,66 @@ function createMetadata(
     return container;
 }
 
+function createGalleryMedia(item) {
+    const media =
+        createElement(
+            "div",
+            "content-card-media"
+        );
+
+    const imagePath =
+        item.image_path;
+
+    const placeholderText =
+        item.metadata?.category
+            ? `${item.metadata.category}资料图`
+            : "历史影像资料图";
+
+    const showPlaceholder = () => {
+        media.replaceChildren(
+            createElement(
+                "div",
+                "content-card-image-placeholder",
+                placeholderText
+            )
+        );
+    };
+
+    if (
+        !imagePath ||
+        imagePath.includes("placeholder")
+    ) {
+        showPlaceholder();
+        return media;
+    }
+
+    const image =
+        document.createElement("img");
+
+    image.className =
+        "content-card-image";
+
+    image.src = imagePath;
+    image.alt =
+        item.metadata?.alt ||
+        item.title;
+
+    image.loading = "lazy";
+    image.decoding = "async";
+
+    image.addEventListener(
+        "error",
+        showPlaceholder,
+        {
+            once: true
+        }
+    );
+
+    media.append(image);
+
+    return media;
+}
+
 function createContentCard(
     item,
     index
@@ -92,6 +152,16 @@ function createContentCard(
             "article",
             "content-card"
         );
+
+    if (item.content_type === "gallery") {
+        card.classList.add(
+            "content-card--gallery"
+        );
+
+        card.append(
+            createGalleryMedia(item)
+        );
+    }
 
     const number =
         String(index + 1).padStart(
@@ -253,8 +323,11 @@ function updateSourceStatus(
         sourceElement.textContent =
             "数据来源：云端馆藏";
 
-        warningElement.hidden = true;
-        warningElement.textContent = "";
+        if (warningElement) {
+            warningElement.hidden = true;
+            warningElement.textContent = "";
+        }
+
         return;
     }
 
