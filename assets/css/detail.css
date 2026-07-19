@@ -294,6 +294,15 @@
     .detail-summary {
         font-size: 15px;
     }
+	
+	.detail-heading-actions {
+    position: relative;
+    z-index: 1;
+    margin-top: 28px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
 
     .detail-sidebar,
     .detail-content {

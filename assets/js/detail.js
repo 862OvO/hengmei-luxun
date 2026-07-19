@@ -4,6 +4,10 @@ import {
     loadContentBySlug
 } from "./content-service.js";
 
+import {
+    initializeFavoriteButtons
+} from "./favorite-ui.js";
+
 const PAGE_CONFIG = Object.freeze({
     works: {
         backUrl: "works.html",
@@ -390,6 +394,24 @@ function renderContent(
     elements.summary.textContent =
         item.summary;
 
+if (elements.favoriteButton) {
+    elements.favoriteButton.dataset
+        .contentId =
+        item.id ?? "";
+
+    elements.favoriteButton.dataset
+        .contentType =
+        item.content_type;
+
+    elements.favoriteButton.dataset
+        .slug =
+        item.slug;
+
+    elements.favoriteButton.dataset
+        .title =
+        item.title;
+}
+
     elements.bodyHeading.textContent =
         pageConfig.bodyHeading;
 
@@ -417,12 +439,21 @@ function renderContent(
         result
     );
 
-    elements.state.hidden = true;
-    elements.article.hidden = false;
+elements.state.hidden = true;
+elements.article.hidden = false;
+
+initializeFavoriteButtons(
+    elements.article
+);
 }
 
 async function initializeDetailPage() {
     const elements = {
+		favoriteButton:
+    		document.querySelector(
+        			"[data-favorite-button]"
+    		),
+
         state:
             document.querySelector(
                 "[data-detail-state]"
