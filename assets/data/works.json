@@ -1,0 +1,139 @@
+[
+    {
+        "content_type": "works",
+        "slug": "kuangren-riji",
+        "title": "狂人日记",
+        "summary": "作品借“狂人”的日记与独特视角，揭示传统社会中压迫个体的伦理秩序，并发出“救救孩子”的呼声。",
+        "body": "《狂人日记》采用日记体形式展开叙述。主人公从周围人的目光、言语和历史记载中感受到“吃人”的威胁。作品中的“吃人”不仅指向身体层面的恐惧，也成为封建礼教和社会压迫的象征。作品通过不可靠叙述、心理描写和象征手法，表现个体觉醒后的孤独与抗争。",
+        "image_path": null,
+        "metadata": {
+            "year": "1918",
+            "genre": "短篇小说",
+            "collection": "《呐喊》",
+            "first_published": "《新青年》第四卷第五号",
+            "keywords": [
+                "吃人",
+                "礼教",
+                "觉醒",
+                "救救孩子"
+            ]
+        },
+        "status": "published",
+        "sort_order": 10
+    },
+    {
+        "content_type": "works",
+        "slug": "aq-zhengzhuan",
+        "title": "阿Q正传",
+        "summary": "作品以未庄雇农阿Q的人生遭遇为中心，塑造了具有复杂社会意义的“精神胜利法”形象。",
+        "body": "《阿Q正传》通过阿Q在未庄的生活、受辱、革命幻想和最终被处决的经历，描写辛亥革命前后的社会环境。阿Q常以自我安慰化解现实失败，这种心理后来被概括为“精神胜利法”。作品既批判人物自身的弱点，也揭示造成其悲剧的社会结构与冷漠群体。",
+        "image_path": null,
+        "metadata": {
+            "year": "1921—1922",
+            "genre": "中篇小说",
+            "collection": "《呐喊》",
+            "first_published": "《晨报副刊》",
+            "keywords": [
+                "阿Q",
+                "精神胜利法",
+                "未庄",
+                "辛亥革命"
+            ]
+        },
+        "status": "published",
+        "sort_order": 20
+    },
+    {
+        "content_type": "works",
+        "slug": "guxiang",
+        "title": "故乡",
+        "summary": "小说通过“我”回乡搬家的见闻，呈现记忆中的故乡与现实故乡之间的巨大落差。",
+        "body": "《故乡》围绕“我”返回故乡、处理老屋并再次离开的过程展开。少年闰土在记忆中活泼勇敢，成年后却因生活重压而变得迟钝、拘谨。作品通过人物关系与环境变化，描写乡村社会的贫困和隔膜，并在结尾借“路”的意象表达对新生活的期待。",
+        "image_path": null,
+        "metadata": {
+            "year": "1921",
+            "genre": "短篇小说",
+            "collection": "《呐喊》",
+            "first_published": "《新青年》第九卷第一号",
+            "keywords": [
+                "故乡",
+                "闰土",
+                "隔膜",
+                "希望",
+                "路"
+            ]
+        },
+        "status": "published",
+        "sort_order": 30
+    },
+    {
+        "content_type": "works",
+        "slug": "zhufu",
+        "title": "祝福",
+        "summary": "小说以祥林嫂的悲剧命运为中心，揭示封建礼教、迷信观念与社会冷漠对女性的多重压迫。",
+        "body": "《祝福》的故事发生在年终祭祀氛围浓厚的鲁镇。祥林嫂经历丧夫、被迫改嫁、再次丧夫和失子后，逐渐被周围社会排斥。她试图通过捐门槛摆脱罪恶感，却仍无法重新获得尊严。作品以热闹的“祝福”仪式反衬人物的死亡与孤独。",
+        "image_path": null,
+        "metadata": {
+            "year": "1924",
+            "genre": "短篇小说",
+            "collection": "《彷徨》",
+            "first_published": "《东方杂志》",
+            "keywords": [
+                "祥林嫂",
+                "鲁镇",
+                "礼教",
+                "女性命运",
+                "社会冷漠"
+            ]
+        },
+        "status": "published",
+        "sort_order": 40
+    },
+    {
+        "content_type": "works",
+        "slug": "zhaohua-xishi",
+        "title": "朝花夕拾",
+        "summary": "这部回忆性散文集以童年、求学和青年经历为线索，记录鲁迅生命中的人物、教育与社会记忆。",
+        "body": "《朝花夕拾》收录十篇回忆性散文。作品涉及长妈妈、藤野先生、范爱农等人物，也写到百草园、三味书屋、求学经历和家庭生活。文章在温情回忆中保持批判意识，将个人成长、社会风俗和时代经验联系起来。",
+        "image_path": null,
+        "metadata": {
+            "year": "1928",
+            "genre": "回忆性散文集",
+            "collection": "单行本",
+            "original_title": "旧事重提",
+            "article_count": 10,
+            "keywords": [
+                "回忆",
+                "童年",
+                "藤野先生",
+                "百草园",
+                "旧事重提"
+            ]
+        },
+        "status": "published",
+        "sort_order": 50
+    },
+    {
+        "content_type": "works",
+        "slug": "yecao",
+        "title": "野草",
+        "summary": "散文诗集以象征、梦境和独白等形式，表达鲁迅对生命、黑暗、希望与抗争的深层思考。",
+        "body": "《野草》由多篇散文诗组成，包括《秋夜》《雪》《风筝》《好的故事》《过客》等。作品常运用梦境、象征和内心独白，构造幽暗而富有张力的精神世界。它既表现孤独、怀疑和死亡意识，也保存着持续反抗黑暗的意志。",
+        "image_path": null,
+        "metadata": {
+            "year": "1927",
+            "genre": "散文诗集",
+            "collection": "单行本",
+            "article_count": 23,
+            "keywords": [
+                "散文诗",
+                "象征",
+                "梦境",
+                "黑暗",
+                "抗争"
+            ]
+        },
+        "status": "published",
+        "sort_order": 60
+    }
+]

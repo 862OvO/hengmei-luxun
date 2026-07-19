@@ -1,0 +1,154 @@
+[
+    {
+        "content_type": "gallery",
+        "slug": "luxun-portrait",
+        "title": "鲁迅肖像",
+        "summary": "鲁迅肖像资料条目，用于呈现其人物形象与文化记忆。",
+        "body": "本条目用于展示鲁迅肖像资料。正式发布历史图片时，应补充拍摄时间、摄影者、馆藏机构、原始来源和授权信息，避免使用来源不明的网络图片。",
+        "image_path": "assets/images/gallery/luxun-portrait-placeholder.svg",
+        "metadata": {
+            "display_date": "待核对",
+            "location": "待核对",
+            "category": "人物肖像",
+            "source_name": "待补充",
+            "source_url": "",
+            "license": "待核对",
+            "alt": "鲁迅肖像资料图占位图",
+            "keywords": [
+                "鲁迅",
+                "肖像",
+                "人物形象",
+                "历史影像"
+            ]
+        },
+        "status": "published",
+        "sort_order": 10
+    },
+    {
+        "content_type": "gallery",
+        "slug": "shaoxing-residence",
+        "title": "绍兴故居与成长环境",
+        "summary": "展示与鲁迅早年生活、家庭记忆和绍兴文化环境相关的历史建筑资料。",
+        "body": "本条目用于整理鲁迅在绍兴生活环境相关的影像资料。后续应采用具有明确来源和使用许可的照片，并对具体建筑名称、拍摄年代和地点进行核对。",
+        "image_path": "assets/images/gallery/shaoxing-residence-placeholder.svg",
+        "metadata": {
+            "display_date": "待核对",
+            "location": "浙江绍兴",
+            "category": "故居建筑",
+            "source_name": "待补充",
+            "source_url": "",
+            "license": "待核对",
+            "alt": "绍兴故居与成长环境资料图占位图",
+            "keywords": [
+                "绍兴",
+                "故居",
+                "成长环境",
+                "百草园",
+                "三味书屋"
+            ]
+        },
+        "status": "published",
+        "sort_order": 20
+    },
+    {
+        "content_type": "gallery",
+        "slug": "japan-study-period",
+        "title": "日本留学时期",
+        "summary": "整理鲁迅留学日本期间的求学经历、校园环境和相关人物影像资料。",
+        "body": "本条目用于呈现鲁迅日本留学时期的相关资料。后续加入真实影像时，需要分别核对学校名称、人物身份、拍摄时间及资料收藏单位。",
+        "image_path": "assets/images/gallery/japan-study-placeholder.svg",
+        "metadata": {
+            "display_date": "待核对",
+            "location": "日本",
+            "category": "求学经历",
+            "source_name": "待补充",
+            "source_url": "",
+            "license": "待核对",
+            "alt": "鲁迅日本留学时期资料图占位图",
+            "keywords": [
+                "日本留学",
+                "求学",
+                "仙台",
+                "藤野先生"
+            ]
+        },
+        "status": "published",
+        "sort_order": 30
+    },
+    {
+        "content_type": "gallery",
+        "slug": "beijing-residence",
+        "title": "北京时期的生活与写作",
+        "summary": "展示鲁迅在北京工作、生活和从事文学活动期间的相关场所与历史资料。",
+        "body": "本条目用于整理鲁迅北京时期的生活和写作影像。正式使用图片前，应核对住所、工作机构、拍摄年代及图片来源，避免将不同时期的建筑混用。",
+        "image_path": "assets/images/gallery/beijing-residence-placeholder.svg",
+        "metadata": {
+            "display_date": "待核对",
+            "location": "北京",
+            "category": "生活场所",
+            "source_name": "待补充",
+            "source_url": "",
+            "license": "待核对",
+            "alt": "鲁迅北京时期生活与写作资料图占位图",
+            "keywords": [
+                "北京",
+                "写作",
+                "生活场所",
+                "文学活动"
+            ]
+        },
+        "status": "published",
+        "sort_order": 40
+    },
+    {
+        "content_type": "gallery",
+        "slug": "manuscript-and-publication",
+        "title": "手稿与早期出版物",
+        "summary": "展示鲁迅作品手稿、书刊封面和早期出版物等文献资料。",
+        "body": "本条目用于展示作品手稿、杂志版面和早期单行本等文献影像。后续应记录文献名称、版本、出版时间、收藏机构和图片授权信息。",
+        "image_path": "assets/images/gallery/manuscript-placeholder.svg",
+        "metadata": {
+            "display_date": "待核对",
+            "location": "待核对",
+            "category": "文献手稿",
+            "source_name": "待补充",
+            "source_url": "",
+            "license": "待核对",
+            "alt": "鲁迅手稿与早期出版物资料图占位图",
+            "keywords": [
+                "手稿",
+                "出版物",
+                "书刊",
+                "文献",
+                "版本"
+            ]
+        },
+        "status": "published",
+        "sort_order": 50
+    },
+    {
+        "content_type": "gallery",
+        "slug": "memorial-and-legacy",
+        "title": "纪念活动与文化传承",
+        "summary": "整理鲁迅纪念场馆、纪念活动和文化传播相关的历史与当代影像。",
+        "body": "本条目用于呈现鲁迅文化遗产的保存与传播。正式加入图片时，应区分历史照片与当代纪念场馆照片，并注明拍摄者、时间、地点和使用许可。",
+        "image_path": "assets/images/gallery/memorial-placeholder.svg",
+        "metadata": {
+            "display_date": "待核对",
+            "location": "待核对",
+            "category": "纪念传承",
+            "source_name": "待补充",
+            "source_url": "",
+            "license": "待核对",
+            "alt": "鲁迅纪念活动与文化传承资料图占位图",
+            "keywords": [
+                "纪念",
+                "博物馆",
+                "文化传承",
+                "鲁迅研究"
+            ]
+        },
+        "status": "published",
+        "sort_order": 60
+    }
+]
