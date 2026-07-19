@@ -400,3 +400,122 @@ body {
         width: 100%;
     }
 }
+
+/* ========================================
+   全站账号入口
+   ======================================== */
+
+.site-header:not(.auth-header) .header-inner {
+    gap: 24px;
+}
+
+.header-tools {
+    min-width: 0;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 14px;
+}
+
+.header-tools .site-nav {
+    flex-wrap: nowrap;
+}
+
+.account-actions {
+    flex: 0 0 auto;
+    min-height: 38px;
+    padding-left: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border-left: 1px solid var(--color-border);
+    white-space: nowrap;
+}
+
+.account-link,
+.account-button {
+    min-height: 34px;
+    padding: 5px 9px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-red);
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: bold;
+    line-height: 1.4;
+    letter-spacing: 1px;
+    border: 1px solid transparent;
+    border-radius: var(--radius-small);
+    background: transparent;
+    cursor: pointer;
+    transition:
+        color 0.2s ease,
+        border-color 0.2s ease,
+        background 0.2s ease;
+}
+
+.account-link:hover,
+.account-link:focus-visible,
+.account-button:hover,
+.account-button:focus-visible {
+    color: var(--color-red-dark);
+    border-color: rgba(141, 31, 31, 0.28);
+    background: rgba(141, 31, 31, 0.06);
+}
+
+.account-button:disabled {
+    opacity: 0.55;
+    cursor: wait;
+}
+
+.account-divider {
+    width: 1px;
+    height: 16px;
+    background: var(--color-border);
+}
+
+.account-status {
+    color: var(--color-ink-soft);
+    font-size: 12px;
+}
+
+/* 八项导航加账号入口后，较早进入换行布局 */
+@media (max-width: 1100px) {
+    .site-header:not(.auth-header) .header-inner {
+        min-height: 70px;
+        flex-wrap: wrap;
+        gap: 8px 18px;
+        padding: 10px 0;
+    }
+
+    .header-tools {
+        width: 100%;
+        flex-direction: column;
+        gap: 7px;
+    }
+
+    .header-tools .site-nav {
+        width: 100%;
+        justify-content: center;
+        flex-wrap: wrap;
+        padding-top: 7px;
+        border-top: 1px solid var(--color-border);
+    }
+
+    .account-actions {
+        min-height: 32px;
+        padding-left: 0;
+        border-left: 0;
+    }
+}
+
+@media (max-width: 520px) {
+    .account-link,
+    .account-button {
+        min-height: 32px;
+        padding: 4px 7px;
+        font-size: 12px;
+        letter-spacing: 0;
+    }
+}

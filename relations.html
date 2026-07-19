@@ -27,7 +27,8 @@
                     <small>鲁迅文化数字展馆</small>
                 </span>
             </a>
-
+			
+		<div class="header-tools">
             <nav class="site-nav" aria-label="主要导航">
                 <a class="nav-link" href="index.html">首页</a>
                 <a class="nav-link" href="biography.html">鲁迅生平</a>
@@ -38,6 +39,19 @@
 				<a class="nav-link" href="articles.html">作品赏析</a>
 				<a class="nav-link" href="gallery.html">历史影像</a>
             </nav>
+			    <div
+        class="account-actions"
+        data-auth-actions
+        aria-live="polite"
+    >
+        <a
+            class="account-link"
+            href="auth.html"
+        >
+            登录 / 注册
+        </a>
+    </div>
+</div>
         </div>
     </header>
 
@@ -94,5 +108,13 @@
             </p>
         </div>
     </footer>
+	<script
+    src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.110.7"
+></script>
+
+<script
+    type="module"
+    src="assets/js/auth-state.js"
+></script>
 </body>
 </html>
