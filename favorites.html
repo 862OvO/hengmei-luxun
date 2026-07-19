@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="横眉·鲁迅文化数字展馆——用户个人收藏页面。"
+    >
+
+    <title>
+        我的收藏｜横眉·鲁迅文化数字展馆
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="assets/css/reset.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="assets/css/variables.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="assets/css/common.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="assets/css/favorite.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="assets/css/favorites.css"
+    >
+</head>
+
+<body>
+    <header class="site-header">
+        <div class="container header-inner">
+            <a
+                class="brand"
+                href="index.html"
+            >
+                <span class="brand-seal">
+                    横
+                </span>
+
+                <span class="brand-text">
+                    <strong>横眉</strong>
+
+                    <small>
+                        鲁迅文化数字展馆
+                    </small>
+                </span>
+            </a>
+
+            <div class="header-tools">
+                <nav
+                    class="site-nav"
+                    aria-label="主要导航"
+                >
+                    <a class="nav-link" href="index.html">
+                        首页
+                    </a>
+
+                    <a class="nav-link" href="biography.html">
+                        鲁迅生平
+                    </a>
+
+                    <a class="nav-link" href="works.html">
+                        代表作品
+                    </a>
+
+                    <a class="nav-link" href="relations.html">
+                        人物关系
+                    </a>
+
+                    <a class="nav-link" href="quotes.html">
+                        经典语录
+                    </a>
+
+                    <a class="nav-link" href="history.html">
+                        时代背景
+                    </a>
+
+                    <a class="nav-link" href="articles.html">
+                        作品赏析
+                    </a>
+
+                    <a class="nav-link" href="gallery.html">
+                        历史影像
+                    </a>
+                </nav>
+
+                <div
+                    class="account-actions"
+                    data-auth-actions
+                    aria-live="polite"
+                >
+                    <a
+                        class="account-link"
+                        href="auth.html"
+                    >
+                        登录 / 注册
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="favorites-main">
+        <div class="container">
+            <section class="favorites-heading">
+                <div class="favorites-kicker">
+                    PERSONAL COLLECTION
+                </div>
+
+                <h1 class="favorites-title">
+                    我的收藏
+                </h1>
+
+                <p class="favorites-description">
+                    集中查看收藏的代表作品、作品赏析与历史影像。
+                    已下架内容会保留标题和分类信息，但不再公开正文。
+                </p>
+
+                <div class="favorites-overview">
+                    <span class="favorites-overview-item">
+                        收藏总数：
+                        <strong data-favorite-total>
+                            0
+                        </strong>
+                    </span>
+
+                    <span class="favorites-overview-item">
+                        登录账号专属
+                    </span>
+
+                    <span class="favorites-overview-item">
+                        云端同步
+                    </span>
+                </div>
+            </section>
+
+            <section class="favorites-panel">
+                <div class="favorites-toolbar">
+                    <div
+                        class="favorite-tabs"
+                        aria-label="收藏分类"
+                    >
+                        <button
+                            class="favorite-tab active"
+                            type="button"
+                            data-favorite-tab="all"
+                            aria-pressed="true"
+                        >
+                            全部
+                            <span
+                                class="favorite-tab-count"
+                                data-tab-count
+                            >
+                                0
+                            </span>
+                        </button>
+
+                        <button
+                            class="favorite-tab"
+                            type="button"
+                            data-favorite-tab="works"
+                            aria-pressed="false"
+                        >
+                            代表作品
+                            <span
+                                class="favorite-tab-count"
+                                data-tab-count
+                            >
+                                0
+                            </span>
+                        </button>
+
+                        <button
+                            class="favorite-tab"
+                            type="button"
+                            data-favorite-tab="articles"
+                            aria-pressed="false"
+                        >
+                            作品赏析
+                            <span
+                                class="favorite-tab-count"
+                                data-tab-count
+                            >
+                                0
+                            </span>
+                        </button>
+
+                        <button
+                            class="favorite-tab"
+                            type="button"
+                            data-favorite-tab="gallery"
+                            aria-pressed="false"
+                        >
+                            历史影像
+                            <span
+                                class="favorite-tab-count"
+                                data-tab-count
+                            >
+                                0
+                            </span>
+                        </button>
+                    </div>
+
+                    <div
+                        class="favorites-source"
+                        data-favorites-source
+                        aria-live="polite"
+                    >
+                        数据来源：正在读取
+                    </div>
+                </div>
+
+                <div
+                    class="favorites-grid"
+                    data-favorites-grid
+                    aria-live="polite"
+                >
+                    <div class="favorites-state">
+                        <strong>
+                            正在读取收藏
+                        </strong>
+
+                        <span>
+                            请稍候……
+                        </span>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <p>
+                © 2026 横眉·鲁迅文化数字展馆
+                ·《数据技术实训》课程大作业
+            </p>
+        </div>
+    </footer>
+
+    <script
+        src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.110.7"
+    ></script>
+
+    <script
+        type="module"
+        src="assets/js/auth-state.js"
+    ></script>
+
+    <script
+        type="module"
+        src="assets/js/favorites-page.js"
+    ></script>
+</body>
+</html>

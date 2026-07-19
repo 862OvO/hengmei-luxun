@@ -87,6 +87,17 @@ function createProfileLink() {
     return link;
 }
 
+function createFavoritesLink() {
+    const link =
+        document.createElement("a");
+
+    link.className = "account-link";
+    link.href = "favorites.html";
+    link.textContent = "我的收藏";
+
+    return link;
+}
+
 function createDivider() {
     const divider =
         document.createElement("span");
@@ -160,6 +171,8 @@ function renderSignedIn() {
         (container) => {
             container.replaceChildren(
                 createProfileLink(),
+                createDivider(),
+                createFavoritesLink(),
                 createDivider(),
                 createLogoutButton()
             );
