@@ -2,6 +2,7 @@ import {
     deleteAdminContentImage,
     getAdminIdentity,
     loadAdminContents,
+    permanentlyDeleteAdminContent,
     restoreAdminContent,
     saveAdminContent,
     softDeleteAdminContent,
@@ -516,6 +517,11 @@ function createTrashCard(item) {
             `删除时间：${formatDate(
                 item.deleted_at
             )}`
+        ),
+        createElement(
+            "p",
+            "admin-content-summary",
+            `稳定编号：${item.slug}`
         )
     );
 
@@ -543,7 +549,31 @@ function createTrashCard(item) {
         }
     );
 
-    actions.append(restoreButton);
+    const permanentDeleteButton =
+        createElement(
+            "button",
+            "admin-action-button danger",
+            "永久删除"
+        );
+
+    permanentDeleteButton.type =
+        "button";
+
+    permanentDeleteButton.addEventListener(
+        "click",
+        () => {
+            void handlePermanentDelete(
+                item,
+                permanentDeleteButton
+            );
+        }
+    );
+
+    actions.append(
+        restoreButton,
+        permanentDeleteButton
+    );
+
     card.append(actions);
 
     return card;
@@ -1221,6 +1251,88 @@ async function handleRestore(
 
         showToast(
             "恢复失败，请稍后重试。",
+            true
+        );
+    }
+}
+
+
+async function handlePermanentDelete(
+    item,
+    button
+) {
+    const firstConfirmed =
+        window.confirm(
+            [
+                `确定永久删除《${item.title}》吗？`,
+                "",
+                "此操作不可恢复，并会同时删除：",
+                "1. 对应的收藏记录",
+                "2. Supabase Storage 中的内容图片",
+                "3. 数据库中的内容记录"
+            ].join("\n")
+        );
+
+    if (!firstConfirmed) {
+        return;
+    }
+
+    const typedSlug =
+        window.prompt(
+            [
+                "请输入以下稳定编号，进行第二次确认：",
+                item.slug
+            ].join("\n"),
+            ""
+        );
+
+    if (typedSlug === null) {
+        return;
+    }
+
+    if (
+        typedSlug.trim() !==
+        item.slug
+    ) {
+        showToast(
+            "稳定编号不匹配，已取消永久删除。",
+            true
+        );
+
+        return;
+    }
+
+    button.disabled = true;
+    button.textContent =
+        "正在永久删除……";
+
+    try {
+        const result =
+            await permanentlyDeleteAdminContent(
+                item.id
+            );
+
+        await reloadData();
+
+        showToast(
+            `《${
+                result.deletedTitle ||
+                item.title
+            }》已永久删除`
+        );
+    } catch (error) {
+        console.error(
+            "Permanent delete failed:",
+            error
+        );
+
+        button.disabled = false;
+        button.textContent =
+            "永久删除";
+
+        showToast(
+            error?.message ||
+            "永久删除失败，请稍后重试。",
             true
         );
     }

@@ -17,6 +17,12 @@ const CONTENT_STATUSES = new Set([
 const CONTENT_IMAGE_BUCKET =
     "content-images";
 
+const DELETE_CONTENT_FUNCTION =
+    "delete-content";
+
+const UUID_PATTERN =
+    /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+
 const MAX_IMAGE_FILE_SIZE =
     5 * 1024 * 1024;
 
@@ -442,6 +448,41 @@ export async function deleteAdminContentImage(
     };
 }
 
+async function getFunctionErrorMessage(
+    error
+) {
+    const response =
+        error?.context;
+
+    if (
+        response &&
+        typeof response.clone ===
+            "function"
+    ) {
+        try {
+            const payload =
+                await response
+                    .clone()
+                    .json();
+
+            if (
+                typeof payload?.error ===
+                "string" &&
+                payload.error.trim()
+            ) {
+                return payload.error.trim();
+            }
+        } catch {
+            // 非 JSON 错误响应，继续使用 SDK 错误信息。
+        }
+    }
+
+    return (
+        error?.message ||
+        "永久删除请求失败。"
+    );
+}
+
 export async function getAdminIdentity() {
     return requireCurrentAdmin();
 }
@@ -612,4 +653,59 @@ export async function restoreAdminContent(
     if (error) {
         throw error;
     }
+}
+
+export async function permanentlyDeleteAdminContent(
+    contentId
+) {
+    await requireCurrentAdmin();
+
+    const normalizedContentId =
+        normalizeText(contentId);
+
+    if (
+        !UUID_PATTERN.test(
+            normalizedContentId
+        )
+    ) {
+        throw new Error(
+            "内容编号格式不正确。"
+        );
+    }
+
+    const {
+        data,
+        error
+    } =
+        await supabaseClient
+            .functions
+            .invoke(
+                DELETE_CONTENT_FUNCTION,
+                {
+                    body: {
+                        contentId:
+                            normalizedContentId
+                    }
+                }
+            );
+
+    if (error) {
+        throw new Error(
+            await getFunctionErrorMessage(
+                error
+            )
+        );
+    }
+
+    if (
+        !data ||
+        data.success !== true
+    ) {
+        throw new Error(
+            data?.error ||
+            "永久删除操作未成功完成。"
+        );
+    }
+
+    return data;
 }
