@@ -10,6 +10,15 @@ import {
     validateAdminImageFile
 } from "./admin-content-service.js";
 
+import {
+    banManagedUser,
+    loadManagedUsers,
+    permanentlyDeleteManagedUser,
+    restoreManagedUserDeletion,
+    scheduleManagedUserDeletion,
+    unbanManagedUser
+} from "./admin-user-service.js";
+
 const TYPE_LABELS = Object.freeze({
     works: "代表作品",
     articles: "作品赏析",
@@ -21,6 +30,17 @@ const STATUS_LABELS = Object.freeze({
     published: "已发布"
 });
 
+const USER_STATUS_LABELS = Object.freeze({
+    active: "正常",
+    banned: "已封禁",
+    pending_deletion: "待删除"
+});
+
+const BAN_TYPE_LABELS = Object.freeze({
+    temporary: "临时封禁",
+    permanent: "永久封禁"
+});
+
 const state = {
     contents: [],
     trash: [],
@@ -29,7 +49,12 @@ const state = {
     contentFilter: "all",
     statusFilter: "all",
     keyword: "",
-    imagePreviewUrl: ""
+    imagePreviewUrl: "",
+    users: [],
+    usersLoaded: false,
+    usersLoading: false,
+    userStatusFilter: "all",
+    userKeyword: ""
 };
 
 let toastTimer = null;
@@ -197,6 +222,10 @@ function activatePanel(panelName) {
                 panel.dataset.adminPanel !==
                 panelName;
         });
+
+    if (panelName === "users") {
+        void ensureUsersLoaded();
+    }
 }
 
 function initializeTabs() {
@@ -654,6 +683,810 @@ function updateOverview() {
         );
 }
 
+
+function getFilteredUsers() {
+    const keyword =
+        state.userKeyword.toLowerCase();
+
+    return state.users.filter(
+        (user) => {
+            const matchesStatus =
+                state.userStatusFilter ===
+                    "all" ||
+                user.account_status ===
+                    state.userStatusFilter;
+
+            const haystack = [
+                user.nickname,
+                user.email,
+                user.role,
+                USER_STATUS_LABELS[
+                    user.account_status
+                ]
+            ]
+                .join(" ")
+                .toLowerCase();
+
+            return (
+                matchesStatus &&
+                (
+                    !keyword ||
+                    haystack.includes(keyword)
+                )
+            );
+        }
+    );
+}
+
+function updateUserOverview() {
+    const values = {
+        "[data-user-overview-total]":
+            state.users.length,
+        "[data-user-overview-active]":
+            state.users.filter(
+                (user) =>
+                    user.account_status ===
+                    "active"
+            ).length,
+        "[data-user-overview-banned]":
+            state.users.filter(
+                (user) =>
+                    user.account_status ===
+                    "banned"
+            ).length,
+        "[data-user-overview-pending]":
+            state.users.filter(
+                (user) =>
+                    user.account_status ===
+                    "pending_deletion"
+            ).length
+    };
+
+    Object.entries(values)
+        .forEach(
+            ([selector, value]) => {
+                const element =
+                    getElement(selector);
+
+                if (element) {
+                    element.textContent =
+                        String(value);
+                }
+            }
+        );
+}
+
+function createUserBadge(
+    text,
+    {
+        role = "",
+        status = ""
+    } = {}
+) {
+    const badge =
+        createElement(
+            "span",
+            "admin-user-badge",
+            text
+        );
+
+    if (role) {
+        badge.dataset.role = role;
+    }
+
+    if (status) {
+        badge.dataset.status = status;
+    }
+
+    return badge;
+}
+
+function createUserMetaRow(
+    label,
+    value
+) {
+    const row =
+        createElement(
+            "div",
+            "admin-user-meta-row"
+        );
+
+    row.append(
+        createElement("dt", "", label),
+        createElement(
+            "dd",
+            "",
+            value || "—"
+        )
+    );
+
+    return row;
+}
+
+function getUserStatusDescription(user) {
+    if (
+        user.account_status ===
+        "banned"
+    ) {
+        const type =
+            BAN_TYPE_LABELS[
+                user.ban_type
+            ] || "封禁";
+
+        const until =
+            user.ban_type ===
+            "temporary"
+                ? `，截止 ${formatDate(
+                    user.banned_until
+                )}`
+                : "";
+
+        return `${type}${until}。原因：${
+            user.ban_reason || "未填写"
+        }`;
+    }
+
+    if (
+        user.account_status ===
+        "pending_deletion"
+    ) {
+        return `账号已停用，最早可于 ${formatDate(
+            user.deletion_effective_after
+        )} 永久删除。原因：${
+            user.deletion_reason || "未填写"
+        }`;
+    }
+
+    if (user.is_current_admin) {
+        return "这是当前登录的管理员账号，不能在此面板中操作。";
+    }
+
+    if (user.role === "admin") {
+        return "管理员账号受保护，不能在用户管理面板中封禁或删除。";
+    }
+
+    return "账号状态正常。";
+}
+
+function createUserActionButton(
+    text,
+    className,
+    handler
+) {
+    const button =
+        createElement(
+            "button",
+            `admin-action-button${
+                className
+                    ? ` ${className}`
+                    : ""
+            }`,
+            text
+        );
+
+    button.type = "button";
+    button.addEventListener(
+        "click",
+        () => {
+            void handler(button);
+        }
+    );
+
+    return button;
+}
+
+async function runUserAction(
+    button,
+    pendingText,
+    action,
+    successMessage
+) {
+    const originalText =
+        button.textContent;
+
+    button.disabled = true;
+    button.textContent = pendingText;
+
+    try {
+        await action();
+        await reloadUsers();
+        showToast(successMessage);
+    } catch (error) {
+        console.error(
+            "User management failed:",
+            error
+        );
+
+        button.disabled = false;
+        button.textContent = originalText;
+
+        showToast(
+            error?.message ||
+            "用户管理操作失败，请稍后重试。",
+            true
+        );
+    }
+}
+
+function promptReason(title) {
+    const reason =
+        window.prompt(
+            `${title}\n请输入处理原因（1～300字）：`,
+            ""
+        );
+
+    if (reason === null) {
+        return null;
+    }
+
+    const normalized = reason.trim();
+
+    if (
+        normalized.length < 1 ||
+        normalized.length > 300
+    ) {
+        showToast(
+            "处理原因必须为 1～300 个字符。",
+            true
+        );
+
+        return null;
+    }
+
+    return normalized;
+}
+
+async function handleTemporaryUserBan(
+    user,
+    button
+) {
+    const daysText =
+        window.prompt(
+            `临时封禁《${
+                user.nickname || user.email
+            }》\n请输入封禁天数（1～365）：`,
+            "7"
+        );
+
+    if (daysText === null) {
+        return;
+    }
+
+    const days = Number(daysText.trim());
+
+    if (
+        !Number.isInteger(days) ||
+        days < 1 ||
+        days > 365
+    ) {
+        showToast(
+            "临时封禁天数必须是 1～365 的整数。",
+            true
+        );
+
+        return;
+    }
+
+    const reason =
+        promptReason("临时封禁账号");
+
+    if (!reason) {
+        return;
+    }
+
+    await runUserAction(
+        button,
+        "正在封禁……",
+        () =>
+            banManagedUser({
+                userId: user.id,
+                banType: "temporary",
+                days,
+                reason
+            }),
+        `《${user.nickname || user.email}》已临时封禁 ${days} 天`
+    );
+}
+
+async function handlePermanentUserBan(
+    user,
+    button
+) {
+    const reason =
+        promptReason("永久封禁账号");
+
+    if (!reason) {
+        return;
+    }
+
+    const confirmed =
+        window.confirm(
+            `确定永久封禁《${
+                user.nickname || user.email
+            }》吗？该账号将无法登录，管理员仍可稍后解封。`
+        );
+
+    if (!confirmed) {
+        return;
+    }
+
+    await runUserAction(
+        button,
+        "正在封禁……",
+        () =>
+            banManagedUser({
+                userId: user.id,
+                banType: "permanent",
+                reason
+            }),
+        `《${user.nickname || user.email}》已永久封禁`
+    );
+}
+
+async function handleUserUnban(
+    user,
+    button
+) {
+    const confirmed =
+        window.confirm(
+            `确定解封《${
+                user.nickname || user.email
+            }》吗？`
+        );
+
+    if (!confirmed) {
+        return;
+    }
+
+    await runUserAction(
+        button,
+        "正在解封……",
+        () => unbanManagedUser(user.id),
+        `《${user.nickname || user.email}》已解封`
+    );
+}
+
+async function handleScheduleUserDeletion(
+    user,
+    button
+) {
+    const reason =
+        promptReason("将账号设为待删除");
+
+    if (!reason) {
+        return;
+    }
+
+    const confirmed =
+        window.confirm(
+            `确定停用《${
+                user.nickname || user.email
+            }》并进入七天待删除状态吗？七天内可以恢复。`
+        );
+
+    if (!confirmed) {
+        return;
+    }
+
+    await runUserAction(
+        button,
+        "正在停用……",
+        () =>
+            scheduleManagedUserDeletion({
+                userId: user.id,
+                reason
+            }),
+        `《${user.nickname || user.email}》已进入七天待删除状态`
+    );
+}
+
+async function handleRestoreUserDeletion(
+    user,
+    button
+) {
+    const confirmed =
+        window.confirm(
+            `确定恢复《${
+                user.nickname || user.email
+            }》吗？恢复后账号可以重新登录。`
+        );
+
+    if (!confirmed) {
+        return;
+    }
+
+    await runUserAction(
+        button,
+        "正在恢复……",
+        () =>
+            restoreManagedUserDeletion(
+                user.id
+            ),
+        `《${user.nickname || user.email}》已恢复`
+    );
+}
+
+async function handlePermanentUserDelete(
+    user,
+    button
+) {
+    const effectiveTime =
+        Date.parse(
+            user.deletion_effective_after ||
+            ""
+        );
+
+    if (
+        !Number.isFinite(effectiveTime) ||
+        Date.now() < effectiveTime
+    ) {
+        showToast(
+            `七天等待期尚未结束，最早可于 ${formatDate(
+                user.deletion_effective_after
+            )} 永久删除。`,
+            true
+        );
+
+        return;
+    }
+
+    const expected =
+        user.nickname || user.email;
+
+    const confirmation =
+        window.prompt(
+            `永久删除将移除该账号、资料、收藏和留言，且无法恢复。\n请输入“${expected}”确认：`,
+            ""
+        );
+
+    if (confirmation === null) {
+        return;
+    }
+
+    if (confirmation.trim() !== expected) {
+        showToast(
+            "确认文字不一致，已取消永久删除。",
+            true
+        );
+
+        return;
+    }
+
+    await runUserAction(
+        button,
+        "正在永久删除……",
+        () =>
+            permanentlyDeleteManagedUser(
+                user.id
+            ),
+        `《${expected}》已永久删除`
+    );
+}
+
+function createUserCard(user) {
+    const card =
+        createElement(
+            "article",
+            "admin-user-card"
+        );
+
+    card.dataset.accountStatus =
+        user.account_status || "active";
+
+    const badges =
+        createElement(
+            "div",
+            "admin-user-badges"
+        );
+
+    badges.append(
+        createUserBadge(
+            user.role === "admin"
+                ? "管理员"
+                : "普通用户",
+            { role: user.role }
+        ),
+        createUserBadge(
+            USER_STATUS_LABELS[
+                user.account_status
+            ] || user.account_status,
+            {
+                status:
+                    user.account_status
+            }
+        )
+    );
+
+    if (user.is_current_admin) {
+        badges.append(
+            createUserBadge(
+                "当前账号"
+            )
+        );
+    }
+
+    const metadata =
+        createElement(
+            "dl",
+            "admin-user-meta"
+        );
+
+    metadata.append(
+        createUserMetaRow(
+            "邮箱验证",
+            user.email_confirmed_at
+                ? "已验证"
+                : "未验证"
+        ),
+        createUserMetaRow(
+            "注册时间",
+            formatDate(
+                user.auth_created_at
+            )
+        ),
+        createUserMetaRow(
+            "最近登录",
+            formatDate(
+                user.last_sign_in_at
+            )
+        )
+    );
+
+    const notice =
+        createElement(
+            "div",
+            "admin-user-notice",
+            getUserStatusDescription(user)
+        );
+
+    const actions =
+        createElement(
+            "div",
+            "admin-user-actions"
+        );
+
+    const protectedAccount =
+        user.is_current_admin ||
+        user.role === "admin";
+
+    if (!protectedAccount) {
+        if (
+            user.account_status ===
+            "active"
+        ) {
+            actions.append(
+                createUserActionButton(
+                    "临时封禁",
+                    "warning",
+                    (button) =>
+                        handleTemporaryUserBan(
+                            user,
+                            button
+                        )
+                ),
+                createUserActionButton(
+                    "永久封禁",
+                    "danger",
+                    (button) =>
+                        handlePermanentUserBan(
+                            user,
+                            button
+                        )
+                ),
+                createUserActionButton(
+                    "设为待删除",
+                    "danger",
+                    (button) =>
+                        handleScheduleUserDeletion(
+                            user,
+                            button
+                        )
+                )
+            );
+        } else if (
+            user.account_status ===
+            "banned"
+        ) {
+            actions.append(
+                createUserActionButton(
+                    "解封账号",
+                    "",
+                    (button) =>
+                        handleUserUnban(
+                            user,
+                            button
+                        )
+                )
+            );
+        } else if (
+            user.account_status ===
+            "pending_deletion"
+        ) {
+            const deleteButton =
+                createUserActionButton(
+                    "永久删除",
+                    "danger",
+                    (button) =>
+                        handlePermanentUserDelete(
+                            user,
+                            button
+                        )
+                );
+
+            const effectiveTime =
+                Date.parse(
+                    user.deletion_effective_after ||
+                    ""
+                );
+
+            if (
+                !Number.isFinite(effectiveTime) ||
+                Date.now() < effectiveTime
+            ) {
+                deleteButton.disabled = true;
+                deleteButton.title =
+                    `等待期结束时间：${formatDate(
+                        user.deletion_effective_after
+                    )}`;
+            }
+
+            actions.append(
+                createUserActionButton(
+                    "恢复账号",
+                    "",
+                    (button) =>
+                        handleRestoreUserDeletion(
+                            user,
+                            button
+                        )
+                ),
+                deleteButton
+            );
+        }
+    }
+
+    card.append(
+        badges,
+        createElement(
+            "h3",
+            "admin-user-title",
+            user.nickname || "未设置昵称"
+        ),
+        createElement(
+            "div",
+            "admin-user-email",
+            user.email || "未提供邮箱"
+        ),
+        metadata,
+        notice
+    );
+
+    if (actions.childElementCount > 0) {
+        card.append(actions);
+    }
+
+    return card;
+}
+
+function renderUsers() {
+    const list =
+        getElement(
+            "[data-admin-user-list]"
+        );
+
+    const count =
+        getElement(
+            "[data-admin-user-count]"
+        );
+
+    if (!list) {
+        return;
+    }
+
+    updateUserOverview();
+
+    const users = getFilteredUsers();
+
+    if (count) {
+        count.textContent =
+            String(users.length);
+    }
+
+    if (users.length === 0) {
+        const message =
+            state.users.length === 0
+                ? "当前项目还没有可显示的注册用户。"
+                : "当前筛选条件下没有用户。";
+
+        list.replaceChildren(
+            createElement(
+                "div",
+                "admin-placeholder",
+                message
+            )
+        );
+
+        return;
+    }
+
+    const fragment =
+        document.createDocumentFragment();
+
+    users.forEach((user) => {
+        fragment.append(
+            createUserCard(user)
+        );
+    });
+
+    list.replaceChildren(fragment);
+}
+
+async function reloadUsers() {
+    if (state.usersLoading) {
+        return;
+    }
+
+    const list =
+        getElement(
+            "[data-admin-user-list]"
+        );
+
+    state.usersLoading = true;
+
+    if (list) {
+        list.replaceChildren(
+            createElement(
+                "div",
+                "admin-placeholder",
+                "正在读取用户列表……"
+            )
+        );
+    }
+
+    try {
+        state.users =
+            await loadManagedUsers();
+        state.usersLoaded = true;
+        renderUsers();
+    } catch (error) {
+        console.error(
+            "User list failed:",
+            error
+        );
+
+        state.usersLoaded = false;
+
+        if (list) {
+            list.replaceChildren(
+                createElement(
+                    "div",
+                    "admin-placeholder",
+                    error?.message ||
+                    "用户列表读取失败，请稍后重试。"
+                )
+            );
+        }
+
+        showToast(
+            error?.message ||
+            "用户列表读取失败，请稍后重试。",
+            true
+        );
+    } finally {
+        state.usersLoading = false;
+    }
+}
+
+async function ensureUsersLoaded() {
+    if (
+        state.usersLoaded ||
+        state.usersLoading
+    ) {
+        return;
+    }
+
+    await reloadUsers();
+}
 
 function revokeImagePreviewUrl() {
     if (!state.imagePreviewUrl) {
@@ -1378,6 +2211,47 @@ function initializeFilters() {
             state.keyword =
                 keyword.value.trim();
             renderContents();
+        }
+    );
+
+    const userStatusFilter =
+        getElement(
+            "[data-user-status-filter]"
+        );
+
+    const userKeyword =
+        getElement(
+            "[data-user-keyword]"
+        );
+
+    const userRefresh =
+        getElement(
+            "[data-user-refresh]"
+        );
+
+    userStatusFilter?.addEventListener(
+        "change",
+        () => {
+            state.userStatusFilter =
+                userStatusFilter.value;
+            renderUsers();
+        }
+    );
+
+    userKeyword?.addEventListener(
+        "input",
+        () => {
+            state.userKeyword =
+                userKeyword.value.trim();
+            renderUsers();
+        }
+    );
+
+    userRefresh?.addEventListener(
+        "click",
+        () => {
+            state.usersLoaded = false;
+            void reloadUsers();
         }
     );
 }

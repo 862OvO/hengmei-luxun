@@ -417,12 +417,73 @@
                         <div class="admin-panel-heading">
                             <h2>用户管理</h2>
                             <p>
-                                用户查看、封禁、解封和待删除功能将在 Edge Function 阶段接入。
+                                查看注册用户，执行临时或永久封禁、解封、七天待删除和账号恢复。管理员账号不会显示危险操作。
                             </p>
                         </div>
 
-                        <div class="admin-placeholder">
-                            当前阶段先完成内容增删改查与回收站。
+                        <div class="admin-overview-grid admin-user-overview">
+                            <article class="admin-overview-card">
+                                <strong data-user-overview-total>0</strong>
+                                <h3>全部用户</h3>
+                            </article>
+
+                            <article class="admin-overview-card">
+                                <strong data-user-overview-active>0</strong>
+                                <h3>正常账号</h3>
+                            </article>
+
+                            <article class="admin-overview-card">
+                                <strong data-user-overview-banned>0</strong>
+                                <h3>封禁账号</h3>
+                            </article>
+
+                            <article class="admin-overview-card">
+                                <strong data-user-overview-pending>0</strong>
+                                <h3>待删除账号</h3>
+                            </article>
+                        </div>
+
+                        <div class="admin-toolbar admin-user-toolbar">
+                            <input
+                                type="search"
+                                data-user-keyword
+                                placeholder="搜索昵称或邮箱"
+                                aria-label="搜索用户"
+                            >
+
+                            <select
+                                data-user-status-filter
+                                aria-label="筛选账号状态"
+                            >
+                                <option value="all">全部状态</option>
+                                <option value="active">正常账号</option>
+                                <option value="banned">封禁账号</option>
+                                <option value="pending_deletion">待删除账号</option>
+                            </select>
+
+                            <button
+                                class="admin-secondary-button"
+                                type="button"
+                                data-user-refresh
+                            >
+                                刷新用户
+                            </button>
+                        </div>
+
+                        <div class="admin-list-summary">
+                            当前显示
+                            <strong data-admin-user-count>0</strong>
+                            名用户
+                        </div>
+
+                        <div
+                            class="admin-user-list"
+                            data-admin-user-list
+                            aria-live="polite"
+                        >
+                            <div class="admin-placeholder">
+                                打开本标签后将读取用户列表……
+                            </div>
                         </div>
                     </section>
                 </section>
