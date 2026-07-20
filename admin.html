@@ -118,6 +118,14 @@
                             class="admin-tab"
                             type="button"
                             role="tab"
+                            data-admin-tab="messages"
+                            aria-selected="false"
+                        >留言管理</button>
+
+                        <button
+                            class="admin-tab"
+                            type="button"
+                            role="tab"
                             data-admin-tab="users"
                             aria-selected="false"
                         >用户管理</button>
@@ -405,6 +413,100 @@
                         >
                             <div class="admin-placeholder">
                                 正在读取回收站……
+                            </div>
+                        </div>
+                    </section>
+
+                    <section
+                        class="admin-panel"
+                        data-admin-panel="messages"
+                        hidden
+                    >
+                        <div class="admin-panel-heading">
+                            <h2>留言管理</h2>
+                            <p>
+                                查看全部公开与隐藏留言，记录隐藏、恢复和永久删除原因。审核日志在留言删除后仍会保留。
+                            </p>
+                        </div>
+
+                        <div class="admin-overview-grid admin-message-overview">
+                            <article class="admin-overview-card">
+                                <strong data-message-overview-total>0</strong>
+                                <h3>全部留言</h3>
+                            </article>
+
+                            <article class="admin-overview-card">
+                                <strong data-message-overview-visible>0</strong>
+                                <h3>公开留言</h3>
+                            </article>
+
+                            <article class="admin-overview-card">
+                                <strong data-message-overview-hidden>0</strong>
+                                <h3>已隐藏</h3>
+                            </article>
+
+                            <article class="admin-overview-card">
+                                <strong data-message-overview-logs>0</strong>
+                                <h3>审核记录</h3>
+                            </article>
+                        </div>
+
+                        <div class="admin-toolbar admin-message-toolbar">
+                            <input
+                                type="search"
+                                data-message-keyword
+                                placeholder="搜索昵称、正文或隐藏原因"
+                                aria-label="搜索留言"
+                            >
+
+                            <select
+                                data-message-status-filter
+                                aria-label="筛选留言状态"
+                            >
+                                <option value="all">全部状态</option>
+                                <option value="visible">公开留言</option>
+                                <option value="hidden">已隐藏</option>
+                            </select>
+
+                            <button
+                                class="admin-secondary-button"
+                                type="button"
+                                data-message-refresh
+                            >
+                                刷新留言
+                            </button>
+                        </div>
+
+                        <div class="admin-list-summary">
+                            当前显示
+                            <strong data-admin-message-count>0</strong>
+                            条留言
+                        </div>
+
+                        <div
+                            class="admin-message-list"
+                            data-admin-message-list
+                            aria-live="polite"
+                        >
+                            <div class="admin-placeholder">
+                                打开本标签后将读取留言……
+                            </div>
+                        </div>
+
+                        <div class="admin-subsection-heading">
+                            <h3>审核记录</h3>
+                            <p>
+                                最近 100 条处理记录。永久删除留言后，昵称、正文和原因快照仍保留在这里。
+                            </p>
+                        </div>
+
+                        <div
+                            class="admin-message-log-list"
+                            data-admin-message-log-list
+                            aria-live="polite"
+                        >
+                            <div class="admin-placeholder">
+                                打开本标签后将读取审核记录……
                             </div>
                         </div>
                     </section>

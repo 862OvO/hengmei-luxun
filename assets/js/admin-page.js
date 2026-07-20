@@ -19,6 +19,12 @@ import {
     unbanManagedUser
 } from "./admin-user-service.js";
 
+import {
+    loadManagedMessages,
+    loadMessageModerationLogs,
+    moderateManagedMessage
+} from "./admin-message-service.js";
+
 const TYPE_LABELS = Object.freeze({
     works: "代表作品",
     articles: "作品赏析",
@@ -41,6 +47,17 @@ const BAN_TYPE_LABELS = Object.freeze({
     permanent: "永久封禁"
 });
 
+const MESSAGE_STATUS_LABELS = Object.freeze({
+    visible: "公开",
+    hidden: "已隐藏"
+});
+
+const MESSAGE_ACTION_LABELS = Object.freeze({
+    hide: "隐藏",
+    restore: "恢复",
+    delete: "永久删除"
+});
+
 const state = {
     contents: [],
     trash: [],
@@ -54,7 +71,13 @@ const state = {
     usersLoaded: false,
     usersLoading: false,
     userStatusFilter: "all",
-    userKeyword: ""
+    userKeyword: "",
+    messages: [],
+    messageLogs: [],
+    messagesLoaded: false,
+    messagesLoading: false,
+    messageStatusFilter: "all",
+    messageKeyword: ""
 };
 
 let toastTimer = null;
@@ -225,6 +248,10 @@ function activatePanel(panelName) {
 
     if (panelName === "users") {
         void ensureUsersLoaded();
+    }
+
+    if (panelName === "messages") {
+        void ensureMessagesLoaded();
     }
 }
 
@@ -1488,6 +1515,689 @@ async function ensureUsersLoaded() {
     await reloadUsers();
 }
 
+function getFilteredMessages() {
+    const keyword =
+        state.messageKeyword.toLowerCase();
+
+    return state.messages.filter(
+        (message) => {
+            const matchesStatus =
+                state.messageStatusFilter ===
+                    "all" ||
+                message.status ===
+                    state.messageStatusFilter;
+
+            const haystack = [
+                message.nickname,
+                message.content,
+                message.hidden_reason,
+                MESSAGE_STATUS_LABELS[
+                    message.status
+                ]
+            ]
+                .join(" ")
+                .toLowerCase();
+
+            return (
+                matchesStatus &&
+                (
+                    !keyword ||
+                    haystack.includes(keyword)
+                )
+            );
+        }
+    );
+}
+
+function updateMessageOverview() {
+    const values = {
+        "[data-message-overview-total]":
+            state.messages.length,
+        "[data-message-overview-visible]":
+            state.messages.filter(
+                (message) =>
+                    message.status ===
+                    "visible"
+            ).length,
+        "[data-message-overview-hidden]":
+            state.messages.filter(
+                (message) =>
+                    message.status ===
+                    "hidden"
+            ).length,
+        "[data-message-overview-logs]":
+            state.messageLogs.length
+    };
+
+    Object.entries(values)
+        .forEach(
+            ([selector, value]) => {
+                const element =
+                    getElement(selector);
+
+                if (element) {
+                    element.textContent =
+                        String(value);
+                }
+            }
+        );
+}
+
+function createMessageBadge(
+    text,
+    status = ""
+) {
+    const badge =
+        createElement(
+            "span",
+            "admin-message-badge",
+            text
+        );
+
+    if (status) {
+        badge.dataset.status = status;
+    }
+
+    return badge;
+}
+
+function createMessageActionButton(
+    text,
+    className,
+    handler
+) {
+    const button =
+        createElement(
+            "button",
+            `admin-action-button${
+                className
+                    ? ` ${className}`
+                    : ""
+            }`,
+            text
+        );
+
+    button.type = "button";
+
+    button.addEventListener(
+        "click",
+        () => {
+            void handler(button);
+        }
+    );
+
+    return button;
+}
+
+async function runMessageAction(
+    message,
+    button,
+    {
+        action,
+        pendingText,
+        successMessage,
+        reason
+    }
+) {
+    const originalText =
+        button.textContent;
+
+    button.disabled = true;
+    button.textContent = pendingText;
+
+    try {
+        await moderateManagedMessage({
+            messageId:
+                message.message_id,
+            action,
+            reason
+        });
+
+        await reloadMessages();
+
+        showToast(successMessage);
+    } catch (error) {
+        console.error(
+            "Message moderation failed:",
+            error
+        );
+
+        button.disabled = false;
+        button.textContent = originalText;
+
+        showToast(
+            error?.message ||
+            "留言审核操作失败，请稍后重试。",
+            true
+        );
+    }
+}
+
+async function handleHideMessage(
+    message,
+    button
+) {
+    const reason =
+        promptReason("隐藏留言");
+
+    if (!reason) {
+        return;
+    }
+
+    const confirmed =
+        window.confirm(
+            `确定隐藏“${message.nickname}”发布的这条留言吗？隐藏后普通访客将无法看到。`
+        );
+
+    if (!confirmed) {
+        return;
+    }
+
+    await runMessageAction(
+        message,
+        button,
+        {
+            action: "hide",
+            pendingText:
+                "正在隐藏……",
+            successMessage:
+                `“${message.nickname}”的留言已隐藏`,
+            reason
+        }
+    );
+}
+
+async function handleRestoreMessage(
+    message,
+    button
+) {
+    const reason =
+        promptReason("恢复留言");
+
+    if (!reason) {
+        return;
+    }
+
+    const confirmed =
+        window.confirm(
+            `确定恢复“${message.nickname}”发布的这条留言吗？恢复后将立即重新公开。`
+        );
+
+    if (!confirmed) {
+        return;
+    }
+
+    await runMessageAction(
+        message,
+        button,
+        {
+            action: "restore",
+            pendingText:
+                "正在恢复……",
+            successMessage:
+                `“${message.nickname}”的留言已恢复`,
+            reason
+        }
+    );
+}
+
+async function handleDeleteMessage(
+    message,
+    button
+) {
+    const reason =
+        promptReason(
+            "永久删除留言"
+        );
+
+    if (!reason) {
+        return;
+    }
+
+    const confirmed =
+        window.confirm(
+            [
+                `确定永久删除“${message.nickname}”发布的这条留言吗？`,
+                "",
+                "留言本体将无法恢复，但昵称、正文、处理原因和时间会保存在审核日志中。"
+            ].join("\n")
+        );
+
+    if (!confirmed) {
+        return;
+    }
+
+    const confirmation =
+        window.prompt(
+            "请输入“永久删除”进行第二次确认：",
+            ""
+        );
+
+    if (
+        confirmation === null ||
+        confirmation.trim() !==
+            "永久删除"
+    ) {
+        showToast(
+            "确认文字不一致，已取消永久删除。",
+            true
+        );
+
+        return;
+    }
+
+    await runMessageAction(
+        message,
+        button,
+        {
+            action: "delete",
+            pendingText:
+                "正在永久删除……",
+            successMessage:
+                `“${message.nickname}”的留言已永久删除`,
+            reason
+        }
+    );
+}
+
+function createMessageCard(message) {
+    const card =
+        createElement(
+            "article",
+            "admin-message-card"
+        );
+
+    card.dataset.messageStatus =
+        message.status || "visible";
+
+    const badges =
+        createElement(
+            "div",
+            "admin-message-badges"
+        );
+
+    badges.append(
+        createMessageBadge(
+            MESSAGE_STATUS_LABELS[
+                message.status
+            ] || message.status,
+            message.status
+        )
+    );
+
+    if (message.is_edited) {
+        badges.append(
+            createMessageBadge(
+                "已编辑"
+            )
+        );
+    }
+
+    const metadata =
+        createElement(
+            "dl",
+            "admin-message-meta"
+        );
+
+    metadata.append(
+        createUserMetaRow(
+            "发布时间",
+            formatDate(
+                message.created_at
+            )
+        ),
+        createUserMetaRow(
+            "更新时间",
+            formatDate(
+                message.updated_at
+            )
+        ),
+        createUserMetaRow(
+            "账号状态",
+            USER_STATUS_LABELS[
+                message.user_account_status
+            ] ||
+            message.user_account_status ||
+            "未知"
+        )
+    );
+
+    if (
+        message.status === "hidden"
+    ) {
+        metadata.append(
+            createUserMetaRow(
+                "隐藏时间",
+                formatDate(
+                    message.hidden_at
+                )
+            ),
+            createUserMetaRow(
+                "隐藏原因",
+                message.hidden_reason ||
+                "未记录"
+            )
+        );
+    }
+
+    const actions =
+        createElement(
+            "div",
+            "admin-message-actions"
+        );
+
+    if (
+        message.status === "visible"
+    ) {
+        actions.append(
+            createMessageActionButton(
+                "隐藏留言",
+                "warning",
+                (button) =>
+                    handleHideMessage(
+                        message,
+                        button
+                    )
+            )
+        );
+    } else if (
+        message.status === "hidden"
+    ) {
+        actions.append(
+            createMessageActionButton(
+                "恢复留言",
+                "",
+                (button) =>
+                    handleRestoreMessage(
+                        message,
+                        button
+                    )
+            )
+        );
+    }
+
+    actions.append(
+        createMessageActionButton(
+            "永久删除",
+            "danger",
+            (button) =>
+                handleDeleteMessage(
+                    message,
+                    button
+                )
+        )
+    );
+
+    card.append(
+        badges,
+        createElement(
+            "h3",
+            "admin-message-author",
+            message.nickname ||
+            "已注销用户"
+        ),
+        createElement(
+            "p",
+            "admin-message-content",
+            message.content ||
+            "（空留言）"
+        ),
+        metadata,
+        actions
+    );
+
+    return card;
+}
+
+function renderMessages() {
+    const list =
+        getElement(
+            "[data-admin-message-list]"
+        );
+
+    const count =
+        getElement(
+            "[data-admin-message-count]"
+        );
+
+    if (!list) {
+        return;
+    }
+
+    updateMessageOverview();
+
+    const messages =
+        getFilteredMessages();
+
+    if (count) {
+        count.textContent =
+            String(messages.length);
+    }
+
+    if (messages.length === 0) {
+        const message =
+            state.messages.length === 0
+                ? "当前项目还没有留言。"
+                : "当前筛选条件下没有留言。";
+
+        list.replaceChildren(
+            createElement(
+                "div",
+                "admin-placeholder",
+                message
+            )
+        );
+
+        return;
+    }
+
+    const fragment =
+        document.createDocumentFragment();
+
+    messages.forEach((message) => {
+        fragment.append(
+            createMessageCard(message)
+        );
+    });
+
+    list.replaceChildren(fragment);
+}
+
+function createMessageLogCard(log) {
+    const card =
+        createElement(
+            "article",
+            "admin-message-log-card"
+        );
+
+    const heading =
+        createElement(
+            "div",
+            "admin-message-log-heading"
+        );
+
+    heading.append(
+        createMessageBadge(
+            MESSAGE_ACTION_LABELS[
+                log.action
+            ] || log.action,
+            log.action
+        ),
+        createElement(
+            "strong",
+            "",
+            log.nickname_snapshot ||
+            "已注销用户"
+        ),
+        createElement(
+            "time",
+            "",
+            formatDate(
+                log.created_at
+            )
+        )
+    );
+
+    card.append(
+        heading,
+        createElement(
+            "p",
+            "admin-message-log-content",
+            log.content_snapshot ||
+            "（无正文快照）"
+        ),
+        createElement(
+            "p",
+            "admin-message-log-reason",
+            `处理原因：${
+                log.reason ||
+                "未记录"
+            }`
+        )
+    );
+
+    return card;
+}
+
+function renderMessageLogs() {
+    const list =
+        getElement(
+            "[data-admin-message-log-list]"
+        );
+
+    if (!list) {
+        return;
+    }
+
+    if (
+        state.messageLogs.length === 0
+    ) {
+        list.replaceChildren(
+            createElement(
+                "div",
+                "admin-placeholder",
+                "目前还没有留言审核记录。"
+            )
+        );
+
+        return;
+    }
+
+    const fragment =
+        document.createDocumentFragment();
+
+    state.messageLogs.forEach(
+        (log) => {
+            fragment.append(
+                createMessageLogCard(log)
+            );
+        }
+    );
+
+    list.replaceChildren(fragment);
+}
+
+async function reloadMessages() {
+    if (state.messagesLoading) {
+        return;
+    }
+
+    const messageList =
+        getElement(
+            "[data-admin-message-list]"
+        );
+
+    const logList =
+        getElement(
+            "[data-admin-message-log-list]"
+        );
+
+    state.messagesLoading = true;
+
+    messageList?.replaceChildren(
+        createElement(
+            "div",
+            "admin-placeholder",
+            "正在读取留言……"
+        )
+    );
+
+    logList?.replaceChildren(
+        createElement(
+            "div",
+            "admin-placeholder",
+            "正在读取审核记录……"
+        )
+    );
+
+    try {
+        const [
+            messageResult,
+            logResult
+        ] =
+            await Promise.all([
+                loadManagedMessages(),
+                loadMessageModerationLogs(
+                    100
+                )
+            ]);
+
+        state.messages =
+            messageResult.messages;
+        state.messageLogs =
+            logResult.logs;
+        state.messagesLoaded = true;
+
+        renderMessages();
+        renderMessageLogs();
+    } catch (error) {
+        console.error(
+            "Message list failed:",
+            error
+        );
+
+        state.messagesLoaded = false;
+
+        const errorMessage =
+            error?.message ||
+            "留言管理数据读取失败，请稍后重试。";
+
+        messageList?.replaceChildren(
+            createElement(
+                "div",
+                "admin-placeholder",
+                errorMessage
+            )
+        );
+
+        logList?.replaceChildren(
+            createElement(
+                "div",
+                "admin-placeholder",
+                errorMessage
+            )
+        );
+
+        showToast(
+            errorMessage,
+            true
+        );
+    } finally {
+        state.messagesLoading = false;
+    }
+}
+
+async function ensureMessagesLoaded() {
+    if (
+        state.messagesLoaded ||
+        state.messagesLoading
+    ) {
+        return;
+    }
+
+    await reloadMessages();
+}
+
 function revokeImagePreviewUrl() {
     if (!state.imagePreviewUrl) {
         return;
@@ -2252,6 +2962,47 @@ function initializeFilters() {
         () => {
             state.usersLoaded = false;
             void reloadUsers();
+        }
+    );
+
+    const messageStatusFilter =
+        getElement(
+            "[data-message-status-filter]"
+        );
+
+    const messageKeyword =
+        getElement(
+            "[data-message-keyword]"
+        );
+
+    const messageRefresh =
+        getElement(
+            "[data-message-refresh]"
+        );
+
+    messageStatusFilter?.addEventListener(
+        "change",
+        () => {
+            state.messageStatusFilter =
+                messageStatusFilter.value;
+            renderMessages();
+        }
+    );
+
+    messageKeyword?.addEventListener(
+        "input",
+        () => {
+            state.messageKeyword =
+                messageKeyword.value.trim();
+            renderMessages();
+        }
+    );
+
+    messageRefresh?.addEventListener(
+        "click",
+        () => {
+            state.messagesLoaded = false;
+            void reloadMessages();
         }
     );
 }
