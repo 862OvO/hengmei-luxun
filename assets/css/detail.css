@@ -122,6 +122,16 @@
     line-height: 2;
 }
 
+.detail-heading-actions {
+    position: relative;
+    z-index: 1;
+    margin-top: 28px;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
 .detail-layout {
     display: grid;
     grid-template-columns: minmax(230px, 0.34fr) minmax(0, 0.66fr);
@@ -295,15 +305,6 @@
         font-size: 15px;
     }
 	
-	.detail-heading-actions {
-    position: relative;
-    z-index: 1;
-    margin-top: 28px;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-}
-
     .detail-sidebar,
     .detail-content {
         padding-right: 22px;
@@ -313,5 +314,319 @@
     .detail-body p {
         font-size: 16px;
         text-align: left;
+    }
+}
+
+/* ========================================
+   结构化长文正文
+   ======================================== */
+
+.detail-body--structured {
+    max-width: 780px;
+    margin: 0 auto;
+}
+
+.detail-section-heading {
+    position: relative;
+    margin: 52px 0 24px;
+    padding-left: 22px;
+    font-family: var(--font-serif);
+    font-size: 29px;
+    line-height: 1.45;
+    letter-spacing: 2px;
+}
+
+.detail-section-heading:first-child {
+    margin-top: 0;
+}
+
+.detail-section-heading::before {
+    content: "";
+    position: absolute;
+    top: 0.22em;
+    bottom: 0.22em;
+    left: 0;
+    width: 4px;
+    border-radius: 999px;
+    background: var(--color-red);
+}
+
+.detail-quote {
+    margin: 30px 0;
+    padding: 26px 30px;
+    border-left: 4px solid var(--color-red);
+    background: rgba(141, 31, 31, 0.055);
+}
+
+.detail-quote-text {
+    margin: 0;
+    font-family: var(--font-serif);
+    font-size: 20px;
+    line-height: 2;
+    text-align: left;
+}
+
+.detail-quote-source {
+    display: block;
+    margin-top: 14px;
+    color: var(--color-ink-soft);
+    font-size: 14px;
+    font-style: normal;
+    text-align: right;
+}
+
+.detail-key-points {
+    margin: 8px 0 28px;
+    padding: 22px 26px 22px 48px;
+    border: 1px solid var(--color-border);
+    background: rgba(255, 255, 255, 0.34);
+}
+
+.detail-key-points li {
+    margin: 10px 0;
+    padding-left: 4px;
+    line-height: 1.9;
+}
+
+.detail-key-points li::marker {
+    color: var(--color-red);
+}
+
+.detail-citation {
+    margin-left: 2px;
+    font-size: 0.72em;
+    line-height: 0;
+}
+
+.detail-citation a {
+    color: var(--color-red);
+    font-weight: bold;
+}
+
+.detail-external-link {
+    color: var(--color-red);
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 3px;
+    overflow-wrap: anywhere;
+}
+
+.detail-references {
+    margin-top: 64px;
+    padding-top: 10px;
+    border-top: 1px solid var(--color-border);
+}
+
+.detail-reference-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.detail-reference-item {
+    scroll-margin-top: 120px;
+    margin: 0 0 18px;
+    padding: 18px 20px;
+    border: 1px solid var(--color-border);
+    background: rgba(255, 255, 255, 0.3);
+    line-height: 1.9;
+    overflow-wrap: anywhere;
+}
+
+.detail-reference-marker {
+    margin-right: 8px;
+    color: var(--color-red);
+    font-weight: bold;
+}
+
+.detail-reference-back {
+    margin-left: 12px;
+    color: var(--color-red);
+    font-size: 12px;
+    font-weight: bold;
+    white-space: nowrap;
+}
+
+.detail-reference-note {
+    color: var(--color-ink-soft);
+    font-size: 14px;
+}
+
+.detail-citation a,
+.detail-reference-item {
+    scroll-margin-top: 120px;
+}
+
+/* ========================================
+   图片说明与授权
+   ======================================== */
+
+.detail-image-credit {
+    margin-bottom: 30px;
+    padding: 16px;
+    border: 1px solid var(--color-border);
+    background: rgba(255, 255, 255, 0.34);
+}
+
+.detail-image-credit[hidden] {
+    display: none;
+}
+
+.detail-image-credit-title {
+    display: block;
+    color: var(--color-red);
+    font-size: 13px;
+    letter-spacing: 1px;
+}
+
+.detail-image-credit-list {
+    margin-top: 12px;
+}
+
+.detail-image-credit-row {
+    display: grid;
+    grid-template-columns: 76px minmax(0, 1fr);
+    gap: 10px;
+    padding: 7px 0;
+    border-top: 1px solid rgba(141, 31, 31, 0.1);
+    font-size: 12px;
+    line-height: 1.6;
+}
+
+.detail-image-credit-row dt {
+    color: var(--color-ink-soft);
+}
+
+.detail-image-credit-row dd {
+    min-width: 0;
+    overflow-wrap: anywhere;
+}
+
+/* ========================================
+   代表作品档案布局
+   ======================================== */
+
+.detail-article--works {
+    display: grid;
+    grid-template-columns:
+        minmax(250px, 0.34fr)
+        minmax(0, 0.66fr);
+}
+
+.detail-article--works
+.detail-heading {
+    grid-column: 2;
+    grid-row: 1;
+}
+
+.detail-article--works
+.detail-layout {
+    display: contents;
+}
+
+.detail-article--works
+.detail-sidebar {
+    grid-column: 1;
+    grid-row: 1 / span 2;
+}
+
+.detail-article--works
+.detail-content {
+    grid-column: 2;
+    grid-row: 2;
+    border-top: 1px solid var(--color-border);
+}
+
+.detail-article--works
+.detail-image-wrapper {
+    max-width: 320px;
+    margin-right: auto;
+    margin-left: auto;
+    background: #f3ead8;
+}
+
+.detail-image--cover {
+    aspect-ratio: 3 / 4;
+    min-height: 0;
+    object-fit: contain;
+    background: #f3ead8;
+}
+
+.detail-image-placeholder--cover {
+    aspect-ratio: 3 / 4;
+    min-height: 0;
+    padding: 24px;
+    white-space: pre-line;
+    background:
+        linear-gradient(
+            rgba(255, 255, 255, 0.1),
+            rgba(255, 255, 255, 0.1)
+        ),
+        #f3ead8;
+}
+
+@media (max-width: 900px) {
+    .detail-article--works {
+        display: block;
+    }
+
+    .detail-article--works
+    .detail-layout {
+        display: grid;
+        grid-template-columns: 1fr;
+    }
+
+    .detail-article--works
+    .detail-sidebar {
+        border-right: 0;
+        border-bottom: 1px solid var(--color-border);
+    }
+
+    .detail-article--works
+    .detail-content {
+        border-top: 0;
+    }
+
+    .detail-article--works
+    .detail-image-wrapper {
+        width: min(62vw, 300px);
+    }
+}
+
+@media (max-width: 520px) {
+    .detail-section-heading {
+        margin-top: 42px;
+        padding-left: 17px;
+        font-size: 24px;
+        letter-spacing: 1px;
+    }
+
+    .detail-quote {
+        padding: 21px 19px;
+    }
+
+    .detail-quote-text {
+        font-size: 18px;
+    }
+
+    .detail-key-points {
+        padding:
+            17px 17px
+            17px 38px;
+    }
+
+    .detail-reference-item {
+        padding: 15px 16px;
+        font-size: 14px;
+    }
+
+    .detail-reference-back {
+        display: inline-block;
+        margin: 8px 0 0;
+    }
+
+    .detail-image-credit-row {
+        grid-template-columns: 1fr;
+        gap: 3px;
     }
 }
