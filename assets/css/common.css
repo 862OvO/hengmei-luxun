@@ -721,3 +721,77 @@ body {
 .footer-link.active::after {
     transform: scaleX(1);
 }
+
+/* ========================================
+   收藏按钮状态
+   通过 JavaScript 的 is-favorite / is-not-favorite
+   明确控制颜色，避免触屏设备保留 :hover 外观。
+   ======================================== */
+
+button.favorite-button {
+    min-height: 38px;
+    padding: 0 16px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--color-red);
+    border-radius: var(--radius-small);
+    color: var(--color-red);
+    background: transparent;
+    font: inherit;
+    font-size: 13px;
+    font-weight: bold;
+    line-height: 1;
+    cursor: pointer;
+    transition:
+        color 0.2s ease,
+        border-color 0.2s ease,
+        background 0.2s ease,
+        transform 0.2s ease;
+}
+
+button.favorite-button.is-not-favorite {
+    color: var(--color-red);
+    border-color: var(--color-red);
+    background: transparent;
+}
+
+button.favorite-button.is-favorite {
+    color: var(--color-white);
+    border-color: var(--color-red);
+    background: var(--color-red);
+}
+
+button.favorite-button:focus-visible {
+    outline: 3px solid rgba(141, 31, 31, 0.18);
+    outline-offset: 3px;
+}
+
+/* 只有真正支持鼠标悬停的设备才显示悬停填充色。 */
+@media (hover: hover) and (pointer: fine) {
+    button.favorite-button.is-not-favorite:hover {
+        color: var(--color-white);
+        border-color: var(--color-red);
+        background: var(--color-red);
+        transform: translateY(-1px);
+    }
+
+    button.favorite-button.is-favorite:hover {
+        border-color: var(--color-red-dark);
+        background: var(--color-red-dark);
+        transform: translateY(-1px);
+    }
+}
+
+button.favorite-button:disabled {
+    opacity: 0.62;
+    cursor: wait;
+    transform: none;
+}
+
+button.favorite-button.is-not-favorite:disabled {
+    color: var(--color-ink-soft);
+    border-color: var(--color-border);
+    background: rgba(255, 255, 255, 0.36);
+}
+

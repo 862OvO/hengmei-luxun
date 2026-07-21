@@ -82,12 +82,33 @@ function setButtonState(
         String(isFavorite)
     );
 
+    button.classList.toggle(
+        "is-favorite",
+        isFavorite
+    );
+
+    button.classList.toggle(
+        "is-not-favorite",
+        !isFavorite
+    );
+
     button.textContent =
         isFavorite
             ? "已收藏"
             : "收藏";
 
     button.disabled = false;
+
+    /*
+     * 触屏设备可能保留上一次点击产生的悬停/焦点外观。
+     * 取消收藏后主动移除焦点，确保按钮立即恢复未收藏颜色。
+     */
+    if (
+        !isFavorite &&
+        document.activeElement === button
+    ) {
+        button.blur();
+    }
 }
 
 function setButtonUnavailable(
@@ -99,6 +120,14 @@ function setButtonUnavailable(
     button.setAttribute(
         "aria-pressed",
         "false"
+    );
+
+    button.classList.remove(
+        "is-favorite"
+    );
+
+    button.classList.add(
+        "is-not-favorite"
     );
 
     button.textContent =
