@@ -8,6 +8,11 @@ import {
     initializeFavoriteButtons
 } from "./favorite-ui.js";
 
+import {
+    collectReferenceNumbers,
+    parseDetailBody
+} from "./detail-body-parser.js";
+
 const PAGE_CONFIG = Object.freeze({
     works: {
         backUrl: "works.html",
@@ -34,6 +39,7 @@ const METADATA_CONFIG = Object.freeze({
         ["genre", "作品体裁"],
         ["collection", "收录作品集"],
         ["first_published", "首次发表"],
+        ["creation_place", "创作地点"],
         ["original_title", "原名"],
         ["article_count", "篇目数量"],
         ["keywords", "主题关键词"]
@@ -187,17 +193,400 @@ function renderMetadata(
     list.replaceChildren(fragment);
 }
 
-function renderBody(body, container) {
-    const paragraphs =
-        String(body ?? "")
-            .split(/\n{2,}/)
-            .map(
-                (paragraph) =>
-                    paragraph.trim()
-            )
-            .filter(Boolean);
+const INLINE_TOKEN_PATTERN =
+    /https:\/\/[^\s<>()]+|\[(\d+)\]/g;
 
-    if (paragraphs.length === 0) {
+function appendInlineContent(
+    container,
+    text,
+    referenceNumbers,
+    citationState
+) {
+    const value =
+        String(text ?? "");
+
+    let cursor = 0;
+
+    for (
+        const match of
+        value.matchAll(
+            INLINE_TOKEN_PATTERN
+        )
+    ) {
+        const token = match[0];
+        const start = match.index ?? 0;
+
+        if (start > cursor) {
+            container.append(
+                document.createTextNode(
+                    value.slice(
+                        cursor,
+                        start
+                    )
+                )
+            );
+        }
+
+        if (token.startsWith("https://")) {
+            const link =
+                createElement(
+                    "a",
+                    "detail-external-link",
+                    token
+                );
+
+            link.href = token;
+            link.target = "_blank";
+            link.rel =
+                "noopener noreferrer";
+
+            container.append(link);
+        } else {
+            const number =
+                match[1];
+
+            if (
+                referenceNumbers.has(
+                    number
+                )
+            ) {
+                const nextCount =
+                    (
+                        citationState.counts
+                            .get(number) ??
+                        0
+                    ) + 1;
+
+                citationState.counts.set(
+                    number,
+                    nextCount
+                );
+
+                const citationId =
+                    `citation-${number}-${nextCount}`;
+
+                if (
+                    !citationState
+                        .firstIds
+                        .has(number)
+                ) {
+                    citationState
+                        .firstIds
+                        .set(
+                            number,
+                            citationId
+                        );
+                }
+
+                const superscript =
+                    createElement(
+                        "sup",
+                        "detail-citation"
+                    );
+
+                const link =
+                    createElement(
+                        "a",
+                        "",
+                        `[${number}]`
+                    );
+
+                link.id = citationId;
+                link.href =
+                    `#reference-${number}`;
+
+                superscript.append(link);
+                container.append(
+                    superscript
+                );
+            } else {
+                container.append(
+                    document.createTextNode(
+                        token
+                    )
+                );
+
+                console.warn(
+                    `Missing reference: ${token}`
+                );
+            }
+        }
+
+        cursor =
+            start + token.length;
+    }
+
+    if (cursor < value.length) {
+        container.append(
+            document.createTextNode(
+                value.slice(cursor)
+            )
+        );
+    }
+}
+
+function createQuoteElement(
+    block,
+    referenceNumbers,
+    citationState
+) {
+    const quote =
+        createElement(
+            "blockquote",
+            "detail-quote"
+        );
+
+    const lines = [
+        ...block.lines
+    ];
+
+    const lastLine =
+        lines.at(-1) ?? "";
+
+    const hasAttribution =
+        lastLine.startsWith("——");
+
+    const contentLines =
+        hasAttribution
+            ? lines.slice(0, -1)
+            : lines;
+
+    const paragraph =
+        createElement(
+            "p",
+            "detail-quote-text"
+        );
+
+    contentLines.forEach(
+        (line, index) => {
+            if (index > 0) {
+                paragraph.append(
+                    document.createElement(
+                        "br"
+                    )
+                );
+            }
+
+            appendInlineContent(
+                paragraph,
+                line,
+                referenceNumbers,
+                citationState
+            );
+        }
+    );
+
+    quote.append(paragraph);
+
+    if (hasAttribution) {
+        quote.append(
+            createElement(
+                "cite",
+                "detail-quote-source",
+                lastLine
+            )
+        );
+    }
+
+    return quote;
+}
+
+function createMainBlockElement(
+    block,
+    referenceNumbers,
+    citationState
+) {
+    if (block.type === "heading") {
+        return createElement(
+            "h2",
+            "detail-section-heading",
+            block.text
+        );
+    }
+
+    if (block.type === "quote") {
+        return createQuoteElement(
+            block,
+            referenceNumbers,
+            citationState
+        );
+    }
+
+    if (block.type === "list") {
+        const list =
+            createElement(
+                "ul",
+                "detail-key-points"
+            );
+
+        block.items.forEach(
+            (item) => {
+                const listItem =
+                    document.createElement(
+                        "li"
+                    );
+
+                appendInlineContent(
+                    listItem,
+                    item,
+                    referenceNumbers,
+                    citationState
+                );
+
+                list.append(
+                    listItem
+                );
+            }
+        );
+
+        return list;
+    }
+
+    const paragraph =
+        document.createElement("p");
+
+    appendInlineContent(
+        paragraph,
+        block.text,
+        referenceNumbers,
+        citationState
+    );
+
+    return paragraph;
+}
+
+function createReferenceSection(
+    blocks,
+    citationState
+) {
+    const section =
+        createElement(
+            "section",
+            "detail-references"
+        );
+
+    section.setAttribute(
+        "aria-labelledby",
+        "detail-references-title"
+    );
+
+    const heading =
+        createElement(
+            "h2",
+            "detail-section-heading",
+            "参考资料"
+        );
+
+    heading.id =
+        "detail-references-title";
+
+    const list =
+        createElement(
+            "ol",
+            "detail-reference-list"
+        );
+
+    blocks.forEach(
+        (block) => {
+            if (
+                block.type !==
+                "reference"
+            ) {
+                if (
+                    block.type ===
+                    "paragraph"
+                ) {
+                    const note =
+                        createElement(
+                            "p",
+                            "detail-reference-note"
+                        );
+
+                    appendInlineContent(
+                        note,
+                        block.text,
+                        new Set(),
+                        citationState
+                    );
+
+                    section.append(note);
+                }
+
+                return;
+            }
+
+            const item =
+                createElement(
+                    "li",
+                    "detail-reference-item"
+                );
+
+            item.id =
+                `reference-${block.number}`;
+
+            const marker =
+                createElement(
+                    "span",
+                    "detail-reference-marker",
+                    `[${block.number}]`
+                );
+
+            item.append(marker);
+
+            appendInlineContent(
+                item,
+                block.text,
+                new Set(),
+                citationState
+            );
+
+            const firstCitationId =
+                citationState
+                    .firstIds
+                    .get(
+                        String(
+                            block.number
+                        )
+                    );
+
+            if (firstCitationId) {
+                const backLink =
+                    createElement(
+                        "a",
+                        "detail-reference-back",
+                        "返回正文"
+                    );
+
+                backLink.href =
+                    `#${firstCitationId}`;
+
+                item.append(backLink);
+            }
+
+            list.append(item);
+        }
+    );
+
+    section.prepend(
+        heading,
+        list
+    );
+
+    return section;
+}
+
+function renderBody(
+    body,
+    container
+) {
+    const blocks =
+        parseDetailBody(body);
+
+    if (blocks.length === 0) {
+        container.classList.remove(
+            "detail-body--structured"
+        );
+
         container.replaceChildren(
             createElement(
                 "p",
@@ -209,22 +598,191 @@ function renderBody(body, container) {
         return;
     }
 
-    const fragment =
-        document.createDocumentFragment();
+    const hasStructuredBlocks =
+        blocks.some(
+            (block) =>
+                block.type !==
+                "paragraph"
+        );
 
-    paragraphs.forEach(
-        (paragraph) => {
+    container.classList.toggle(
+        "detail-body--structured",
+        hasStructuredBlocks
+    );
+
+    const referenceNumbers =
+        collectReferenceNumbers(
+            blocks
+        );
+
+    const citationState = {
+        counts: new Map(),
+        firstIds: new Map()
+    };
+
+    const referenceHeadingIndex =
+        blocks.findIndex(
+            (block) =>
+                block.type ===
+                    "heading" &&
+                block.isReferenceHeading
+        );
+
+    const mainBlocks =
+        referenceHeadingIndex >= 0
+            ? blocks.slice(
+                0,
+                referenceHeadingIndex
+            )
+            : blocks;
+
+    const referenceBlocks =
+        referenceHeadingIndex >= 0
+            ? blocks.slice(
+                referenceHeadingIndex + 1
+            )
+            : [];
+
+    const fragment =
+        document
+            .createDocumentFragment();
+
+    mainBlocks.forEach(
+        (block) => {
             fragment.append(
-                createElement(
-                    "p",
-                    "",
-                    paragraph
+                createMainBlockElement(
+                    block,
+                    referenceNumbers,
+                    citationState
                 )
             );
         }
     );
 
-    container.replaceChildren(fragment);
+    if (referenceHeadingIndex >= 0) {
+        fragment.append(
+            createReferenceSection(
+                referenceBlocks,
+                citationState
+            )
+        );
+    }
+
+    container.replaceChildren(
+        fragment
+    );
+}
+
+
+function applyContentTypeClass(
+    article,
+    contentType
+) {
+    CONTENT_TYPES.forEach(
+        (type) => {
+            article.classList.remove(
+                `detail-article--${type}`
+            );
+        }
+    );
+
+    article.classList.add(
+        `detail-article--${contentType}`
+    );
+}
+
+function renderImageCredit(
+    item,
+    container
+) {
+    const metadata =
+        item.metadata ?? {};
+
+    const rows = [
+        [
+            "图片说明",
+            metadata.image_caption
+        ],
+        [
+            "作者或设计",
+            metadata.image_creator
+        ],
+        [
+            "年代",
+            metadata.image_date
+        ],
+        [
+            "来源",
+            metadata.image_source
+        ],
+        [
+            "授权",
+            metadata.image_license
+        ]
+    ].filter(
+        ([, value]) =>
+            Boolean(
+                formatMetadataValue(
+                    value
+                )
+            )
+    );
+
+    if (rows.length === 0) {
+        container.hidden = true;
+        container.replaceChildren();
+        return;
+    }
+
+    const title =
+        createElement(
+            "strong",
+            "detail-image-credit-title",
+            metadata.image_type ===
+                "historical"
+                ? "历史书影说明"
+                : "原创封面说明"
+        );
+
+    const list =
+        createElement(
+            "dl",
+            "detail-image-credit-list"
+        );
+
+    rows.forEach(
+        ([label, rawValue]) => {
+            const row =
+                createElement(
+                    "div",
+                    "detail-image-credit-row"
+                );
+
+            row.append(
+                createElement(
+                    "dt",
+                    "",
+                    label
+                ),
+                createElement(
+                    "dd",
+                    "",
+                    formatMetadataValue(
+                        rawValue
+                    )
+                )
+            );
+
+            list.append(row);
+        }
+    );
+
+    container.replaceChildren(
+        title,
+        list
+    );
+
+    container.hidden = false;
 }
 
 function renderImage(
@@ -233,11 +791,37 @@ function renderImage(
     image,
     placeholder
 ) {
+    const isWork =
+        item.content_type === "works";
+
+    const showPlaceholder = (
+        message
+    ) => {
+        wrapper.hidden = false;
+        image.hidden = true;
+        placeholder.hidden = false;
+
+        placeholder.classList.toggle(
+            "detail-image-placeholder--cover",
+            isWork
+        );
+
+        placeholder.textContent =
+            message;
+    };
+
     const imagePath =
         item.image_path;
 
     if (!imagePath) {
-        wrapper.hidden = true;
+        if (isWork) {
+            showPlaceholder(
+                `《${item.title}》\n作品封面整理中`
+            );
+        } else {
+            wrapper.hidden = true;
+        }
+
         return;
     }
 
@@ -249,13 +833,15 @@ function renderImage(
         );
 
     if (isPlaceholder) {
-        image.hidden = true;
-        placeholder.hidden = false;
-
-        placeholder.textContent =
-            item.metadata?.category
-                ? `${item.metadata.category}资料图`
-                : "历史影像资料图";
+        showPlaceholder(
+            isWork
+                ? `《${item.title}》\n作品封面`
+                : (
+                    item.metadata?.category
+                        ? `${item.metadata.category}资料图`
+                        : "历史影像资料图"
+                )
+        );
 
         return;
     }
@@ -263,18 +849,26 @@ function renderImage(
     placeholder.hidden = true;
     image.hidden = false;
 
+    image.classList.toggle(
+        "detail-image--cover",
+        isWork
+    );
+
     image.src = imagePath;
+
     image.alt =
+        item.metadata?.image_alt ||
         item.metadata?.alt ||
         item.title;
 
     image.addEventListener(
         "error",
         () => {
-            image.hidden = true;
-            placeholder.hidden = false;
-            placeholder.textContent =
-                "图片资料暂不可用";
+            showPlaceholder(
+                isWork
+                    ? `《${item.title}》\n封面暂不可用`
+                    : "图片资料暂不可用"
+            );
         },
         {
             once: true
@@ -374,6 +968,11 @@ function renderContent(
     const pageConfig =
         PAGE_CONFIG[item.content_type];
 
+    applyContentTypeClass(
+        elements.article,
+        item.content_type
+    );
+
     document.title =
         `${item.title}｜横眉·鲁迅文化数字展馆`;
 
@@ -431,6 +1030,11 @@ if (elements.favoriteButton) {
         elements.imageWrapper,
         elements.image,
         elements.imagePlaceholder
+    );
+
+    renderImageCredit(
+        item,
+        elements.imageCredit
     );
 
     updateSourceStatus(
@@ -522,6 +1126,11 @@ async function initializeDetailPage() {
         imagePlaceholder:
             document.querySelector(
                 "[data-detail-image-placeholder]"
+            ),
+
+        imageCredit:
+            document.querySelector(
+                "[data-detail-image-credit]"
             )
     };
 
