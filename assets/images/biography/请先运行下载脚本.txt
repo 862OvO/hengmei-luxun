@@ -1,0 +1,2 @@
+在项目根目录运行：
+powershell -ExecutionPolicy Bypass -File scripts\download-biography-images.ps1
