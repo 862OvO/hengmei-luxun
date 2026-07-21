@@ -577,6 +577,15 @@
     }
 
     .detail-article--works
+    .detail-sidebar,
+    .detail-article--works
+    .detail-content {
+        grid-column: 1;
+        grid-row: auto;
+        min-width: 0;
+    }
+
+    .detail-article--works
     .detail-sidebar {
         border-right: 0;
         border-bottom: 1px solid var(--color-border);
