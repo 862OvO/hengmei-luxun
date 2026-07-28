@@ -158,6 +158,53 @@ function checkExpectedPages() {
     }
 }
 
+function checkFavicon() {
+    const faviconReference =
+        "assets/images/favicon.svg";
+
+    const faviconPath =
+        path.join(
+            ROOT,
+            faviconReference
+        );
+
+    if (!fs.existsSync(faviconPath)) {
+        errors.push(
+            `缺少站点图标：${faviconReference}`
+        );
+        return;
+    }
+
+    for (const page of EXPECTED_PAGES) {
+        const fullPath =
+            path.join(ROOT, page);
+
+        if (
+            fs.existsSync(fullPath) &&
+            !readText(fullPath).includes(
+                `rel="icon" href="${faviconReference}"`
+            )
+        ) {
+            errors.push(
+                `页面缺少站点图标声明：${page}`
+            );
+        }
+    }
+
+    if (
+        !errors.some(
+            (item) =>
+                item.includes(
+                    "站点图标"
+                )
+        )
+    ) {
+        passed.push(
+            `站点图标检查通过（${EXPECTED_PAGES.length} 个页面）`
+        );
+    }
+}
+
 function checkLocalReferences() {
     const htmlFiles =
         walkFiles(ROOT)
@@ -549,6 +596,7 @@ function main() {
     );
 
     checkExpectedPages();
+    checkFavicon();
     checkLocalReferences();
     checkJsonData();
     checkJavaScriptSyntax();

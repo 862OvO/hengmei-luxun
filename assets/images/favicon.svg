@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="title">
+  <title id="title">横眉·鲁迅文化数字展馆</title>
+  <rect width="64" height="64" rx="12" fill="#8d1f1f"/>
+  <rect x="5" y="5" width="54" height="54" rx="8" fill="none" stroke="#f3ead8" stroke-width="2" opacity="0.72"/>
+  <text x="32" y="45" fill="#fff8eb" font-family="Noto Serif SC, Songti SC, SimSun, serif" font-size="40" font-weight="700" text-anchor="middle">横</text>
+</svg>
