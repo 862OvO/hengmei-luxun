@@ -1,0 +1,39 @@
+{
+  "quotes": [
+    {"id":"youth-01","category":"youth","text":"愿中国青年都摆脱冷气，只是向上走，不必听自暴自弃者流的话。","sourceTitle":"《随感录四十一》","collection":"《热风》","year":"1919","context":"文章回应社会上的悲观与讥讽，劝青年不等待外部认可，先从自己能够做到的行动开始。","keywords":["青年","行动","希望"],"sourceUrl":"https://www.marxists.org/chinese/reference-books/luxun/index.htm"},
+    {"id":"youth-02","category":"youth","text":"能做事的做事，能发声的发声。有一分热，发一分光。","sourceTitle":"《随感录四十一》","collection":"《热风》","year":"1919","context":"这句话紧接“摆脱冷气”之后，强调微小但切实的工作，不把希望寄托在尚未出现的“炬火”上。","keywords":["行动","发声","担当"],"sourceUrl":"https://www.marxists.org/chinese/reference-books/luxun/index.htm"},
+    {"id":"youth-03","category":"youth","text":"无穷的远方，无数的人们，都和我有关。","sourceTitle":"《这也是生活》","collection":"《且介亭杂文末编》","year":"1936","context":"病中夜醒，鲁迅从熟悉的书房想到窗外进行着的生活；原句连接个人处境与遥远、众多的他人。","keywords":["他人","责任","生活"],"sourceUrl":"https://www.marxists.org/chinese/reference-books/luxun/index.htm"},
+    {"id":"youth-04","category":"youth","text":"希望是本无所谓有，无所谓无的。这正如地上的路；其实地上本没有路，走的人多了，也便成了路。","sourceTitle":"《故乡》","collection":"《呐喊》","year":"1921","context":"小说结尾没有把希望写成已经确定的答案，而把它比作需要由人共同走出的道路，行动因此先于结果。","keywords":["希望","道路","故乡"],"sourceUrl":"detail.html?type=works&slug=guxiang"},
+
+    {"id":"writing-01","category":"writing","text":"留心各样的事情，多看看，不看到一点就写。","sourceTitle":"《答北斗杂志社问》","collection":"《二心集》","year":"1931","context":"应杂志询问创作方法，鲁迅把自己的经验列为八条，第一条强调观察先于动笔。","keywords":["观察","创作","经验"],"sourceUrl":"https://luxunlib.com/story/%E4%BA%8C%E5%BF%83%E9%9B%86/%E7%AD%94%E5%8C%97%E6%96%97%E6%9D%82%E5%BF%97%E7%A4%BE%E9%97%AE/"},
+    {"id":"writing-02","category":"writing","text":"写不出的时候不硬写。","sourceTitle":"《答北斗杂志社问》","collection":"《二心集》","year":"1931","context":"这不是拒绝写作，而是反对材料不足时用程式和空话勉强填充作品，要求作者对文字和读者负责。","keywords":["写作","诚实","方法"],"sourceUrl":"https://luxunlib.com/story/%E4%BA%8C%E5%BF%83%E9%9B%86/%E7%AD%94%E5%8C%97%E6%96%97%E6%9D%82%E5%BF%97%E7%A4%BE%E9%97%AE/"},
+    {"id":"writing-03","category":"writing","text":"写完后至少看两遍，竭力将可有可无的字，句，段删去，毫不可惜。","sourceTitle":"《答北斗杂志社问》","collection":"《二心集》","year":"1931","context":"鲁迅把删削视为写作责任，宁可压缩材料，也不把短小材料勉强拉成长篇，以篇幅冒充内容。","keywords":["修改","删削","写作"],"sourceUrl":"https://luxunlib.com/story/%E4%BA%8C%E5%BF%83%E9%9B%86/%E7%AD%94%E5%8C%97%E6%96%97%E6%9D%82%E5%BF%97%E7%A4%BE%E9%97%AE/"},
+    {"id":"writing-04","category":"writing","text":"有真意，去粉饰，少做作，勿卖弄。","sourceTitle":"《作文秘诀》","collection":"《南腔北调集》","year":"1933","context":"文章以反讽方式讨论所谓作文秘诀，结尾给出的十二字落在真实、克制和不炫技。","keywords":["真意","文风","作文"],"sourceUrl":"https://www.marxists.org/chinese/reference-books/luxun/index.htm"},
+
+    {"id":"society-01","category":"society","text":"横眉冷对千夫指，俯首甘为孺子牛。","sourceTitle":"《自嘲》","collection":"旧体诗","year":"1932","context":"诗句并置对敌对压力的冷峻与对普通人的尽责，后来成为理解鲁迅公共姿态的重要文本。","keywords":["批判","担当","孺子牛"],"sourceUrl":"https://www.marxists.org/chinese/reference-books/luxun/index.htm"},
+    {"id":"society-02","category":"society","text":"不在沉默中爆发，就在沉默中灭亡。","sourceTitle":"《记念刘和珍君》","collection":"《华盖集续编》","year":"1926","context":"三一八惨案后，鲁迅在悼念死者时判断沉默积压的两种可能，原句来自具体的政治暴力现场。","keywords":["沉默","爆发","三一八"],"sourceUrl":"https://www.marxists.org/chinese/reference-books/luxun/index.htm"},
+    {"id":"society-03","category":"society","text":"真的勇士，敢于直面惨淡的人生，敢于正视淋漓的鲜血。","sourceTitle":"《记念刘和珍君》","collection":"《华盖集续编》","year":"1926","context":"“勇士”首先指向在惨案与死亡面前仍保持清醒、记忆和行动的人，而不是抽象的强者形象。","keywords":["勇士","现实","纪念"],"sourceUrl":"https://www.marxists.org/chinese/reference-books/luxun/index.htm"},
+    {"id":"society-04","category":"society","text":"我翻开历史一查，这历史没有年代，歪歪斜斜的每叶上都写着‘仁义道德’几个字。","sourceTitle":"《狂人日记》","collection":"《呐喊》","year":"1918","context":"这是小说人物“狂人”的日记语言。作品借其被视作病态的目光，审问礼教话语与现实伤害之间的裂缝。","keywords":["历史","礼教","吃人"],"sourceUrl":"detail.html?type=works&slug=kuangren-riji"},
+
+    {"id":"life-01","category":"life","text":"绝望之为虚妄，正与希望相同。","sourceTitle":"《希望》","collection":"《野草》","year":"1925","context":"句子译自裴多菲并被鲁迅置于自身精神挣扎中；它没有提供乐观答案，而是否定把绝望当作确定真理。","keywords":["希望","绝望","选择"],"sourceUrl":"detail.html?type=works&slug=yecao"},
+    {"id":"life-02","category":"life","text":"我之所谓生存，并不是苟活；所谓温饱，并不是奢侈；所谓发展，也不是放纵。","sourceTitle":"《北京通信》","collection":"《华盖集》","year":"1925","context":"鲁迅区分人的基本生存、正当生活与被污名化的欲望，为个体发展争取不受压抑的空间。","keywords":["生存","温饱","发展"],"sourceUrl":"https://www.marxists.org/chinese/reference-books/luxun/index.htm"},
+    {"id":"life-03","category":"life","text":"走上人生的旅途罢。前途很远，也很暗。然而不要怕。不怕的人的面前才有路。","sourceTitle":"《导师》","collection":"《华盖集》","year":"1925","context":"文章警惕青年寻找包办方向的导师，最后把选择与行路的责任交还给青年自己。","keywords":["道路","勇气","选择"],"sourceUrl":"https://www.marxists.org/chinese/reference-books/luxun/index.htm"},
+    {"id":"life-04","category":"life","text":"生活太安逸了，工作就会被生活所累。","sourceTitle":"《安贫乐道法》","collection":"《花边文学》","year":"1934","context":"原文针对把安贫当作道德要求的论调，提醒读者不要把这句话误读成歌颂贫困本身。","keywords":["生活","工作","安逸"],"sourceUrl":"https://www.marxists.org/chinese/reference-books/luxun/index.htm"},
+
+    {"id":"children-01","category":"children","text":"游戏是儿童最正当的行为，玩具是儿童的天使。","sourceTitle":"《风筝》","collection":"《野草》","year":"1925","context":"鲁迅借阅读儿童教育书籍反省自己早年毁坏弟弟风筝的行为，把它称为对儿童精神的伤害。","keywords":["游戏","玩具","儿童"],"sourceUrl":"detail.html?type=works&slug=yecao"},
+    {"id":"children-02","category":"children","text":"子女是即我非我的人，但既已分立，也便是人类中的人。","sourceTitle":"《我们现在怎样做父亲》","collection":"《坟》","year":"1919","context":"文章反对把子女视作父母所有物，强调亲缘责任与孩子作为独立个体的地位必须同时成立。","keywords":["子女","独立","父母"],"sourceUrl":"https://www.chinawriter.com.cn/n1/2018/0531/c404064-30025451.html"},
+    {"id":"children-03","category":"children","text":"自己背着因袭的重担，肩住了黑暗的闸门，放他们到宽阔光明的地方去。","sourceTitle":"《我们现在怎样做父亲》","collection":"《坟》","year":"1919","context":"“肩住闸门”是上一代主动承担历史重负、为下一代争取自由空间的父母责任。","keywords":["父亲","未来","责任"],"sourceUrl":"https://www.chinawriter.com.cn/n1/2020/0630/c419384-31763816.html"},
+    {"id":"children-04","category":"children","text":"无情未必真豪杰，怜子如何不丈夫。","sourceTitle":"《答客诮》","collection":"旧体诗","year":"1931","context":"诗作回应外界对鲁迅疼爱幼子的议论，拒绝把亲情与公共担当对立起来，也拒绝以无情证明刚强。","keywords":["亲情","孩子","豪杰"],"sourceUrl":"https://www.marxists.org/chinese/reference-books/luxun/index.htm"},
+
+    {"id":"memory-01","category":"memory","text":"度尽劫波兄弟在，相逢一笑泯恩仇。","sourceTitle":"《题三义塔》","collection":"旧体诗","year":"1933","context":"诗为日本友人保存受战火波及的鸽子并建塔而作，以“兄弟”表达超越战争敌意的人间联结。","keywords":["友谊","战争","兄弟"],"sourceUrl":"https://www.marxists.org/chinese/reference-books/luxun/index.htm"},
+    {"id":"memory-02","category":"memory","text":"忍看朋辈成新鬼，怒向刀丛觅小诗。","sourceTitle":"《惯于长夜过春时》","collection":"旧体诗","year":"1931","context":"柔石等左翼作家遇害后，鲁迅以诗记录震悼与愤怒；“小诗”是在高压中保存记忆的方式。","keywords":["朋辈","纪念","愤怒"],"sourceUrl":"https://www.marxists.org/chinese/reference-books/luxun/index.htm"},
+    {"id":"memory-03","category":"memory","text":"我实在无话可说。我只觉得所住的并非人间。","sourceTitle":"《记念刘和珍君》","collection":"《华盖集续编》","year":"1926","context":"面对刘和珍等人的死亡与随后流言，失语不是冷漠，而是暴力超过日常语言承受范围后的起点。","keywords":["刘和珍","纪念","失语"],"sourceUrl":"https://www.marxists.org/chinese/reference-books/luxun/index.htm"},
+    {"id":"memory-04","category":"memory","text":"忘记我，管自己生活。倘不，那就真是糊涂虫。","sourceTitle":"《死》","collection":"《且介亭杂文末编》","year":"1936","context":"鲁迅在生命最后阶段写下带有遗嘱意味的文字，拒绝把纪念变成束缚生者的个人崇拜。","keywords":["死亡","遗忘","生活"],"sourceUrl":"https://www.marxists.org/chinese/reference-books/luxun/index.htm"}
+  ],
+  "references": [
+    {"title":"《鲁迅全集》：作品、日记、书信与诗作","publisher":"鲁迅著作原始文献汇编","url":"https://www.marxists.org/chinese/reference-books/luxun/index.htm"},
+    {"title":"《答北斗杂志社问》原文","publisher":"鲁迅图书馆","url":"https://luxunlib.com/story/%E4%BA%8C%E5%BF%83%E9%9B%86/%E7%AD%94%E5%8C%97%E6%96%97%E6%9D%82%E5%BF%97%E7%A4%BE%E9%97%AE/"},
+    {"title":"今天，重读鲁迅的儿童观","publisher":"中国作家网","url":"https://www.chinawriter.com.cn/n1/2018/0531/c404064-30025451.html"},
+    {"title":"重读《我们现在怎样做父亲》","publisher":"中国作家网","url":"https://www.chinawriter.com.cn/n1/2020/0630/c419384-31763816.html"}
+  ]
+}

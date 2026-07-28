@@ -1,0 +1,5 @@
+const test=require("node:test");const assert=require("node:assert/strict");const fs=require("node:fs");const path=require("node:path");const root=path.resolve(__dirname,"..");const html=fs.readFileSync(path.join(root,"quotes.html"),"utf8");const css=fs.readFileSync(path.join(root,"assets/css/quotes.css"),"utf8");const js=fs.readFileSync(path.join(root,"assets/js/quotes.js"),"utf8");
+test("经典语录页加载完整模块且无占位文案",()=>{assert.match(html,/assets\/css\/quotes\.css/);assert.match(html,/assets\/js\/quotes\.js/);assert.match(html,/id="quote-library"/);assert.match(html,/id="quotes-method"/);assert.doesNotMatch(html,/即将|后续将|敬请期待/);});
+test("页面提供七个筛选按钮、搜索、随机和复制功能",()=>{assert.equal((html.match(/data-quote-filter=/g)||[]).length,7);assert.match(html,/data-quote-search/);assert.match(html,/data-random-quote/);assert.match(js,/navigator\.clipboard\.writeText/);assert.match(js,/Math\.random/);});
+test("页面提供响应式和减少动画布局",()=>{assert.match(css,/@media\(max-width:600px\)/);assert.match(css,/prefers-reduced-motion/);});
+
