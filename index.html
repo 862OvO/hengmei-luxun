@@ -3,176 +3,360 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <meta
         name="description"
-        content="横眉·鲁迅文化数字展馆，综合展示鲁迅的生平、作品、思想与时代背景。"
+        content="横眉·鲁迅文化数字展馆——从生平、时代、文学、思想与历史影像出发，重新走近鲁迅。"
     >
+    <meta name="theme-color" content="#211d1a">
 
     <title>横眉·鲁迅文化数字展馆</title>
 
     <link rel="stylesheet" href="assets/css/reset.css">
     <link rel="stylesheet" href="assets/css/variables.css">
     <link rel="stylesheet" href="assets/css/common.css">
+    <link rel="stylesheet" href="assets/css/home.css">
     <link rel="icon" href="assets/images/favicon.svg" type="image/svg+xml">
 </head>
 
-<body>
+<body class="home-page">
+    <a class="skip-link" href="#main-content">跳到展览正文</a>
+
     <header class="site-header">
-    <div class="container header-inner">
-        <a class="brand" href="index.html">
-            <span class="brand-seal">横</span>
+        <div class="container header-inner">
+            <a class="brand" href="index.html" aria-label="横眉·鲁迅文化数字展馆首页">
+                <span class="brand-seal" aria-hidden="true">横</span>
+                <span class="brand-text">
+                    <strong>横眉</strong>
+                    <small>鲁迅文化数字展馆</small>
+                </span>
+            </a>
 
-            <span class="brand-text">
-                <strong>横眉</strong>
-                <small>鲁迅文化数字展馆</small>
-            </span>
+            <div class="header-tools">
+                <nav class="site-nav" aria-label="主要导航">
+                    <a class="nav-link active" href="index.html" aria-current="page">首页</a>
+                    <a class="nav-link" href="biography.html">鲁迅生平</a>
+                    <a class="nav-link" href="works.html">代表作品</a>
+                    <a class="nav-link" href="relations.html">人物关系</a>
+                    <a class="nav-link" href="quotes.html">经典语录</a>
+                    <a class="nav-link" href="history.html">时代背景</a>
+                    <a class="nav-link" href="articles.html">作品赏析</a>
+                    <a class="nav-link" href="gallery.html">历史影像</a>
+                </nav>
+
+                <div class="account-actions" data-auth-actions aria-live="polite">
+                    <a class="account-link" href="auth.html?returnTo=index.html">登录 / 注册</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <nav class="exhibit-progress" aria-label="首页展览章节">
+        <a href="#entrance" data-home-progress-link="entrance" aria-current="true">
+            <span>01</span><em>走近鲁迅</em>
         </a>
-
-        <div class="header-tools">
-    <nav class="site-nav" aria-label="主要导航">
-        <a class="nav-link active" href="index.html">
-            首页
+        <a href="#life-and-era" data-home-progress-link="life-and-era">
+            <span>02</span><em>生平与时代</em>
         </a>
-
-        <a class="nav-link" href="biography.html">
-            鲁迅生平
+        <a href="#literature" data-home-progress-link="literature">
+            <span>03</span><em>文学创作</em>
         </a>
-
-        <a class="nav-link" href="works.html">
-            代表作品
+        <a href="#spirit" data-home-progress-link="spirit">
+            <span>04</span><em>思想锋芒</em>
         </a>
-
-        <a class="nav-link" href="relations.html">
-            人物关系
+        <a href="#people-and-images" data-home-progress-link="people-and-images">
+            <span>05</span><em>人物与影像</em>
         </a>
-
-        <a class="nav-link" href="quotes.html">
-            经典语录
-        </a>
-
-        <a class="nav-link" href="history.html">
-            时代背景
-        </a>
-
-        <a class="nav-link" href="articles.html">
-            作品赏析
-        </a>
-
-        <a class="nav-link" href="gallery.html">
-            历史影像
+        <a href="#echo" data-home-progress-link="echo">
+            <span>06</span><em>今日回响</em>
         </a>
     </nav>
 
-    <div
-        class="account-actions"
-        data-auth-actions
-        aria-live="polite"
-    >
-        <a
-            class="account-link"
-            href="auth.html?returnTo=index.html"
-        >
-            登录 / 注册
-        </a>
-    </div>
-</div>
-    </div>
-</header>
-
-    <main>
-        <section class="hero">
-            <div class="container hero-grid">
-                <div class="hero-content">
-                    <span class="eyebrow">鲁迅文化数字展馆</span>
-
-                    <h1 class="hero-title">
-                        在文字与时代之间，<br>
-                        重新认识<span>鲁迅</span>
+    <main id="main-content">
+        <section class="home-hero" id="entrance" data-home-section aria-labelledby="home-title">
+            <div class="home-hero-grain" aria-hidden="true"></div>
+            <div class="container home-hero-grid">
+                <div class="home-hero-copy" data-reveal>
+                    <p class="home-overline"><span>LU XUN</span> 1881—1936</p>
+                    <h1 id="home-title">
+                        在文字与时代之间，
+                        <span>重新走近鲁迅</span>
                     </h1>
-
-                    <p class="hero-description">
-                        从生平轨迹、文学作品、人物关系与时代背景出发，
-                        构建一个兼具文化深度、现代交互与数字展示体验的鲁迅专题网站。
-                    </p>
-
-                    <div class="hero-actions">
-                        <a class="button button-primary" href="biography.html">
-                            进入展馆
+                    <blockquote>
+                        <p>“愿中国青年都摆脱冷气，只是向上走，不必听自暴自弃者流的话。”</p>
+                        <cite>——《随感录四十一》，1919年</cite>
+                    </blockquote>
+                    <div class="home-hero-actions">
+                        <a class="home-primary-action" href="#life-and-era">
+                            <span>开始参观</span>
+                            <b aria-hidden="true">↓</b>
                         </a>
-
-                        <a class="button button-secondary" href="#project-status">
-                            了解项目
-                        </a>
-						
-						<a
-    class="button button-secondary"
-    href="messages.html"
->
-    文化留言板
-</a>
+                        <a class="home-text-action" href="gallery.html">进入历史影像档案 →</a>
                     </div>
+                    <dl class="home-hero-facts" aria-label="展馆内容概览">
+                        <div><dt>生平跨度</dt><dd>55 年</dd></div>
+                        <div><dt>代表作品</dt><dd>6 部</dd></div>
+                        <div><dt>影像档案</dt><dd>18 份</dd></div>
+                    </dl>
                 </div>
 
-                <aside class="hero-card">
-                    <div class="hero-card-number">01</div>
-
-                    <h2>以数字方式重读经典</h2>
-
-                    <p>
-                        网站将陆续收录鲁迅生平、代表作品、经典语录、
-                        人物关系、时代背景、作品赏析与历史图片。
-                    </p>
-
-                    <div class="hero-card-meta">
-                        HTML · CSS · JavaScript · Supabase
+                <figure class="home-portrait" data-reveal>
+                    <div class="portrait-frame">
+                        <img
+                            src="assets/images/biography/09-lu-xun-1930.jpg"
+                            alt="1930年的鲁迅半身肖像"
+                            width="1920"
+                            height="2563"
+                            decoding="async"
+                            fetchpriority="high"
+                        >
+                        <span class="portrait-year" aria-hidden="true">1930</span>
                     </div>
-                </aside>
+                    <img
+                        class="portrait-signature"
+                        src="assets/images/gallery/17-luxun-signature.png"
+                        alt=""
+                        width="1200"
+                        height="748"
+                        aria-hidden="true"
+                    >
+                    <figcaption>
+                        鲁迅肖像，1930年，摄影者不详，公有领域。
+                        <a href="detail.html?type=gallery&amp;id=luxun-portrait-1930">查看档案</a>
+                    </figcaption>
+                </figure>
+            </div>
+            <a class="home-scroll-cue" href="#life-and-era" aria-label="继续浏览生平与时代">
+                <span>SCROLL TO EXPLORE</span><i aria-hidden="true"></i>
+            </a>
+        </section>
+
+        <section class="home-life" id="life-and-era" data-home-section aria-labelledby="life-era-title">
+            <div class="container home-section-grid">
+                <header class="home-section-intro" data-reveal>
+                    <span class="home-section-index">02</span>
+                    <p class="section-kicker">LIFE &amp; TIMES</p>
+                    <h2 id="life-era-title">一个人的道路，<br>也是一个时代的切面</h2>
+                    <p>从绍兴少年、留日学生到北京教育部佥事与上海作家，鲁迅的每次迁徙都与近代中国的变化交叠。</p>
+                    <div class="home-section-links">
+                        <a href="biography.html">阅读完整生平 →</a>
+                        <a href="history.html">进入时代背景 →</a>
+                    </div>
+                </header>
+
+                <div class="life-exhibit" data-reveal>
+                    <figure class="life-exhibit-main">
+                        <img
+                            src="assets/images/biography/03-young-lu-xun-1903.jpg"
+                            alt="1903年日本留学时期的青年鲁迅肖像"
+                            width="295"
+                            height="385"
+                            loading="lazy"
+                            decoding="async"
+                        >
+                        <figcaption>1903 · 东京留学时期</figcaption>
+                    </figure>
+                    <figure class="life-exhibit-secondary">
+                        <img
+                            src="assets/images/biography/07-shanghai-arrival-group-1927.jpg"
+                            alt="1927年鲁迅抵达上海后与友人的合影"
+                            width="300"
+                            height="225"
+                            loading="lazy"
+                            decoding="async"
+                        >
+                        <figcaption>1927 · 抵达上海</figcaption>
+                    </figure>
+                    <ol class="life-route" aria-label="鲁迅生平关键节点">
+                        <li><time datetime="1881">1881</time><span>绍兴出生</span></li>
+                        <li><time datetime="1902">1902</time><span>赴日求学</span></li>
+                        <li><time datetime="1918">1918</time><span>《狂人日记》发表</span></li>
+                        <li><time datetime="1927">1927</time><span>定居上海</span></li>
+                        <li><time datetime="1936">1936</time><span>生命终章</span></li>
+                    </ol>
+                </div>
             </div>
         </section>
 
-        <section class="project-status" id="project-status">
-            <div class="container status-inner">
-                <div>
-                    <span class="section-kicker">PROJECT STATUS</span>
-                    <h2>项目环境配置完成</h2>
+        <section class="home-literature" id="literature" data-home-section aria-labelledby="literature-title">
+            <div class="container">
+                <header class="home-wide-heading" data-reveal>
+                    <div>
+                        <span class="home-section-index">03</span>
+                        <p class="section-kicker">LITERATURE</p>
+                        <h2 id="literature-title">文字不是陈列品，<br>而是仍在发生的追问</h2>
+                    </div>
+                    <p>小说解剖沉默的社会结构，散文保存复杂的记忆，散文诗进入幽暗的精神内部。先从三部作品进入鲁迅的文学世界。</p>
+                </header>
+
+                <div class="work-exhibit" data-reveal>
+                    <a class="work-panel work-panel-featured" href="detail.html?type=works&amp;id=kuangren-riji">
+                        <figure>
+                            <img
+                                src="assets/images/works/kuangren-riji-cover.webp"
+                                alt="《狂人日记》本站原创封面"
+                                width="1086"
+                                height="1448"
+                                loading="lazy"
+                                decoding="async"
+                            >
+                        </figure>
+                        <span class="work-number">01</span>
+                        <div><small>小说 · 1918</small><h3>狂人日记</h3><p>从“吃人”的发现开始，重新审视习以为常的秩序。</p></div>
+                    </a>
+                    <a class="work-panel" href="detail.html?type=works&amp;id=aq-zhengzhuan">
+                        <figure>
+                            <img
+                                src="assets/images/works/a-q-zhengzhuan-cover.webp"
+                                alt="《阿Q正传》本站原创封面"
+                                width="1086"
+                                height="1448"
+                                loading="lazy"
+                                decoding="async"
+                            >
+                        </figure>
+                        <span class="work-number">02</span>
+                        <div><small>中篇小说 · 1921—1922</small><h3>阿Q正传</h3><p>在失败与自我安慰之间，观察国民性的复杂症候。</p></div>
+                    </a>
+                    <a class="work-panel" href="detail.html?type=works&amp;id=yecao">
+                        <figure>
+                            <img
+                                src="assets/images/works/yecao-cover.webp"
+                                alt="《野草》本站原创封面"
+                                width="1086"
+                                height="1448"
+                                loading="lazy"
+                                decoding="async"
+                            >
+                        </figure>
+                        <span class="work-number">03</span>
+                        <div><small>散文诗集 · 1927</small><h3>野草</h3><p>在黑暗、梦境与独白中，保存清醒而不屈的力量。</p></div>
+                    </a>
                 </div>
 
-                <div class="status-list">
-                    <article class="status-item">
-                        <strong>GitHub</strong>
-                        <span>代码仓库已经建立</span>
-                    </article>
+                <div class="home-centered-action" data-reveal>
+                    <a href="works.html">浏览六部代表作品</a>
+                    <a href="articles.html">阅读深度作品赏析</a>
+                </div>
+            </div>
+        </section>
 
-                    <article class="status-item">
-                        <strong>Supabase</strong>
-                        <span>云数据库项目已经建立</span>
-                    </article>
+        <section class="home-spirit" id="spirit" data-home-section aria-labelledby="spirit-title">
+            <div class="spirit-word" aria-hidden="true">锋</div>
+            <div class="container spirit-grid">
+                <header data-reveal>
+                    <span class="home-section-index">04</span>
+                    <p class="section-kicker">THOUGHT &amp; SPIRIT</p>
+                    <h2 id="spirit-title">不提供轻易的安慰，<br>但始终要求清醒</h2>
+                    <p>鲁迅的文字并非可以摘成单一口号。把语句放回文章、年代和论争现场，才能看见批判背后的责任与行动。</p>
+                    <a href="quotes.html">进入有出处的经典语录库 →</a>
+                </header>
 
-                    <article class="status-item">
-                        <strong>Vercel</strong>
-                        <span>网站已经成功公开部署</span>
+                <div class="spirit-quotes" data-reveal>
+                    <blockquote>
+                        <p>“无穷的远方，无数的人们，都和我有关。”</p>
+                        <cite>《这也是生活》，1936年</cite>
+                    </blockquote>
+                    <blockquote>
+                        <p>“其实地上本没有路，走的人多了，也便成了路。”</p>
+                        <cite>《故乡》，1921年</cite>
+                    </blockquote>
+                    <div class="spirit-principle">
+                        <span>阅读方法</span>
+                        <strong>核对原文</strong><i></i><strong>理解语境</strong><i></i><strong>拒绝误引</strong>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="home-archive" id="people-and-images" data-home-section aria-labelledby="archive-title">
+            <div class="container">
+                <header class="home-wide-heading archive-heading" data-reveal>
+                    <div>
+                        <span class="home-section-index">05</span>
+                        <p class="section-kicker">PEOPLE &amp; ARCHIVE</p>
+                        <h2 id="archive-title">人与影像，构成历史的另一种证词</h2>
+                    </div>
+                    <p>朋友、学生、家人和论争对象，使鲁迅不再只是孤立的文学肖像；照片、文献与生活空间则让时代拥有可以辨认的质地。</p>
+                </header>
+
+                <div class="archive-wall" data-reveal>
+                    <a class="archive-image archive-image-wide" href="detail.html?type=gallery&amp;id=luxun-study-1928">
+                        <img
+                            src="assets/images/gallery/13-luxun-study-1928.jpg"
+                            alt="1928年鲁迅在书桌前工作的影像"
+                            width="1183"
+                            height="662"
+                            loading="lazy"
+                            decoding="async"
+                        >
+                        <span><b>书桌前的鲁迅</b><small>上海 · 1928</small></span>
+                    </a>
+                    <a class="archive-image archive-image-tall" href="detail.html?type=gallery&amp;id=luxun-last-public-photo-1936">
+                        <img
+                            src="assets/images/gallery/15-luxun-last-photo-1936.jpg"
+                            alt="1936年鲁迅在全国木刻流动展览会上的影像"
+                            width="673"
+                            height="1024"
+                            loading="lazy"
+                            decoding="async"
+                        >
+                        <span><b>木刻展上的最后影像</b><small>上海 · 1936</small></span>
+                    </a>
+                    <article class="archive-context">
+                        <span>12</span>
+                        <h3>人物关系</h3>
+                        <p>从许寿裳、藤野严九郎到萧红与瞿秋白，沿着交往与事件理解鲁迅所处的文化网络。</p>
+                        <a href="relations.html">查看人物关系图谱 →</a>
                     </article>
+                    <article class="archive-context archive-context-dark">
+                        <span>18</span>
+                        <h3>影像档案</h3>
+                        <p>人物、地点与文献三类馆藏，逐项记录年代、来源、授权和关联阅读。</p>
+                        <a href="gallery.html">进入历史影像馆 →</a>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section class="home-echo" id="echo" data-home-section aria-labelledby="echo-title">
+            <div class="container echo-grid">
+                <header data-reveal>
+                    <span class="home-section-index">06</span>
+                    <p class="section-kicker">ECHOES TODAY</p>
+                    <h2 id="echo-title">阅读抵达今天，<br>也从今天重新出发</h2>
+                    <p>展览不是结论。访客留下的疑问、感受与回应，让历史文本继续进入当下生活。</p>
+                    <a class="home-primary-action echo-action" href="messages.html">
+                        <span>写下你的回响</span><b aria-hidden="true">→</b>
+                    </a>
+                </header>
+
+                <div class="echo-board" data-reveal>
+                    <div class="echo-board-heading">
+                        <span>访客留言选录</span>
+                        <small data-home-message-source>正在读取审核留言</small>
+                    </div>
+                    <div class="echo-messages" data-home-messages aria-live="polite">
+                        <article class="echo-message echo-message-placeholder">
+                            <p>“真正的阅读，不只是记住一句话，而是愿意回到它所面对的现实。”</p>
+                            <footer><span>展馆导语</span><time>今日</time></footer>
+                        </article>
+                    </div>
                 </div>
             </div>
         </section>
     </main>
 
-    <footer class="site-footer">
+    <footer class="site-footer home-footer">
         <div class="container">
-            <p>
-                © 2026 横眉·鲁迅文化数字展馆
-                ·《数据技术实训》课程大作业
-            </p>
+            <p>© 2026 横眉·鲁迅文化数字展馆</p>
+            <small>《数据技术实训》课程项目 · 史料来源与授权见各档案页面</small>
         </div>
     </footer>
-	<script
-    src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.110.7"
-></script>
 
-<script
-    type="module"
-    src="assets/js/auth-state.js"
-></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.110.7"></script>
+    <script type="module" src="assets/js/auth-state.js"></script>
+    <script type="module" src="assets/js/header-search.js"></script>
+    <script type="module" src="assets/js/footer-links.js"></script>
+    <script type="module" src="assets/js/home.js"></script>
 </body>
 </html>
