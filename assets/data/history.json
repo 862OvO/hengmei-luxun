@@ -1,0 +1,48 @@
+{
+  "events": [
+    {"id":"sino-japanese-war","year":"1894","dateLabel":"1894—1895","category":"crisis","title":"甲午战争与民族危机加深","summary":"战争失败与《马关条约》使晚清的制度困境集中暴露，变法、实业、教育与革命等救亡方案由此加速出现。","impact":"鲁迅此时仍在绍兴读书。此后他选择新式学堂、矿业、医学与文学，始终带着这一代青年共同面对的“国家如何自存”问题。","related":[{"label":"生平·家道变故","href":"biography.html#life-1893"}],"references":[1,2]},
+    {"id":"hundred-days-reform","year":"1898","dateLabel":"1898","category":"reform","title":"变法维新与新式学堂兴起","summary":"戊戌变法虽迅速失败，但兴学、译书和制度更新已成为公开议题，新知识开始突破科举教育的边界。","impact":"同年鲁迅进入南京新式学堂，接触矿物、地质、外语和进化论。个人离乡与国家教育转型在这里重合。","related":[{"label":"生平·南京求学","href":"biography.html#life-1898"}],"references":[1,3]},
+    {"id":"boxer-crisis","year":"1900","dateLabel":"1900—1901","category":"crisis","title":"庚子事变与晚清新政","summary":"义和团运动、八国联军侵华与《辛丑条约》进一步加重危机，清廷随后推行新政，教育与军事改革提速。","impact":"鲁迅在南京矿路学堂阅读新书。外部压迫与内部改革的张力，使“科学能否救国”成为他求学选择的重要背景。","related":[{"label":"生平·科学知识","href":"biography.html#life-1899"}],"references":[1,3]},
+    {"id":"abolition-exams","year":"1905","dateLabel":"1905","category":"reform","title":"科举停废与知识道路重组","summary":"延续千余年的科举取士停止，新式学校与留学成为知识青年更重要的上升渠道，也改变了传统士人的位置。","impact":"正在仙台学医的鲁迅已走出科举轨道。制度变化印证了他的“走异路”，却也让他更警惕换制度并不等于人的精神随即更新。","related":[{"label":"生平·仙台学医","href":"biography.html#life-1904"}],"references":[3,10]},
+    {"id":"revolution-1911","year":"1911","dateLabel":"1911","category":"reform","title":"辛亥革命推翻清朝统治","summary":"武昌起义引发全国响应，清帝退位，共和制度取代帝制；但权力结构和社会生活并未同时完成更新。","impact":"鲁迅在绍兴任教并亲历革命前后。他后来以《阿Q正传》《药》等作品审视革命口号与普通人生活之间的距离。","related":[{"label":"作品·阿Q正传","href":"detail.html?type=works&slug=aq-zhengzhuan"}],"references":[1,10]},
+    {"id":"republic-education","year":"1912","dateLabel":"1912","category":"reform","title":"民国建立与现代教育行政","summary":"南京临时政府成立后，教育、博物馆、图书馆等公共文化制度被重新规划；政局则很快转入北洋统治。","impact":"鲁迅进入教育部，参与社会教育、文物与图书工作。制度内部的经验，使他既理解文化建设的必要，也看到行政惯性。","related":[{"label":"生平·进入教育部","href":"biography.html#life-1912"}],"references":[1,10]},
+    {"id":"new-youth","year":"1915","dateLabel":"1915","category":"culture","title":"《新青年》与新文化运动","summary":"《青年杂志》创刊后更名《新青年》，围绕民主、科学、白话文、伦理与妇女问题展开持续讨论。","impact":"这一公共平台为沉默多年的鲁迅提供新的读者共同体。他并未简单接受乐观启蒙论，而是首先追问被唤醒者的孤独与困境。","related":[{"label":"人物·钱玄同","href":"relations.html#person-qian-xuantong"}],"references":[4,10]},
+    {"id":"madman-diary","year":"1918","dateLabel":"1918","category":"culture","title":"白话小说进入思想现场","summary":"《狂人日记》发表于《新青年》，以白话小说和“吃人”意象重新审视礼教、历史与个体处境。","impact":"“鲁迅”这一笔名由此进入公共文化空间。小说让文学革命不只讨论语言形式，也直接触及伦理结构与人的觉醒。","related":[{"label":"作品·狂人日记","href":"detail.html?type=works&slug=kuangren-riji"}],"references":[4,5]},
+    {"id":"may-fourth","year":"1919","dateLabel":"1919","category":"society","title":"五四运动与青年走向公共空间","summary":"学生运动由外交抗议扩展为广泛社会动员，新文化议题与政治、社会实践更紧密地结合。","impact":"鲁迅持续在刊物写作并在学校授课。他把希望寄于青年，同时反复提醒青年警惕空洞口号、权威压迫和新的思想束缚。","related":[{"label":"生平·公共写作","href":"biography.html#life-1918"}],"references":[1,4]},
+    {"id":"aq-serialization","year":"1921","dateLabel":"1921—1922","category":"culture","title":"现代小说与大众报刊扩展","summary":"报刊、副刊和新式出版网络使白话小说获得更广读者，《阿Q正传》在《晨报副刊》连载。","impact":"鲁迅借一个虚构人物观察革命记忆、乡村权力和自我安慰机制。连载形式也让严肃社会批评进入日常阅读。","related":[{"label":"作品·阿Q正传","href":"detail.html?type=works&slug=aq-zhengzhuan"}],"references":[9,10]},
+    {"id":"women-education","year":"1925","dateLabel":"1925","category":"society","title":"女师大风潮与青年教育冲突","summary":"女子教育发展带来新的主体意识，学校管理、学生自治与政治权力之间的冲突也日益尖锐。","impact":"鲁迅公开支持受压制学生，与教育当局论争并被免职。许广平等学生的行动使他的青年观从课堂走向现实共同承担。","related":[{"label":"人物·许广平","href":"relations.html#person-xu-guangping"}],"references":[6,10]},
+    {"id":"march-eighteenth","year":"1926","dateLabel":"1926.03.18","category":"society","title":"三一八惨案与公共记忆","summary":"北京爱国请愿群众遭到武力镇压，刘和珍、杨德群等学生遇难，知识界以悼文、报道和抗议保存记忆。","impact":"鲁迅写下《记念刘和珍君》等文章，拒绝让死亡被流言消解，并把记录本身视为对遗忘与强权的抵抗。","related":[{"label":"生平·离京南下","href":"biography.html#life-1925"}],"references":[6,10]},
+    {"id":"political-rupture-1927","year":"1927","dateLabel":"1927","category":"reform","title":"革命分裂与知识分子的再判断","summary":"国共合作破裂，清党与政治镇压扩大；广州、上海等城市的革命想象迅速转为流血现实。","impact":"广州学生被捕遇害使鲁迅辞去中山大学职务。他离开体制内教职，迁居上海，以独立写作和翻译重新定位文化行动。","related":[{"label":"生平·上海时期","href":"biography.html#life-1925"}],"references":[1,10]},
+    {"id":"left-wing-league","year":"1930","dateLabel":"1930","category":"culture","title":"左联成立与左翼文学组织化","summary":"中国左翼作家联盟在上海成立，文学论争、刊物出版、青年培养与反文化压制形成新的组织网络。","impact":"鲁迅参加成立大会并强调作家必须接触实际社会斗争；他既支持联合，也不断批评内部教条和宗派倾向。","related":[{"label":"人物·瞿秋白","href":"relations.html#person-qu-qiubai"}],"references":[7,10]},
+    {"id":"mukden-incident","year":"1931","dateLabel":"1931.09.18","category":"crisis","title":"九一八事变与东北沦陷","summary":"日本关东军发动九一八事变，侵占迅速扩大，民族生存危机压过文坛内部的许多旧议题。","impact":"鲁迅以杂文批评不抵抗、麻木与遗忘，也支持反映东北人民处境的青年写作者，使文学与救亡现实连接。","related":[{"label":"人物·萧红","href":"relations.html#person-xiao-hong"}],"references":[8,9]},
+    {"id":"shanghai-incident","year":"1932","dateLabel":"1932.01.28","category":"crisis","title":"一二八事变冲击上海","summary":"日军进攻上海，十九路军抵抗，闸北等地战火蔓延；现代都市的出版与日常生活被战争直接打断。","impact":"鲁迅一家短暂避难，亲眼看见城市在炮火中的分裂。他此后的写作把民族危机与租界生活、文化消费和现实逃避并置。","related":[{"label":"作品·故事新编","href":"detail.html?type=works&slug=gushi-xinbian"}],"references":[8,9]},
+    {"id":"publication-censorship","year":"1934","dateLabel":"1934","category":"culture","title":"书刊审查与文化空间收紧","summary":"图书杂志审查制度趋严，进步刊物频繁被禁，作者需要借笔名、改题与多种出版渠道维持表达。","impact":"鲁迅在删改、查禁和论争之间持续写杂文，并通过编辑、翻译与扶植青年扩展单篇文章之外的文化阵地。","related":[{"label":"人物·萧红","href":"relations.html#person-xiao-hong"}],"references":[7,10]},
+    {"id":"national-salvation-1936","year":"1936","dateLabel":"1935—1936","category":"society","title":"抗日救亡与文化界重新联合","summary":"华北危机加深，一二九运动推动救亡热潮，文化界围绕抗日联合与文艺方向重新讨论组织方式。","impact":"病中的鲁迅支持广泛的抗日联合，同时坚持作家保有批评能力。民族共同目标并未让他放弃对思想控制的警惕。","related":[{"label":"生平·最后十年","href":"biography.html#life-1925"}],"references":[8,9]}
+  ],
+  "themes": [
+    {"category":"crisis","kicker":"NATIONAL CRISIS","title":"战争怎样进入日常","image":"assets/images/biography/11-lu-xun-1933.jpg","imageAlt":"1933年的鲁迅肖像","body":"从甲午战争到上海炮火，外来侵略不是抽象背景：它改变迁徙、出版、城市空间与个人安全。鲁迅把救亡热情与对麻木、遗忘的批判同时保留。","highlights":["甲午战争后的救亡焦虑","九一八与一二八事变","文学对战争经验的记录"]},
+    {"category":"reform","kicker":"INSTITUTIONAL CHANGE","title":"帝制结束以后","image":"assets/images/biography/07-shanghai-arrival-group-1927.jpg","imageAlt":"1927年鲁迅抵达上海时期的合影","body":"科举停废、共和建立和教育行政更新改变了知识分子的职业道路，但旧权力关系仍会在新制度中延续。鲁迅的怀疑来自制度内部的长期观察。","highlights":["新式学堂取代科举道路","共和理想与现实落差","从教育部到独立写作"]},
+    {"category":"society","kicker":"SOCIETY & EDUCATION","title":"青年成为行动者","image":"assets/images/biography/06-beijing-working-desk.jpg","imageAlt":"北京鲁迅博物馆陈列的鲁迅工作书桌","body":"新学校、女性教育、学生社团和街头运动让青年进入公共空间。鲁迅支持青年反抗压迫，却拒绝把青年浪漫化为永远正确的符号。","highlights":["五四的社会动员","女师大风潮","三一八惨案的记忆"]},
+    {"category":"culture","kicker":"LITERATURE & MEDIA","title":"新的语言，收紧的文网","image":"assets/images/biography/09-lu-xun-1930.jpg","imageAlt":"1930年的鲁迅肖像","body":"白话文、现代报刊和新式出版创造新的表达空间；审查、查禁和阵营论争又不断压缩它。鲁迅以小说、杂文、翻译和编辑多线回应。","highlights":["《新青年》与文学革命","左翼文学的组织化","审查环境中的出版策略"]}
+  ],
+  "works": [
+    {"title":"《狂人日记》","slug":"kuangren-riji","year":"1918","context":"新文化运动把语言、伦理和人的觉醒推到公共讨论中心；小说以“吃人”重新解释历史。","eventIds":["new-youth","madman-diary"]},
+    {"title":"《阿Q正传》","slug":"aq-zhengzhuan","year":"1921—1922","context":"辛亥革命十年后，作品转向普通人的革命记忆，追问制度更替为何没有自动带来主体觉醒。","eventIds":["revolution-1911","aq-serialization"]},
+    {"title":"《故乡》","slug":"guxiang","year":"1921","context":"城乡分化、家族衰落与现代迁徙进入故乡叙事，旧日关系在经济压力中发生改变。","eventIds":["abolition-exams","aq-serialization"]},
+    {"title":"《祝福》","slug":"zhufu","year":"1924","context":"新文化话语已经兴起，乡土社会中的礼教、贫困与性别压迫却仍牢固存在。","eventIds":["new-youth","women-education"]},
+    {"title":"《朝花夕拾》","slug":"zhaohua-xishi","year":"1926—1927","context":"在政治冲突与南下迁徙中回望童年和求学，个人记忆成为检验教育与现代化承诺的尺度。","eventIds":["march-eighteenth","political-rupture-1927"]},
+    {"title":"《野草》","slug":"yecao","year":"1924—1927","context":"北洋时期的压抑、青年运动的牺牲与个人精神危机，共同构成散文诗幽暗而持续抗争的底色。","eventIds":["women-education","march-eighteenth"]}
+  ],
+  "references": [
+    {"id":1,"title":"复兴之路：探求救亡图存的道路","publisher":"中国国家博物馆","url":"https://m.chnmuseum.cn/portals/0/web/zt/fuxing/intro.html"},
+    {"id":2,"title":"沉重的书写：中国近代史上惊魂未定的一页","publisher":"全国哲学社会科学工作办公室","url":"https://www.nopss.gov.cn/n/2014/1105/c373410-25979242.html"},
+    {"id":3,"title":"科举停废与近代中国社会","publisher":"全国哲学社会科学工作办公室","url":"https://www.nopss.gov.cn/GB/230165/236301/16514199.html"},
+    {"id":4,"title":"北京大学与五四运动","publisher":"北京大学新闻网","url":"https://news.pku.edu.cn/2012zt/2012-05/14/content_241031.htm"},
+    {"id":5,"title":"1918年5月15日：鲁迅发表《狂人日记》","publisher":"北京大学新闻网","url":"https://news.pku.edu.cn/xwzh/129-114073.htm"},
+    {"id":6,"title":"北京女子高等师范学校旧址开放","publisher":"北京市人民政府","url":"https://www.beijing.gov.cn/renwen/whrl/rdtj/202107/t20210712_2434003.html"},
+    {"id":7,"title":"鲁迅与左联","publisher":"中国作家网","url":"https://www.chinawriter.com.cn/n1/2020/0313/c404064-31629923.html"},
+    {"id":8,"title":"抗战历史中的九一八事变","publisher":"中国国家博物馆","url":"https://www.chnmuseum.cn/zx/gbxw/202509/t20250918_272757.shtml"},
+    {"id":9,"title":"鲁迅的“抗战”","publisher":"中国作家网","url":"https://www.chinawriter.com.cn/news/2015/2015-09-02/252245.html"},
+    {"id":10,"title":"《鲁迅全集》：作品、日记与书信","publisher":"鲁迅著作原始文献汇编","url":"https://www.marxists.org/chinese/reference-books/luxun/index.htm"}
+  ]
+}
