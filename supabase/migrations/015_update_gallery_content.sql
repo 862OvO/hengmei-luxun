@@ -1,0 +1,932 @@
+begin;
+
+create temporary table gallery_payload on commit drop as
+select * from jsonb_to_recordset(
+$gallery_update$
+[
+  {
+    "content_type": "gallery",
+    "status": "published",
+    "metadata": {
+      "archive_id": "G01",
+      "display_date": "摄于2018年",
+      "timeline_label": "1881—1898",
+      "timeline_sort": 1881,
+      "era": "early",
+      "location": "浙江绍兴",
+      "category": "地点",
+      "subtype": "故居建筑",
+      "creator": "猫猫的日记本",
+      "source_name": "Wikimedia Commons",
+      "source_url": "https://commons.wikimedia.org/wiki/File:Former_Residence_of_Lu_Xun_in_Shaoxing_01_2018-09.jpg",
+      "source_title": "Former Residence of Lu Xun in Shaoxing 01 2018-09.jpg",
+      "license": "CC BY-SA 4.0",
+      "alt": "绍兴鲁迅故居新台门建筑外观",
+      "keywords": [
+        "绍兴",
+        "新台门",
+        "故居",
+        "童年"
+      ],
+      "image_type": "historical",
+      "image_caption": "新台门：鲁迅的绍兴故居",
+      "image_creator": "猫猫的日记本",
+      "image_date": "摄于2018年",
+      "image_source": "Wikimedia Commons",
+      "image_license": "CC BY-SA 4.0",
+      "related_links": [
+        {
+          "label": "阅读鲁迅生平：绍兴童年",
+          "url": "biography.html#life-1881"
+        },
+        {
+          "label": "阅读《朝花夕拾》作品档案",
+          "url": "detail.html?type=works&id=zhaohua-xishi"
+        }
+      ]
+    },
+    "slug": "shaoxing-former-residence",
+    "title": "新台门：鲁迅的绍兴故居",
+    "summary": "当代镜头记录新台门建筑群，影像对应鲁迅出生及少年生活的家庭空间。",
+    "body": "## 档案说明\n\n照片呈现绍兴鲁迅故居新台门建筑。建筑为后期保存与开放的文化遗址，不能把2018年的外观直接当作1881年的现场；本档案因此同时标注拍摄时间和它所关联的生平阶段。\n\n## 画面细读\n\n灰瓦、白墙、木构门窗与院落尺度保存了江南传统宅院的空间关系。画面价值不在制造“鲁迅童年原封不动”的错觉，而在帮助理解家族共同生活、家塾教育和院落日常发生的物质环境。\n\n## 历史坐标\n\n鲁迅1881年出生于绍兴新台门周家，1898年离乡赴南京求学。故居空间与百草园、三味书屋共同构成其早年记忆，后来以不同方式进入《朝花夕拾》等作品。\n\n## 来源与授权\n\n本图由猫猫的日记本创作或拍摄，本站取自 Wikimedia Commons 文件页，授权状态为“CC BY-SA 4.0”。页面保留原始黑白或既有色调，只做尺寸控制、格式兼容和响应式展示，不使用生成式修复、补画或人工上色。[1]\n\n## 关联阅读\n\n- 阅读鲁迅生平：绍兴童年\n- 阅读《朝花夕拾》作品档案\n\n## 参考资料\n\n[1] Wikimedia Commons：Former Residence of Lu Xun in Shaoxing 01 2018-09.jpg。https://commons.wikimedia.org/wiki/File:Former_Residence_of_Lu_Xun_in_Shaoxing_01_2018-09.jpg",
+    "image_path": "assets/images/biography/01-shaoxing-former-residence.jpg",
+    "sort_order": 10
+  },
+  {
+    "content_type": "gallery",
+    "status": "published",
+    "metadata": {
+      "archive_id": "G02",
+      "display_date": "摄于2022年",
+      "timeline_label": "1892",
+      "timeline_sort": 1892,
+      "era": "early",
+      "location": "浙江绍兴",
+      "category": "地点",
+      "subtype": "求学场所",
+      "creator": "Yiwen122",
+      "source_name": "Wikimedia Commons",
+      "source_url": "https://commons.wikimedia.org/wiki/File:Sanwei_Study_Room.jpg",
+      "source_title": "Sanwei Study Room.jpg",
+      "license": "CC BY-SA 4.0",
+      "alt": "绍兴三味书屋内部陈设",
+      "keywords": [
+        "三味书屋",
+        "绍兴",
+        "寿镜吾",
+        "教育"
+      ],
+      "image_type": "historical",
+      "image_caption": "三味书屋：旧式课堂空间",
+      "image_creator": "Yiwen122",
+      "image_date": "摄于2022年",
+      "image_source": "Wikimedia Commons",
+      "image_license": "CC BY-SA 4.0",
+      "related_links": [
+        {
+          "label": "阅读鲁迅生平：三味书屋",
+          "url": "biography.html#life-1892"
+        },
+        {
+          "label": "阅读《朝花夕拾》赏析",
+          "url": "detail.html?type=articles&id=zhaohua-xishi-jiyi-yupipan"
+        }
+      ]
+    },
+    "slug": "sanwei-study",
+    "title": "三味书屋：旧式课堂空间",
+    "summary": "三味书屋内部陈设影像，为理解鲁迅少年时期的读书环境提供空间参照。",
+    "body": "## 档案说明\n\n照片记录三味书屋保存展示状态，对应鲁迅约十二岁起在寿镜吾门下读书的空间。陈设经过维护与展示组织，档案不把每一件物件都断言为鲁迅当年使用的原物。\n\n## 画面细读\n\n狭长室内、成排桌椅与前方先生座位体现旧式私塾的秩序。空间并非文学文本的插图答案，却能帮助读者理解《从百草园到三味书屋》中课堂规矩、儿童活动与室外园景之间的距离。\n\n## 历史坐标\n\n鲁迅1892年进入三味书屋学习经史文章，同时保持对图画、杂书和自然事物的兴趣。成年回忆既批判僵化教育，也没有抹去寿镜吾这一具体人物的认真。\n\n## 来源与授权\n\n本图由Yiwen122创作或拍摄，本站取自 Wikimedia Commons 文件页，授权状态为“CC BY-SA 4.0”。页面保留原始黑白或既有色调，只做尺寸控制、格式兼容和响应式展示，不使用生成式修复、补画或人工上色。[1]\n\n## 关联阅读\n\n- 阅读鲁迅生平：三味书屋\n- 阅读《朝花夕拾》赏析\n\n## 参考资料\n\n[1] Wikimedia Commons：Sanwei Study Room.jpg。https://commons.wikimedia.org/wiki/File:Sanwei_Study_Room.jpg",
+    "image_path": "assets/images/biography/02-sanwei-study.jpg",
+    "sort_order": 20
+  },
+  {
+    "content_type": "gallery",
+    "status": "published",
+    "metadata": {
+      "archive_id": "G03",
+      "display_date": "1903年",
+      "timeline_label": "1903",
+      "timeline_sort": 1903,
+      "era": "early",
+      "location": "日本东京",
+      "category": "人物",
+      "subtype": "个人肖像",
+      "creator": "摄影者不详",
+      "source_name": "Wikimedia Commons",
+      "source_url": "https://commons.wikimedia.org/wiki/File:YoungLuXun.jpg",
+      "source_title": "YoungLuXun.jpg",
+      "license": "Public Domain",
+      "alt": "1903年日本留学时期青年鲁迅肖像",
+      "keywords": [
+        "青年鲁迅",
+        "东京",
+        "留学",
+        "断发"
+      ],
+      "image_type": "historical",
+      "image_caption": "断发后的青年鲁迅",
+      "image_creator": "摄影者不详",
+      "image_date": "1903年",
+      "image_source": "Wikimedia Commons",
+      "image_license": "Public Domain",
+      "related_links": [
+        {
+          "label": "阅读鲁迅生平：东京时期",
+          "url": "biography.html#life-1903"
+        },
+        {
+          "label": "查看人物关系：许寿裳等友人",
+          "url": "relations.html"
+        }
+      ]
+    },
+    "slug": "young-luxun-1903",
+    "title": "断发后的青年鲁迅",
+    "summary": "1903年日本留学时期肖像，记录二十二岁的周树人在思想转折期的自我形象。",
+    "body": "## 档案说明\n\n这幅青年肖像拍摄于日本留学时期，常与鲁迅剪辫及《自题小像》联系。照片所记录的是周树人尚未以“鲁迅”笔名进入文坛之前的形象。\n\n## 画面细读\n\n正面姿态、短发与制服式衣着共同形成留学生的现代自我呈现。读图时应避免仅凭服饰推断政治立场；照片更可靠地说明他主动选择了区别于清末传统士人形象的公开姿态。\n\n## 历史坐标\n\n1902年周树人赴日，1903年前后接触留学生社团、报刊与革命思潮。剪辫和题诗把个人形象与民族危机联系起来，但他此时尚在探索实业、医学与文艺等不同道路。\n\n## 来源与授权\n\n本图由摄影者不详创作或拍摄，本站取自 Wikimedia Commons 文件页，授权状态为“Public Domain”。页面保留原始黑白或既有色调，只做尺寸控制、格式兼容和响应式展示，不使用生成式修复、补画或人工上色。[1]\n\n## 关联阅读\n\n- 阅读鲁迅生平：东京时期\n- 查看人物关系：许寿裳等友人\n\n## 参考资料\n\n[1] Wikimedia Commons：YoungLuXun.jpg。https://commons.wikimedia.org/wiki/File:YoungLuXun.jpg",
+    "image_path": "assets/images/biography/03-young-lu-xun-1903.jpg",
+    "sort_order": 30
+  },
+  {
+    "content_type": "gallery",
+    "status": "published",
+    "metadata": {
+      "archive_id": "G04",
+      "display_date": "文献约1904—1906年；摄于2019年",
+      "timeline_label": "1904—1906",
+      "timeline_sort": 1904,
+      "era": "early",
+      "location": "日本仙台／北京馆藏",
+      "category": "文献",
+      "subtype": "求学档案",
+      "creator": "文献作者不详；照片：維基小霸王",
+      "source_name": "Wikimedia Commons",
+      "source_url": "https://commons.wikimedia.org/wiki/File:Lu_Xun%27s_marks_in_University_-_Beijing_Lu_Xun_Museum.jpg",
+      "source_title": "Lu Xun's marks in University - Beijing Lu Xun Museum.jpg",
+      "license": "CC BY-SA 4.0",
+      "alt": "北京鲁迅博物馆展示的鲁迅仙台求学成绩资料",
+      "keywords": [
+        "仙台",
+        "医学",
+        "成绩",
+        "求学档案"
+      ],
+      "image_type": "historical",
+      "image_caption": "仙台医专学业成绩档案",
+      "image_creator": "文献作者不详；照片：維基小霸王",
+      "image_date": "文献约1904—1906年；摄于2019年",
+      "image_source": "Wikimedia Commons",
+      "image_license": "CC BY-SA 4.0",
+      "related_links": [
+        {
+          "label": "阅读鲁迅生平：仙台学医",
+          "url": "biography.html#life-1904"
+        },
+        {
+          "label": "阅读《朝花夕拾》中的藤野先生",
+          "url": "detail.html?type=works&id=zhaohua-xishi"
+        }
+      ]
+    },
+    "slug": "sendai-marks",
+    "title": "仙台医专学业成绩档案",
+    "summary": "北京鲁迅博物馆陈列的求学成绩文献，提示鲁迅在仙台接受医学训练的具体课程背景。",
+    "body": "## 档案说明\n\n影像记录北京鲁迅博物馆展示的鲁迅求学成绩资料。它属于“文献的当代拍摄”，必须区分原始文献形成时间与照片拍摄时间，不能把展柜影像误作1900年代原照。\n\n## 画面细读\n\n表格、课程与分数把“弃医从文”之前的医学道路还原为具体学习过程。文献价值不在证明简单的优劣排名，而在显示鲁迅曾真实投入现代医学课程，转向文学不是从未开始医学。\n\n## 历史坐标\n\n鲁迅1904年进入仙台医学专门学校，学习解剖、细菌等课程，1906年离校。医学训练形成的观察与实证意识，后来仍影响其翻译、整理古籍和社会批评。\n\n## 来源与授权\n\n本图由文献作者不详；照片：維基小霸王创作或拍摄，本站取自 Wikimedia Commons 文件页，授权状态为“CC BY-SA 4.0”。页面保留原始黑白或既有色调，只做尺寸控制、格式兼容和响应式展示，不使用生成式修复、补画或人工上色。[1]\n\n## 关联阅读\n\n- 阅读鲁迅生平：仙台学医\n- 阅读《朝花夕拾》中的藤野先生\n\n## 参考资料\n\n[1] Wikimedia Commons：Lu Xun's marks in University - Beijing Lu Xun Museum.jpg。https://commons.wikimedia.org/wiki/File:Lu_Xun%27s_marks_in_University_-_Beijing_Lu_Xun_Museum.jpg",
+    "image_path": "assets/images/gallery/18-luxun-marks-sendai.jpg",
+    "sort_order": 40
+  },
+  {
+    "content_type": "gallery",
+    "status": "published",
+    "metadata": {
+      "archive_id": "G05",
+      "display_date": "摄于2018年",
+      "timeline_label": "1904—1906",
+      "timeline_sort": 1905,
+      "era": "early",
+      "location": "日本仙台",
+      "category": "地点",
+      "subtype": "遗址标记",
+      "creator": "藤谷良秀（Yoshihide Fujitani）",
+      "source_name": "Wikimedia Commons",
+      "source_url": "https://commons.wikimedia.org/wiki/File:LuXun_former_residence_monument.jpg",
+      "source_title": "LuXun former residence monument.jpg",
+      "license": "CC BY-SA 4.0",
+      "alt": "日本仙台鲁迅旧居遗址碑",
+      "keywords": [
+        "仙台",
+        "旧居",
+        "遗址",
+        "留学"
+      ],
+      "image_type": "historical",
+      "image_caption": "仙台旧居遗址碑",
+      "image_creator": "藤谷良秀（Yoshihide Fujitani）",
+      "image_date": "摄于2018年",
+      "image_source": "Wikimedia Commons",
+      "image_license": "CC BY-SA 4.0",
+      "related_links": [
+        {
+          "label": "阅读鲁迅生平：弃医从文",
+          "url": "biography.html#life-1906"
+        },
+        {
+          "label": "阅读《朝花夕拾》赏析",
+          "url": "detail.html?type=articles&id=zhaohua-xishi-jiyi-yupipan"
+        }
+      ]
+    },
+    "slug": "sendai-residence-monument",
+    "title": "仙台旧居遗址碑",
+    "summary": "当代遗址碑标记鲁迅留学仙台时的居住区域，连接已变化的城市空间与个人求学史。",
+    "body": "## 档案说明\n\n照片呈现仙台鲁迅旧居遗址碑，而非鲁迅在住时的建筑原貌。遗址标记说明城市空间已经变化，今天的纪念设施承担定位和公共记忆功能。\n\n## 画面细读\n\n石碑、文字与周边现代街景同时进入画面，让“历史地点”呈现为不同时代叠合的结果。碑文提供指向，但不能替代学校档案、回忆文本等史料。\n\n## 历史坐标\n\n鲁迅在仙台学习医学期间远离东京留学生群体，与藤野严九郎等师生交往。仙台经历后来在《藤野先生》和《〈呐喊〉自序》中被重新叙述。\n\n## 来源与授权\n\n本图由藤谷良秀（Yoshihide Fujitani）创作或拍摄，本站取自 Wikimedia Commons 文件页，授权状态为“CC BY-SA 4.0”。页面保留原始黑白或既有色调，只做尺寸控制、格式兼容和响应式展示，不使用生成式修复、补画或人工上色。[1]\n\n## 关联阅读\n\n- 阅读鲁迅生平：弃医从文\n- 阅读《朝花夕拾》赏析\n\n## 参考资料\n\n[1] Wikimedia Commons：LuXun former residence monument.jpg。https://commons.wikimedia.org/wiki/File:LuXun_former_residence_monument.jpg",
+    "image_path": "assets/images/biography/05-sendai-residence-monument.jpg",
+    "sort_order": 50
+  },
+  {
+    "content_type": "gallery",
+    "status": "published",
+    "metadata": {
+      "archive_id": "G06",
+      "display_date": "1909年",
+      "timeline_label": "1909",
+      "timeline_sort": 1909,
+      "era": "early",
+      "location": "日本东京",
+      "category": "人物",
+      "subtype": "友人合影",
+      "creator": "摄影者不详",
+      "source_name": "Wikimedia Commons",
+      "source_url": "https://commons.wikimedia.org/wiki/File:Lu_Xun_with_Xu_Shoushang_%26_Jiang_Yizhi_%40_Tokyo.jpg",
+      "source_title": "Lu Xun with Xu Shoushang & Jiang Yizhi @ Tokyo.jpg",
+      "license": "Public Domain",
+      "alt": "1909年鲁迅与许寿裳、蒋抑卮东京合影",
+      "keywords": [
+        "许寿裳",
+        "蒋抑卮",
+        "东京",
+        "友人"
+      ],
+      "image_type": "historical",
+      "image_caption": "东京时期三人合影",
+      "image_creator": "摄影者不详",
+      "image_date": "1909年",
+      "image_source": "Wikimedia Commons",
+      "image_license": "Public Domain",
+      "related_links": [
+        {
+          "label": "查看许寿裳人物档案",
+          "url": "relations.html"
+        },
+        {
+          "label": "阅读鲁迅生平：翻译与办刊",
+          "url": "biography.html#life-1909"
+        }
+      ]
+    },
+    "slug": "tokyo-friends-1909",
+    "title": "东京时期三人合影",
+    "summary": "1909年鲁迅与许寿裳、蒋抑卮合影，保存留学友人网络与归国前夕的共同记忆。",
+    "body": "## 档案说明\n\n照片记录鲁迅、许寿裳与蒋抑卮在东京的合影。人物身份已有 Commons 文件页和既有研究登记支持，摄影者未详，因此本站不补造摄影信息。\n\n## 画面细读\n\n三人并列的正式姿态呈现留学生社交网络。合影不能直接说明每段关系的全部内容，却证明个人思想转向发生在具体友人、办刊讨论与翻译合作构成的群体环境中。\n\n## 历史坐标\n\n鲁迅1906年离开仙台后回东京筹划文艺活动，拟办《新生》，并翻译域外小说。许寿裳是其长期友人，也为后来的鲁迅生平研究留下重要记录。\n\n## 来源与授权\n\n本图由摄影者不详创作或拍摄，本站取自 Wikimedia Commons 文件页，授权状态为“Public Domain”。页面保留原始黑白或既有色调，只做尺寸控制、格式兼容和响应式展示，不使用生成式修复、补画或人工上色。[1]\n\n## 关联阅读\n\n- 查看许寿裳人物档案\n- 阅读鲁迅生平：翻译与办刊\n\n## 参考资料\n\n[1] Wikimedia Commons：Lu Xun with Xu Shoushang & Jiang Yizhi @ Tokyo.jpg。https://commons.wikimedia.org/wiki/File:Lu_Xun_with_Xu_Shoushang_%26_Jiang_Yizhi_%40_Tokyo.jpg",
+    "image_path": "assets/images/biography/04-tokyo-friends-1909.jpg",
+    "sort_order": 60
+  },
+  {
+    "content_type": "gallery",
+    "status": "published",
+    "metadata": {
+      "archive_id": "G07",
+      "display_date": "1915年",
+      "timeline_label": "1915",
+      "timeline_sort": 1915,
+      "era": "beijing",
+      "location": "北京",
+      "category": "文献",
+      "subtype": "篆刻印章",
+      "creator": "陈师曾",
+      "source_name": "Wikimedia Commons",
+      "source_url": "https://commons.wikimedia.org/wiki/File:Lu_Xun_Seal-kuaiji.jpg",
+      "source_title": "Lu Xun Seal-kuaiji.jpg",
+      "license": "Public Domain",
+      "alt": "陈师曾为鲁迅刻制的周氏木石收藏印",
+      "keywords": [
+        "陈师曾",
+        "印章",
+        "金石",
+        "收藏",
+        "北京"
+      ],
+      "image_type": "historical",
+      "image_caption": "“周氏木石”收藏印",
+      "image_creator": "陈师曾",
+      "image_date": "1915年",
+      "image_source": "Wikimedia Commons",
+      "image_license": "Public Domain",
+      "related_links": [
+        {
+          "label": "阅读鲁迅生平：抄碑辑古",
+          "url": "biography.html#life-1917"
+        },
+        {
+          "label": "查看北京时期时代背景",
+          "url": "history.html"
+        }
+      ]
+    },
+    "slug": "luxun-seal-1915",
+    "title": "“周氏木石”收藏印",
+    "summary": "陈师曾1915年为鲁迅刻制的收藏印，连接其金石搜集、古籍整理与北京沉默期。",
+    "body": "## 档案说明\n\n影像呈现陈师曾为鲁迅制作的“周氏木石”收藏印。它不是鲁迅手写签名，而是与其金石、拓片和古籍收藏活动相关的物质文献。\n\n## 画面细读\n\n方寸印面以篆刻文字组织身份与收藏关系。“木石”指向鲁迅对画像石、碑拓等材料的兴趣，也提醒读者：新文学写作之外，他长期从事文献辑录和美术史料整理。\n\n## 历史坐标\n\n1912年起鲁迅在北京教育部任职，公务之外抄碑、校勘古籍、搜集拓片。这段常被描述为沉默的时期，实际包含持续的知识准备与传统资源重估。\n\n## 来源与授权\n\n本图由陈师曾创作或拍摄，本站取自 Wikimedia Commons 文件页，授权状态为“Public Domain”。页面保留原始黑白或既有色调，只做尺寸控制、格式兼容和响应式展示，不使用生成式修复、补画或人工上色。[1]\n\n## 关联阅读\n\n- 阅读鲁迅生平：抄碑辑古\n- 查看北京时期时代背景\n\n## 参考资料\n\n[1] Wikimedia Commons：Lu Xun Seal-kuaiji.jpg。https://commons.wikimedia.org/wiki/File:Lu_Xun_Seal-kuaiji.jpg",
+    "image_path": "assets/images/gallery/16-luxun-seal-1915.jpg",
+    "sort_order": 70
+  },
+  {
+    "content_type": "gallery",
+    "status": "published",
+    "metadata": {
+      "archive_id": "G08",
+      "display_date": "摄于2019年",
+      "timeline_label": "1912—1926",
+      "timeline_sort": 1918,
+      "era": "beijing",
+      "location": "北京鲁迅博物馆",
+      "category": "地点",
+      "subtype": "工作空间",
+      "creator": "維基小霸王",
+      "source_name": "Wikimedia Commons",
+      "source_url": "https://commons.wikimedia.org/wiki/File:Beijing_Lu_Xun_Museum_-_Lu_Xun_working_desk.jpg",
+      "source_title": "Beijing Lu Xun Museum - Lu Xun working desk.jpg",
+      "license": "CC BY-SA 4.0",
+      "alt": "北京鲁迅博物馆陈列的鲁迅工作书桌",
+      "keywords": [
+        "北京",
+        "书桌",
+        "博物馆",
+        "写作"
+      ],
+      "image_type": "historical",
+      "image_caption": "北京鲁迅博物馆工作书桌",
+      "image_creator": "維基小霸王",
+      "image_date": "摄于2019年",
+      "image_source": "Wikimedia Commons",
+      "image_license": "CC BY-SA 4.0",
+      "related_links": [
+        {
+          "label": "阅读鲁迅生平：鲁迅笔名出现",
+          "url": "biography.html#life-1918"
+        },
+        {
+          "label": "阅读《狂人日记》作品档案",
+          "url": "detail.html?type=works&id=kuangren-riji"
+        }
+      ]
+    },
+    "slug": "beijing-working-desk",
+    "title": "北京鲁迅博物馆工作书桌",
+    "summary": "当代馆藏陈列记录鲁迅北京时期使用空间的物质线索，连接公务、辑古与新文学写作。",
+    "body": "## 档案说明\n\n照片记录北京鲁迅博物馆陈列的工作书桌。它属于馆藏环境影像，能够呈现物件与空间关系，但展陈布局不应被误认为鲁迅使用时原封不动的现场。\n\n## 画面细读\n\n桌面、文具与周围陈设把抽象的“写作”还原为长期伏案劳动。影像也提示鲁迅的北京生活同时包括教育部公务、古籍整理、教学、编辑与创作。\n\n## 历史坐标\n\n1918年鲁迅以这一笔名发表《狂人日记》，此后进入新文学公共现场。北京时期是他由公务员、文献研究者转为作家与公共知识分子的关键阶段。\n\n## 来源与授权\n\n本图由維基小霸王创作或拍摄，本站取自 Wikimedia Commons 文件页，授权状态为“CC BY-SA 4.0”。页面保留原始黑白或既有色调，只做尺寸控制、格式兼容和响应式展示，不使用生成式修复、补画或人工上色。[1]\n\n## 关联阅读\n\n- 阅读鲁迅生平：鲁迅笔名出现\n- 阅读《狂人日记》作品档案\n\n## 参考资料\n\n[1] Wikimedia Commons：Beijing Lu Xun Museum - Lu Xun working desk.jpg。https://commons.wikimedia.org/wiki/File:Beijing_Lu_Xun_Museum_-_Lu_Xun_working_desk.jpg",
+    "image_path": "assets/images/biography/06-beijing-working-desk.jpg",
+    "sort_order": 80
+  },
+  {
+    "content_type": "gallery",
+    "status": "published",
+    "metadata": {
+      "archive_id": "G09",
+      "display_date": "1927年10月4日",
+      "timeline_label": "1927",
+      "timeline_sort": 1927,
+      "era": "shanghai",
+      "location": "上海",
+      "category": "人物",
+      "subtype": "友人合影",
+      "creator": "摄影者不详",
+      "source_name": "Wikimedia Commons",
+      "source_url": "https://commons.wikimedia.org/wiki/File:Xu_Guangping,_Lu_Xun_and_others.jpg",
+      "source_title": "Xu Guangping, Lu Xun and others.jpg",
+      "license": "Public Domain",
+      "alt": "1927年鲁迅与许广平等人在上海合影",
+      "keywords": [
+        "上海",
+        "许广平",
+        "合影",
+        "1927"
+      ],
+      "image_type": "historical",
+      "image_caption": "初到上海后的合影",
+      "image_creator": "摄影者不详",
+      "image_date": "1927年10月4日",
+      "image_source": "Wikimedia Commons",
+      "image_license": "Public Domain",
+      "related_links": [
+        {
+          "label": "阅读鲁迅生平：南下与上海",
+          "url": "biography.html#life-1927"
+        },
+        {
+          "label": "查看许广平人物档案",
+          "url": "relations.html"
+        }
+      ]
+    },
+    "slug": "shanghai-arrival-group-1927",
+    "title": "初到上海后的合影",
+    "summary": "1927年10月鲁迅、许广平等人的合影，记录其离开体制内教职后的生活转折。",
+    "body": "## 档案说明\n\n这张合影拍摄于1927年10月4日，鲁迅与许广平等人已经抵达上海。文件页能够确认主要人物和日期，但对其他人物身份应以进一步研究为准。\n\n## 画面细读\n\n多人并坐的生活化画面与后来定型的个人肖像不同。它把“到上海”呈现为一个由亲密关系和友人网络共同支撑的转折，而非孤立作家的单人迁徙。\n\n## 历史坐标\n\n经历厦门、广州任教及政治清洗后，鲁迅1927年秋定居上海，逐步成为依靠稿酬和版税生活的自由撰稿人，并与许广平建立家庭生活。\n\n## 来源与授权\n\n本图由摄影者不详创作或拍摄，本站取自 Wikimedia Commons 文件页，授权状态为“Public Domain”。页面保留原始黑白或既有色调，只做尺寸控制、格式兼容和响应式展示，不使用生成式修复、补画或人工上色。[1]\n\n## 关联阅读\n\n- 阅读鲁迅生平：南下与上海\n- 查看许广平人物档案\n\n## 参考资料\n\n[1] Wikimedia Commons：Xu Guangping, Lu Xun and others.jpg。https://commons.wikimedia.org/wiki/File:Xu_Guangping,_Lu_Xun_and_others.jpg",
+    "image_path": "assets/images/biography/07-shanghai-arrival-group-1927.jpg",
+    "sort_order": 90
+  },
+  {
+    "content_type": "gallery",
+    "status": "published",
+    "metadata": {
+      "archive_id": "G10",
+      "display_date": "1928年4月30日",
+      "timeline_label": "1928",
+      "timeline_sort": 1928,
+      "era": "shanghai",
+      "location": "上海",
+      "category": "人物",
+      "subtype": "环境肖像",
+      "creator": "梁得所",
+      "source_name": "Wikimedia Commons",
+      "source_url": "https://commons.wikimedia.org/wiki/File:Lu_Xun_in_his_study_by_Liang_Desuo,_Liangyou,_1928-04-30.jpg",
+      "source_title": "Lu Xun in his study by Liang Desuo, Liangyou, 1928-04-30.jpg",
+      "license": "Public Domain",
+      "alt": "1928年梁得所拍摄的鲁迅书房环境肖像",
+      "keywords": [
+        "梁得所",
+        "良友",
+        "书房",
+        "上海",
+        "写作"
+      ],
+      "image_type": "historical",
+      "image_caption": "书房中的鲁迅",
+      "image_creator": "梁得所",
+      "image_date": "1928年4月30日",
+      "image_source": "Wikimedia Commons",
+      "image_license": "Public Domain",
+      "related_links": [
+        {
+          "label": "阅读鲁迅生平：上海十年",
+          "url": "biography.html#life-1927"
+        },
+        {
+          "label": "阅读作品赏析",
+          "url": "articles.html"
+        }
+      ]
+    },
+    "slug": "luxun-study-1928",
+    "title": "书房中的鲁迅",
+    "summary": "梁得所1928年为《良友》拍摄的书房影像，将作家肖像与具体阅读、写作空间并置。",
+    "body": "## 档案说明\n\n照片由梁得所拍摄并刊载于《良友》相关视觉记录，画面把人物与书房环境同时纳入。相比裁切后的头像，它保留了更多工作空间信息。\n\n## 画面细读\n\n人物、书架和桌面共同组织画面，强调写作与阅读的日常性。环境肖像也具有编辑和传播意图，不能把精心安排的构图误当成完全未经组织的私人瞬间。\n\n## 历史坐标\n\n1928年的鲁迅已在上海展开独立写作、翻译和编辑工作，也持续参与版画介绍与青年文艺活动。书房是私人生活空间，也是文化生产网络的节点。\n\n## 来源与授权\n\n本图由梁得所创作或拍摄，本站取自 Wikimedia Commons 文件页，授权状态为“Public Domain”。页面保留原始黑白或既有色调，只做尺寸控制、格式兼容和响应式展示，不使用生成式修复、补画或人工上色。[1]\n\n## 关联阅读\n\n- 阅读鲁迅生平：上海十年\n- 阅读作品赏析\n\n## 参考资料\n\n[1] Wikimedia Commons：Lu Xun in his study by Liang Desuo, Liangyou, 1928-04-30.jpg。https://commons.wikimedia.org/wiki/File:Lu_Xun_in_his_study_by_Liang_Desuo,_Liangyou,_1928-04-30.jpg",
+    "image_path": "assets/images/gallery/13-luxun-study-1928.jpg",
+    "sort_order": 100
+  },
+  {
+    "content_type": "gallery",
+    "status": "published",
+    "metadata": {
+      "archive_id": "G11",
+      "display_date": "1928年3月16日",
+      "timeline_label": "1928",
+      "timeline_sort": 1928.1,
+      "era": "shanghai",
+      "location": "上海景云里",
+      "category": "人物",
+      "subtype": "个人肖像",
+      "creator": "摄影者不详",
+      "source_name": "Wikimedia Commons",
+      "source_url": "https://commons.wikimedia.org/wiki/File:Lu_Xun3.jpg",
+      "source_title": "Lu Xun3.jpg",
+      "license": "Public Domain",
+      "alt": "1928年鲁迅在上海景云里寓所肖像",
+      "keywords": [
+        "景云里",
+        "上海",
+        "肖像",
+        "1928"
+      ],
+      "image_type": "historical",
+      "image_caption": "景云里寓所肖像",
+      "image_creator": "摄影者不详",
+      "image_date": "1928年3月16日",
+      "image_source": "Wikimedia Commons",
+      "image_license": "Public Domain",
+      "related_links": [
+        {
+          "label": "阅读鲁迅生平：上海定居",
+          "url": "biography.html#life-1927"
+        },
+        {
+          "label": "浏览鲁迅经典语录",
+          "url": "quotes.html"
+        }
+      ]
+    },
+    "slug": "luxun-jingyunli-1928",
+    "title": "景云里寓所肖像",
+    "summary": "1928年3月16日上海景云里寓所肖像，记录鲁迅定居上海初期的个人形象。",
+    "body": "## 档案说明\n\n照片拍摄于上海景云里寓所，人物、日期和地点均有 Commons 文件页信息支持。摄影者未详，本站保持这一不确定状态。\n\n## 画面细读\n\n正面近景突出短发、胡须和直视镜头的目光，是公众熟悉的鲁迅形象之一。经典化肖像容易让人物显得始终固定，档案说明则把它重新放回1928年的具体生活阶段。\n\n## 历史坐标\n\n鲁迅1927年定居上海后先后居住于景云里等处，继续写作杂文、翻译和编辑。此时他与许广平共同生活，也在新的城市文化网络中建立位置。\n\n## 来源与授权\n\n本图由摄影者不详创作或拍摄，本站取自 Wikimedia Commons 文件页，授权状态为“Public Domain”。页面保留原始黑白或既有色调，只做尺寸控制、格式兼容和响应式展示，不使用生成式修复、补画或人工上色。[1]\n\n## 关联阅读\n\n- 阅读鲁迅生平：上海定居\n- 浏览鲁迅经典语录\n\n## 参考资料\n\n[1] Wikimedia Commons：Lu Xun3.jpg。https://commons.wikimedia.org/wiki/File:Lu_Xun3.jpg",
+    "image_path": "assets/images/biography/08-lu-xun-shanghai-1928.jpg",
+    "sort_order": 110
+  },
+  {
+    "content_type": "gallery",
+    "status": "published",
+    "metadata": {
+      "archive_id": "G12",
+      "display_date": "1930年",
+      "timeline_label": "1930",
+      "timeline_sort": 1930,
+      "era": "shanghai",
+      "location": "上海",
+      "category": "人物",
+      "subtype": "个人肖像",
+      "creator": "摄影者不详",
+      "source_name": "Wikimedia Commons",
+      "source_url": "https://commons.wikimedia.org/wiki/File:LuXun1930.jpg",
+      "source_title": "LuXun1930.jpg",
+      "license": "Public Domain",
+      "alt": "1930年鲁迅正面肖像",
+      "keywords": [
+        "鲁迅",
+        "肖像",
+        "1930",
+        "上海"
+      ],
+      "image_type": "historical",
+      "image_caption": "五十岁前后的鲁迅肖像",
+      "image_creator": "摄影者不详",
+      "image_date": "1930年",
+      "image_source": "Wikimedia Commons",
+      "image_license": "Public Domain",
+      "related_links": [
+        {
+          "label": "阅读鲁迅生平：上海文化实践",
+          "url": "biography.html#life-1927"
+        },
+        {
+          "label": "查看经典语录",
+          "url": "quotes.html"
+        }
+      ]
+    },
+    "slug": "luxun-portrait-1930",
+    "title": "五十岁前后的鲁迅肖像",
+    "summary": "1930年个人肖像以克制的正面构图呈现鲁迅，成为后来广泛传播的视觉形象。",
+    "body": "## 档案说明\n\n这幅1930年肖像已进入公共领域。照片后来被反复裁切、印刷和再创作，本站使用 Commons 版本并保留原始文件页，避免把流传版本当作无来源图像。\n\n## 画面细读\n\n深色衣着、正面目光和简洁背景把注意力集中于面部。今天熟悉的“鲁迅形象”并非自然生成，而是在照片选择、出版复制与公共纪念中逐渐定型。\n\n## 历史坐标\n\n1930年前后鲁迅在上海持续写作、翻译与编辑，并参与左翼文化活动。个人肖像的广泛传播与其公共知识分子身份同步形成。\n\n## 来源与授权\n\n本图由摄影者不详创作或拍摄，本站取自 Wikimedia Commons 文件页，授权状态为“Public Domain”。页面保留原始黑白或既有色调，只做尺寸控制、格式兼容和响应式展示，不使用生成式修复、补画或人工上色。[1]\n\n## 关联阅读\n\n- 阅读鲁迅生平：上海文化实践\n- 查看经典语录\n\n## 参考资料\n\n[1] Wikimedia Commons：LuXun1930.jpg。https://commons.wikimedia.org/wiki/File:LuXun1930.jpg",
+    "image_path": "assets/images/biography/09-lu-xun-1930.jpg",
+    "sort_order": 120
+  },
+  {
+    "content_type": "gallery",
+    "status": "published",
+    "metadata": {
+      "archive_id": "G13",
+      "display_date": "1930年9月25日",
+      "timeline_label": "1930",
+      "timeline_sort": 1930.2,
+      "era": "shanghai",
+      "location": "上海春阳照相馆",
+      "category": "人物",
+      "subtype": "家庭合影",
+      "creator": "摄影者不详",
+      "source_name": "Wikimedia Commons",
+      "source_url": "https://commons.wikimedia.org/wiki/File:Lu_Xun_and_Zhou_Haiying.jpg",
+      "source_title": "Lu Xun and Zhou Haiying.jpg",
+      "license": "Public Domain",
+      "alt": "1930年鲁迅与一岁的周海婴合影",
+      "keywords": [
+        "周海婴",
+        "父子",
+        "家庭",
+        "春阳照相馆"
+      ],
+      "image_type": "historical",
+      "image_caption": "鲁迅与一岁的周海婴",
+      "image_creator": "摄影者不详",
+      "image_date": "1930年9月25日",
+      "image_source": "Wikimedia Commons",
+      "image_license": "Public Domain",
+      "related_links": [
+        {
+          "label": "阅读人物关系：周海婴",
+          "url": "relations.html"
+        },
+        {
+          "label": "筛选教育与儿童语录",
+          "url": "quotes.html"
+        }
+      ]
+    },
+    "slug": "luxun-haiying-1930",
+    "title": "鲁迅与一岁的周海婴",
+    "summary": "1930年9月25日父子合影，以明确题记保存家庭生活中的年龄与时间信息。",
+    "body": "## 档案说明\n\nCommons 文件页记录题记“海婴与鲁迅，一岁与五十”及拍摄日期、照相馆信息。年龄采用当时习惯表述，档案以准确日期为主要时间坐标。\n\n## 画面细读\n\n父亲与幼儿的身体尺度和姿态形成与公共肖像不同的亲密画面。它不应被用来概括全部家庭关系，却为理解鲁迅晚年日常与儿童问题的关注提供具体视觉材料。\n\n## 历史坐标\n\n周海婴1929年出生。鲁迅在杂文、通信和家庭生活中持续思考儿童成长、父母责任及教育方式，反对以长者权威压制下一代。\n\n## 来源与授权\n\n本图由摄影者不详创作或拍摄，本站取自 Wikimedia Commons 文件页，授权状态为“Public Domain”。页面保留原始黑白或既有色调，只做尺寸控制、格式兼容和响应式展示，不使用生成式修复、补画或人工上色。[1]\n\n## 关联阅读\n\n- 阅读人物关系：周海婴\n- 筛选教育与儿童语录\n\n## 参考资料\n\n[1] Wikimedia Commons：Lu Xun and Zhou Haiying.jpg。https://commons.wikimedia.org/wiki/File:Lu_Xun_and_Zhou_Haiying.jpg",
+    "image_path": "assets/images/gallery/14-luxun-haiying-1930.jpg",
+    "sort_order": 130
+  },
+  {
+    "content_type": "gallery",
+    "status": "published",
+    "metadata": {
+      "archive_id": "G14",
+      "display_date": "20世纪30年代初",
+      "timeline_label": "1930年代初",
+      "timeline_sort": 1931,
+      "era": "shanghai",
+      "location": "上海",
+      "category": "人物",
+      "subtype": "家庭合影",
+      "creator": "摄影者不详",
+      "source_name": "Wikimedia Commons",
+      "source_url": "https://commons.wikimedia.org/wiki/File:Lu_Xun_1_with_Xu_Guanping_and_Haiying.jpg",
+      "source_title": "Lu Xun 1 with Xu Guanping and Haiying.jpg",
+      "license": "Public Domain",
+      "alt": "鲁迅、许广平与周海婴家庭合影",
+      "keywords": [
+        "许广平",
+        "周海婴",
+        "家庭",
+        "上海"
+      ],
+      "image_type": "historical",
+      "image_caption": "鲁迅、许广平与周海婴",
+      "image_creator": "摄影者不详",
+      "image_date": "20世纪30年代初",
+      "image_source": "Wikimedia Commons",
+      "image_license": "Public Domain",
+      "related_links": [
+        {
+          "label": "查看许广平人物档案",
+          "url": "relations.html"
+        },
+        {
+          "label": "阅读鲁迅生平：上海十年",
+          "url": "biography.html#life-1927"
+        }
+      ]
+    },
+    "slug": "luxun-family",
+    "title": "鲁迅、许广平与周海婴",
+    "summary": "二十世纪三十年代初家庭合影，呈现鲁迅上海生活中写作之外的亲密关系。",
+    "body": "## 档案说明\n\n照片中的鲁迅、许广平与周海婴身份明确，拍摄者和准确日期未详。本站采用“二十世纪三十年代初”的范围表述，不为影像补造具体年月。\n\n## 画面细读\n\n三人合影让公共写作者回到家庭关系中。观看时既不能把家庭照片浪漫化为全部生活，也不应因其私密性忽略许广平在写作支持、资料保存和鲁迅身后整理中的作用。\n\n## 历史坐标\n\n上海时期，许广平与鲁迅共同生活并参与其通信、出版和社会交往；周海婴的出生使家庭和儿童教育成为更直接的日常经验。\n\n## 来源与授权\n\n本图由摄影者不详创作或拍摄，本站取自 Wikimedia Commons 文件页，授权状态为“Public Domain”。页面保留原始黑白或既有色调，只做尺寸控制、格式兼容和响应式展示，不使用生成式修复、补画或人工上色。[1]\n\n## 关联阅读\n\n- 查看许广平人物档案\n- 阅读鲁迅生平：上海十年\n\n## 参考资料\n\n[1] Wikimedia Commons：Lu Xun 1 with Xu Guanping and Haiying.jpg。https://commons.wikimedia.org/wiki/File:Lu_Xun_1_with_Xu_Guanping_and_Haiying.jpg",
+    "image_path": "assets/images/biography/10-lu-xun-family.jpg",
+    "sort_order": 140
+  },
+  {
+    "content_type": "gallery",
+    "status": "published",
+    "metadata": {
+      "archive_id": "G15",
+      "display_date": "原签名1930年；矢量化2015年",
+      "timeline_label": "1930",
+      "timeline_sort": 1931.1,
+      "era": "shanghai",
+      "location": "上海／数字转绘",
+      "category": "文献",
+      "subtype": "签名",
+      "creator": "原签名：鲁迅；矢量转绘：逾刃",
+      "source_name": "Wikimedia Commons",
+      "source_url": "https://commons.wikimedia.org/wiki/File:Lu_Xun%27s_Signature.svg",
+      "source_title": "Lu Xun's Signature.svg",
+      "license": "Public Domain",
+      "alt": "鲁迅签名二字的公共领域矢量图",
+      "keywords": [
+        "签名",
+        "鲁迅",
+        "手迹",
+        "矢量"
+      ],
+      "image_type": "historical",
+      "image_caption": "鲁迅签名的矢量留存",
+      "image_creator": "原签名：鲁迅；矢量转绘：逾刃",
+      "image_date": "原签名1930年；矢量化2015年",
+      "image_source": "Wikimedia Commons",
+      "image_license": "Public Domain",
+      "related_links": [
+        {
+          "label": "阅读鲁迅生平：笔名出现",
+          "url": "biography.html#life-1918"
+        },
+        {
+          "label": "阅读《狂人日记》赏析",
+          "url": "detail.html?type=articles&id=kuangren-riji-lijiao-pipan"
+        }
+      ]
+    },
+    "slug": "luxun-signature",
+    "title": "鲁迅签名的矢量留存",
+    "summary": "由1930年签名照片转绘的公共领域矢量图，展示“鲁迅”二字的书写形态及数字再制边界。",
+    "body": "## 档案说明\n\n图像根据一张带有1930年9月24日上海题记的鲁迅签名照片转为 SVG。它保存签名字形，不能替代包含纸张、墨迹和题记的原始文献照片。\n\n## 画面细读\n\n笔画连接、速度和重心呈现署名的个人书写特征。矢量化使图形易于缩放，也会去除纸张质感和墨迹细节，因此档案明确区分“原签名”与“数字转绘”。\n\n## 历史坐标\n\n“鲁迅”最初作为1918年《狂人日记》的署名，后来成为周树人最广为人知的公共身份。签名既是个人手迹，也参与作者形象的传播。\n\n## 来源与授权\n\n本图由原签名：鲁迅；矢量转绘：逾刃创作或拍摄，本站取自 Wikimedia Commons 文件页，授权状态为“Public Domain”。页面保留原始黑白或既有色调，只做尺寸控制、格式兼容和响应式展示，不使用生成式修复、补画或人工上色。[1]\n\n## 关联阅读\n\n- 阅读鲁迅生平：笔名出现\n- 阅读《狂人日记》赏析\n\n## 参考资料\n\n[1] Wikimedia Commons：Lu Xun's Signature.svg。https://commons.wikimedia.org/wiki/File:Lu_Xun%27s_Signature.svg",
+    "image_path": "assets/images/gallery/17-luxun-signature.png",
+    "sort_order": 150
+  },
+  {
+    "content_type": "gallery",
+    "status": "published",
+    "metadata": {
+      "archive_id": "G16",
+      "display_date": "1933年5月1日",
+      "timeline_label": "1933",
+      "timeline_sort": 1933,
+      "era": "shanghai",
+      "location": "上海春阳照相馆",
+      "category": "人物",
+      "subtype": "个人肖像",
+      "creator": "春阳照相馆",
+      "source_name": "Wikimedia Commons",
+      "source_url": "https://commons.wikimedia.org/wiki/File:LuXun2.jpg",
+      "source_title": "LuXun2.jpg",
+      "license": "Public Domain",
+      "alt": "1933年5月1日鲁迅上海肖像",
+      "keywords": [
+        "1933",
+        "上海",
+        "春阳照相馆",
+        "肖像"
+      ],
+      "image_type": "historical",
+      "image_caption": "1933年上海肖像",
+      "image_creator": "春阳照相馆",
+      "image_date": "1933年5月1日",
+      "image_source": "Wikimedia Commons",
+      "image_license": "Public Domain",
+      "related_links": [
+        {
+          "label": "阅读鲁迅生平：大陆新村",
+          "url": "biography.html#life-1927"
+        },
+        {
+          "label": "浏览作品赏析",
+          "url": "articles.html"
+        }
+      ]
+    },
+    "slug": "luxun-portrait-1933",
+    "title": "1933年上海肖像",
+    "summary": "1933年春阳照相馆肖像保存鲁迅晚年形象，也提示商业照相馆参与现代名人视觉传播。",
+    "body": "## 档案说明\n\n照片由上海春阳照相馆拍摄，日期在既有授权登记中核对为1933年5月1日。照相馆肖像兼具个人记录与公共传播属性。\n\n## 画面细读\n\n人物侧坐、衣着纹理与面部神情共同构成比证件照更具身体感的形象。重复观看晚年肖像时，应避免用疲惫或严肃的单一印象覆盖其具体创作和社交活动。\n\n## 历史坐标\n\n1933年鲁迅迁入大陆新村9号，持续写作杂文、翻译、编辑，并支持青年作者与木刻工作者。个人健康承受压力，但文化活动并未停止。\n\n## 来源与授权\n\n本图由春阳照相馆创作或拍摄，本站取自 Wikimedia Commons 文件页，授权状态为“Public Domain”。页面保留原始黑白或既有色调，只做尺寸控制、格式兼容和响应式展示，不使用生成式修复、补画或人工上色。[1]\n\n## 关联阅读\n\n- 阅读鲁迅生平：大陆新村\n- 浏览作品赏析\n\n## 参考资料\n\n[1] Wikimedia Commons：LuXun2.jpg。https://commons.wikimedia.org/wiki/File:LuXun2.jpg",
+    "image_path": "assets/images/biography/11-lu-xun-1933.jpg",
+    "sort_order": 160
+  },
+  {
+    "content_type": "gallery",
+    "status": "published",
+    "metadata": {
+      "archive_id": "G17",
+      "display_date": "摄于2011年",
+      "timeline_label": "1933—1936",
+      "timeline_sort": 1933.2,
+      "era": "shanghai",
+      "location": "上海山阴路大陆新村",
+      "category": "地点",
+      "subtype": "故居建筑",
+      "creator": "Gisling",
+      "source_name": "Wikimedia Commons",
+      "source_url": "https://commons.wikimedia.org/wiki/File:%E4%B8%8A%E6%B5%B7%E9%B2%81%E8%BF%85%E6%95%85%E5%B1%85.jpg",
+      "source_title": "上海鲁迅故居.jpg",
+      "license": "CC BY-SA 3.0",
+      "alt": "上海山阴路大陆新村鲁迅故居外观",
+      "keywords": [
+        "上海故居",
+        "大陆新村",
+        "山阴路",
+        "晚年"
+      ],
+      "image_type": "historical",
+      "image_caption": "大陆新村9号：上海故居",
+      "image_creator": "Gisling",
+      "image_date": "摄于2011年",
+      "image_source": "Wikimedia Commons",
+      "image_license": "CC BY-SA 3.0",
+      "related_links": [
+        {
+          "label": "阅读鲁迅生平：生命终章",
+          "url": "biography.html#life-1927"
+        },
+        {
+          "label": "查看上海时期时代背景",
+          "url": "history.html"
+        }
+      ]
+    },
+    "slug": "shanghai-former-residence",
+    "title": "大陆新村9号：上海故居",
+    "summary": "2011年照片记录鲁迅最后居所外观，为理解家庭生活、会客与晚年写作提供地点线索。",
+    "body": "## 档案说明\n\n照片记录修缮与开放状态下的大陆新村9号外观。作为当代遗址影像，它提供地点和建筑尺度，不等于1933至1936年间街区环境的完整复原。\n\n## 画面细读\n\n连续排列的里弄住宅显示私人居所嵌入城市日常，而非孤立纪念建筑。鲁迅在这里写作、会客、整理藏书并与家人生活，公共文化活动与私人空间交叠。\n\n## 历史坐标\n\n鲁迅1933年迁入大陆新村9号，1936年10月19日在此逝世。故居现作为文化遗址保存，是上海鲁迅文化路线的重要节点。\n\n## 来源与授权\n\n本图由Gisling创作或拍摄，本站取自 Wikimedia Commons 文件页，授权状态为“CC BY-SA 3.0”。页面保留原始黑白或既有色调，只做尺寸控制、格式兼容和响应式展示，不使用生成式修复、补画或人工上色。[1]\n\n## 关联阅读\n\n- 阅读鲁迅生平：生命终章\n- 查看上海时期时代背景\n\n## 参考资料\n\n[1] Wikimedia Commons：上海鲁迅故居.jpg。https://commons.wikimedia.org/wiki/File:%E4%B8%8A%E6%B5%B7%E9%B2%81%E8%BF%85%E6%95%85%E5%B1%85.jpg",
+    "image_path": "assets/images/biography/12-shanghai-former-residence.jpg",
+    "sort_order": 170
+  },
+  {
+    "content_type": "gallery",
+    "status": "published",
+    "metadata": {
+      "archive_id": "G18",
+      "display_date": "1936年10月8日",
+      "timeline_label": "1936",
+      "timeline_sort": 1936,
+      "era": "shanghai",
+      "location": "上海八仙桥",
+      "category": "人物",
+      "subtype": "活动现场",
+      "creator": "沙飞",
+      "source_name": "Wikimedia Commons",
+      "source_url": "https://commons.wikimedia.org/wiki/File:Lu_Xun_1936.jpg",
+      "source_title": "Lu Xun 1936.jpg",
+      "license": "Public Domain",
+      "alt": "1936年10月8日鲁迅参加上海木刻展时的照片",
+      "keywords": [
+        "沙飞",
+        "木刻展",
+        "1936",
+        "上海",
+        "晚年"
+      ],
+      "image_type": "historical",
+      "image_caption": "木刻展上的最后影像",
+      "image_creator": "沙飞",
+      "image_date": "1936年10月8日",
+      "image_source": "Wikimedia Commons",
+      "image_license": "Public Domain",
+      "related_links": [
+        {
+          "label": "阅读鲁迅生平：最后十年",
+          "url": "biography.html#life-1927"
+        },
+        {
+          "label": "查看青年与文化关系档案",
+          "url": "relations.html"
+        }
+      ]
+    },
+    "slug": "luxun-last-public-photo-1936",
+    "title": "木刻展上的最后影像",
+    "summary": "沙飞1936年10月8日拍摄鲁迅参加第二回全国木刻流动展览会的照片，距其逝世仅十一日。",
+    "body": "## 档案说明\n\n沙飞于1936年10月8日拍摄鲁迅参加第二回全国木刻流动展览会的影像，距鲁迅逝世十一日。照片的事件、日期与摄影者均有 Commons 文件页说明。\n\n## 画面细读\n\n画面中的鲁迅处在公共文化活动现场，而不是病榻或纪念仪式中。身体消瘦与仍然到场同时存在，影像因此记录的是持续行动，不宜仅被消费为“最后照片”的悲情符号。\n\n## 历史坐标\n\n鲁迅晚年长期支持新兴木刻，通过介绍外国版画、举办讲习和扶植青年推动现代木刻运动。生命最后阶段，他仍参与展览和文化交往。\n\n## 来源与授权\n\n本图由沙飞创作或拍摄，本站取自 Wikimedia Commons 文件页，授权状态为“Public Domain”。页面保留原始黑白或既有色调，只做尺寸控制、格式兼容和响应式展示，不使用生成式修复、补画或人工上色。[1]\n\n## 关联阅读\n\n- 阅读鲁迅生平：最后十年\n- 查看青年与文化关系档案\n\n## 参考资料\n\n[1] Wikimedia Commons：Lu Xun 1936.jpg。https://commons.wikimedia.org/wiki/File:Lu_Xun_1936.jpg",
+    "image_path": "assets/images/gallery/15-luxun-last-photo-1936.jpg",
+    "sort_order": 180
+  }
+]
+$gallery_update$::jsonb
+) as item(
+    content_type text,
+    slug text,
+    title text,
+    summary text,
+    body text,
+    image_path text,
+    metadata jsonb,
+    status text,
+    sort_order integer
+);
+
+insert into public.contents as existing (
+    content_type, slug, title, summary, body, image_path,
+    metadata, status, sort_order, published_at
+)
+select
+    content_type, slug, title, summary, body, image_path,
+    metadata, status, sort_order, now()
+from gallery_payload
+on conflict (content_type, slug)
+do update set
+    title = excluded.title,
+    summary = excluded.summary,
+    body = excluded.body,
+    image_path = excluded.image_path,
+    metadata = excluded.metadata,
+    status = excluded.status,
+    sort_order = excluded.sort_order,
+    published_at = coalesce(existing.published_at, excluded.published_at),
+    deleted_at = null,
+    updated_at = now();
+
+update public.contents as target
+set deleted_at = now(), updated_at = now()
+where target.content_type = 'gallery'
+  and target.deleted_at is null
+  and not exists (
+      select 1 from gallery_payload as source
+      where source.slug = target.slug
+  );
+
+do $verify$
+declare v_count integer;
+begin
+    select count(*) into v_count
+    from public.contents
+    where content_type = 'gallery'
+      and status = 'published'
+      and deleted_at is null;
+    if v_count <> 18 then
+        raise exception 'Expected exactly 18 active gallery rows, found %', v_count;
+    end if;
+end
+$verify$;
+
+commit;

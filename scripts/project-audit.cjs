@@ -27,7 +27,7 @@ const EXPECTED_PAGES = [
 const EXPECTED_DATA_COUNTS = {
     "assets/data/works.json": 6,
     "assets/data/articles.json": 6,
-    "assets/data/gallery.json": 6
+    "assets/data/gallery.json": 18
 };
 
 const ignoredProtocols = [

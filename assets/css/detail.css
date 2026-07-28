@@ -620,6 +620,30 @@
     text-transform: uppercase;
 }
 
+.detail-article--gallery .detail-heading {
+    background:
+        linear-gradient(110deg, rgba(141, 31, 31, 0.07), transparent 60%),
+        #eee5d7;
+}
+
+.detail-article--gallery .detail-heading::after {
+    content: "影";
+}
+
+.detail-article--gallery .detail-layout {
+    grid-template-columns: minmax(280px, 0.4fr) minmax(0, 0.6fr);
+}
+
+.detail-article--gallery .detail-image-wrapper {
+    background: #25211f;
+}
+
+.detail-article--gallery .detail-image {
+    min-height: 0;
+    max-height: 620px;
+    object-fit: contain;
+}
+
 .detail-article--works {
     display: grid;
     grid-template-columns:

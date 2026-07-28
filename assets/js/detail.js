@@ -54,9 +54,12 @@ const METADATA_CONFIG = Object.freeze({
     ],
 
     gallery: [
+        ["archive_id", "档案编号"],
         ["display_date", "影像时间"],
         ["location", "相关地点"],
         ["category", "影像分类"],
+        ["subtype", "档案类型"],
+        ["creator", "作者或摄影者"],
         ["source_name", "资料来源"],
         ["license", "授权信息"],
         ["keywords", "主题关键词"]
@@ -1012,14 +1015,15 @@ function initializeReadingProgress(article, progress, bar) {
     window.addEventListener("resize", update);
 }
 
-function initializeArticleReading(item, elements) {
-    if (item.content_type !== "articles") {
-        return;
+function initializeDetailEnhancements(item, elements) {
+    if (item.content_type === "articles") {
+        renderArticleToc(elements.toc, elements.body);
+        initializeReadingProgress(elements.article, elements.progress, elements.progressBar);
     }
 
-    renderArticleToc(elements.toc, elements.body);
-    renderRelatedReading(elements.related, item.metadata?.related_links);
-    initializeReadingProgress(elements.article, elements.progress, elements.progressBar);
+    if (["articles", "gallery"].includes(item.content_type)) {
+        renderRelatedReading(elements.related, item.metadata?.related_links);
+    }
 }
 
 function showState(
@@ -1108,7 +1112,7 @@ if (elements.favoriteButton) {
         elements.body
     );
 
-    initializeArticleReading(item, elements);
+    initializeDetailEnhancements(item, elements);
 
     renderImage(
         item,
