@@ -147,6 +147,37 @@ function createGalleryMedia(item) {
     return media;
 }
 
+function createArticleCover(item) {
+    const cover = createElement(
+        "div",
+        "article-card-cover"
+    );
+    const image = document.createElement("img");
+
+    image.src = item.image_path ?? "";
+    image.alt = item.metadata?.image_alt ?? `${item.metadata?.related_work ?? item.title}封面`;
+    image.loading = "lazy";
+    image.decoding = "async";
+    cover.append(image);
+
+    return cover;
+}
+
+function createArticleFocus(metadata) {
+    const focus = createElement(
+        "div",
+        "article-card-focus"
+    );
+
+    (metadata?.key_questions ?? [])
+        .slice(0, 3)
+        .forEach((item) => {
+            focus.append(createElement("span", "", item));
+        });
+
+    return focus;
+}
+
 function createContentCard(
     item,
     index
@@ -165,6 +196,11 @@ function createContentCard(
         card.append(
             createGalleryMedia(item)
         );
+    }
+
+    if (item.content_type === "articles") {
+        card.classList.add("content-card--article");
+        card.append(createArticleCover(item));
     }
 
     const number =
@@ -258,10 +294,81 @@ actions.append(
             item.metadata
         ),
         summary,
+        ...(item.content_type === "articles"
+            ? [createArticleFocus(item.metadata)]
+            : []),
         actions
     );
 
     return card;
+}
+
+function getArticleSearchText(item) {
+    return [
+        item.title,
+        item.summary,
+        item.metadata?.related_work,
+        item.metadata?.analysis_focus,
+        ...(item.metadata?.keywords ?? []),
+        ...(item.metadata?.key_questions ?? [])
+    ].filter(Boolean).join(" ").toLocaleLowerCase("zh-CN");
+}
+
+async function renderRecords(container, records) {
+    if (records.length === 0) {
+        renderEmpty(container);
+        return;
+    }
+
+    const fragment = document.createDocumentFragment();
+
+    records.forEach((item, index) => {
+        fragment.append(createContentCard(item, index));
+    });
+
+    container.replaceChildren(fragment);
+    await initializeFavoriteButtons(container);
+}
+
+function initializeArticleControls(records, grid) {
+    const search = document.querySelector("[data-article-search]");
+    const filters = [...document.querySelectorAll("[data-article-filter]")];
+    const result = document.querySelector("[data-article-result]");
+
+    if (!search || filters.length === 0) {
+        renderRecords(grid, records);
+        return;
+    }
+
+    let activeFilter = "all";
+
+    const update = async () => {
+        const query = search.value.trim().toLocaleLowerCase("zh-CN");
+        const filtered = records.filter((item) => {
+            const matchesGenre = activeFilter === "all" || item.metadata?.genre_group === activeFilter;
+            const matchesQuery = !query || getArticleSearchText(item).includes(query);
+            return matchesGenre && matchesQuery;
+        });
+
+        if (result) {
+            result.textContent = `当前显示 ${filtered.length} 篇，共 ${records.length} 篇`;
+        }
+
+        await renderRecords(grid, filtered);
+    };
+
+    search.addEventListener("input", update);
+    filters.forEach((button) => {
+        button.addEventListener("click", () => {
+            activeFilter = button.dataset.articleFilter ?? "all";
+            filters.forEach((candidate) => {
+                candidate.setAttribute("aria-pressed", String(candidate === button));
+            });
+            update();
+        });
+    });
+
+    update();
 }
 
 function renderLoading(container) {
@@ -440,30 +547,11 @@ async function initializeContentList() {
             }
         );
 
-        if (result.data.length === 0) {
-            renderEmpty(grid);
-            return;
+        if (contentType === "articles") {
+            initializeArticleControls(result.data, grid);
+        } else {
+            await renderRecords(grid, result.data);
         }
-
-        const fragment =
-            document.createDocumentFragment();
-
-        result.data.forEach(
-            (item, index) => {
-                fragment.append(
-                    createContentCard(
-                        item,
-                        index
-                    )
-                );
-            }
-        );
-
-        grid.replaceChildren(fragment);
-
-await initializeFavoriteButtons(
-    grid
-);
     } catch (error) {
         countElements.forEach(
             (element) => {

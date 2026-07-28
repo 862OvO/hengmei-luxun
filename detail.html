@@ -43,6 +43,12 @@
 </head>
 
 <body>
+    <div
+        class="reading-progress"
+        data-reading-progress
+        aria-hidden="true"
+        hidden
+    ><span data-reading-progress-bar></span></div>
     <header class="site-header">
         <div class="container header-inner">
             <a
@@ -254,6 +260,19 @@
                                 class="detail-meta-list"
                                 data-detail-metadata
                             ></dl>
+
+                            <nav
+                                class="detail-toc"
+                                data-detail-toc
+                                aria-label="文章目录"
+                                hidden
+                            ></nav>
+
+                            <div
+                                class="detail-related"
+                                data-detail-related
+                                hidden
+                            ></div>
                         </aside>
 
                         <div class="detail-content">

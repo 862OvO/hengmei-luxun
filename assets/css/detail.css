@@ -506,6 +506,120 @@
    代表作品档案布局
    ======================================== */
 
+.reading-progress {
+    position: fixed;
+    z-index: 1000;
+    top: 0;
+    right: 0;
+    left: 0;
+    height: 3px;
+    background: rgba(141, 31, 31, 0.12);
+}
+
+.reading-progress[hidden] {
+    display: none;
+}
+
+.reading-progress span {
+    width: 100%;
+    height: 100%;
+    display: block;
+    transform: scaleX(0);
+    transform-origin: left center;
+    background: var(--color-red);
+}
+
+.detail-toc,
+.detail-related {
+    margin-top: 30px;
+    padding-top: 24px;
+    border-top: 1px solid var(--color-border);
+}
+
+.detail-toc[hidden],
+.detail-related[hidden] {
+    display: none;
+}
+
+.detail-toc-title,
+.detail-related-title {
+    color: var(--color-red);
+    font-size: 12px;
+    letter-spacing: 2px;
+}
+
+.detail-toc-list,
+.detail-related-list {
+    margin: 14px 0 0;
+    padding: 0;
+    list-style: none;
+}
+
+.detail-toc-list li,
+.detail-related-list li {
+    border-top: 1px solid rgba(141, 31, 31, 0.09);
+}
+
+.detail-toc-list a,
+.detail-related-list a {
+    padding: 9px 0;
+    display: block;
+    color: var(--color-ink-soft);
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+.detail-toc-list a:hover,
+.detail-related-list a:hover {
+    color: var(--color-red);
+}
+
+.detail-section-heading {
+    scroll-margin-top: 100px;
+}
+
+.detail-article--articles .detail-heading {
+    background:
+        linear-gradient(100deg, rgba(141, 31, 31, 0.075), transparent 58%),
+        #f4ecdf;
+}
+
+.detail-article--articles .detail-heading::after {
+    content: "析";
+}
+
+.detail-article--articles .detail-layout {
+    grid-template-columns: minmax(245px, 0.28fr) minmax(0, 0.72fr);
+}
+
+.detail-article--articles .detail-sidebar {
+    position: relative;
+}
+
+.detail-article--articles .detail-sidebar > * {
+    position: relative;
+}
+
+.detail-article--articles .detail-image-wrapper {
+    max-width: 230px;
+    margin-right: auto;
+    margin-left: auto;
+    background: #f3ead8;
+}
+
+.detail-article--articles .detail-image {
+    aspect-ratio: 3 / 4;
+    min-height: 0;
+    object-fit: contain;
+}
+
+.detail-article--articles .detail-content-heading {
+    color: var(--color-red);
+    font-size: 13px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+}
+
 .detail-article--works {
     display: grid;
     grid-template-columns:
@@ -602,6 +716,12 @@
     }
 }
 
+@media (min-width: 821px) {
+    .detail-article--articles .detail-sidebar > * {
+        position: static;
+    }
+}
+
 @media (max-width: 520px) {
     .detail-section-heading {
         margin-top: 42px;
@@ -637,5 +757,11 @@
     .detail-image-credit-row {
         grid-template-columns: 1fr;
         gap: 3px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .reading-progress span {
+        transition: none;
     }
 }

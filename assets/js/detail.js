@@ -939,6 +939,89 @@ function updateSourceStatus(
         "当前正在使用本地备用数据。";
 }
 
+function renderArticleToc(container, body) {
+    if (!container) {
+        return;
+    }
+
+    const headings = [...body.querySelectorAll(".detail-section-heading")];
+
+    if (headings.length === 0) {
+        container.hidden = true;
+        return;
+    }
+
+    const title = createElement("strong", "detail-toc-title", "文章目录");
+    const list = createElement("ol", "detail-toc-list");
+
+    headings.forEach((heading, index) => {
+        const id = `reading-section-${index + 1}`;
+        heading.id = id;
+
+        const link = createElement("a", "", heading.textContent);
+        link.href = `#${id}`;
+
+        const item = document.createElement("li");
+        item.append(link);
+        list.append(item);
+    });
+
+    container.replaceChildren(title, list);
+    container.hidden = false;
+}
+
+function renderRelatedReading(container, links) {
+    if (!container || !Array.isArray(links) || links.length === 0) {
+        if (container) {
+            container.hidden = true;
+        }
+        return;
+    }
+
+    const title = createElement("strong", "detail-related-title", "关联阅读");
+    const list = createElement("ul", "detail-related-list");
+
+    links.forEach((entry) => {
+        const link = createElement("a", "", entry.label);
+        link.href = entry.url;
+        const item = document.createElement("li");
+        item.append(link);
+        list.append(item);
+    });
+
+    container.replaceChildren(title, list);
+    container.hidden = false;
+}
+
+function initializeReadingProgress(article, progress, bar) {
+    if (!progress || !bar) {
+        return;
+    }
+
+    progress.hidden = false;
+
+    const update = () => {
+        const rect = article.getBoundingClientRect();
+        const scrollable = Math.max(1, article.offsetHeight - window.innerHeight);
+        const travelled = Math.min(scrollable, Math.max(0, -rect.top));
+        bar.style.transform = `scaleX(${travelled / scrollable})`;
+    };
+
+    update();
+    window.addEventListener("scroll", update, { passive: true });
+    window.addEventListener("resize", update);
+}
+
+function initializeArticleReading(item, elements) {
+    if (item.content_type !== "articles") {
+        return;
+    }
+
+    renderArticleToc(elements.toc, elements.body);
+    renderRelatedReading(elements.related, item.metadata?.related_links);
+    initializeReadingProgress(elements.article, elements.progress, elements.progressBar);
+}
+
 function showState(
     stateElement,
     title,
@@ -1024,6 +1107,8 @@ if (elements.favoriteButton) {
         item.body,
         elements.body
     );
+
+    initializeArticleReading(item, elements);
 
     renderImage(
         item,
@@ -1131,6 +1216,26 @@ async function initializeDetailPage() {
         imageCredit:
             document.querySelector(
                 "[data-detail-image-credit]"
+            ),
+
+        toc:
+            document.querySelector(
+                "[data-detail-toc]"
+            ),
+
+        related:
+            document.querySelector(
+                "[data-detail-related]"
+            ),
+
+        progress:
+            document.querySelector(
+                "[data-reading-progress]"
+            ),
+
+        progressBar:
+            document.querySelector(
+                "[data-reading-progress-bar]"
             )
     };
 
