@@ -12,6 +12,16 @@ test("biography keeps eighteen verified life nodes and six exhibition stages", (
     assert.equal((html.match(/class="timeline-item(?: timeline-item-featured)?"/g) ?? []).length, 18);
     assert.equal((html.match(/data-biography-stage="/g) ?? []).length, 6);
     assert.equal((html.match(/data-biography-stage-link="/g) ?? []).length, 6);
+    assert.equal((html.match(/class="biography-era biography-era-/g) ?? []).length, 6);
+    assert.equal((html.match(/data-era-place="/g) ?? []).length, 6);
+    assert.equal((html.match(/data-era-years="/g) ?? []).length, 6);
+});
+
+test("biography desktop hero and era scenes use exhibition-scale layouts", () => {
+    assert.match(css, /\.biography-hero \.hero-grid\s*\{[\s\S]*?1480px/);
+    assert.match(css, /\.biography-hero\s*\{[\s\S]*?min-height:\s*clamp\(700px/);
+    assert.match(css, /\.biography-era\s*\{[\s\S]*?box-shadow:\s*0 0 0 100vmax/);
+    assert.match(css, /content:\s*attr\(data-era-place\)[\s\S]*?attr\(data-era-years\)/);
 });
 
 test("biography hero uses a complete documented portrait", () => {

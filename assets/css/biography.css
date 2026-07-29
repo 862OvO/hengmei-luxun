@@ -99,8 +99,8 @@ html{scroll-behavior:smooth}
 }
 
 .biography-hero {
-    min-height: calc(100svh - 76px);
-    padding: clamp(78px, 8vw, 126px) 0;
+    min-height: clamp(700px, calc(88svh - 76px), 880px);
+    padding: clamp(64px, 5.4vw, 88px) 0;
     display: grid;
     align-items: center;
     overflow: hidden;
@@ -132,8 +132,9 @@ html{scroll-behavior:smooth}
 
 .biography-hero .hero-grid {
     z-index: 1;
-    grid-template-columns: minmax(0, 0.88fr) minmax(520px, 1.12fr);
-    gap: clamp(56px, 7vw, 105px);
+    width: min(calc(100% - 64px), 1480px);
+    grid-template-columns: minmax(430px, 0.82fr) minmax(650px, 1.18fr);
+    gap: clamp(52px, 5vw, 82px);
 }
 
 .biography-hero .eyebrow {
@@ -146,7 +147,7 @@ html{scroll-behavior:smooth}
 
 .biography-hero .hero-title {
     color: #f7efe4;
-    font-size: clamp(56px, 6.5vw, 88px);
+    font-size: clamp(72px, 6vw, 104px);
     font-weight: 500;
 }
 
@@ -155,8 +156,10 @@ html{scroll-behavior:smooth}
 }
 
 .biography-hero .hero-description {
+    max-width: 590px;
     color: rgba(247, 239, 228, 0.72);
-    font-size: 17px;
+    font-size: 19px;
+    line-height: 2;
 }
 
 .biography-hero .button-secondary {
@@ -172,8 +175,8 @@ html{scroll-behavior:smooth}
 .biography-hero-exhibit {
     position: relative;
     display: grid;
-    grid-template-columns: minmax(205px, 0.76fr) minmax(275px, 1fr);
-    gap: 18px;
+    grid-template-columns: minmax(300px, 0.86fr) minmax(360px, 1fr);
+    gap: 24px;
     align-items: end;
 }
 
@@ -218,7 +221,7 @@ html{scroll-behavior:smooth}
 }
 
 .biography-hero-card {
-    padding: 28px 25px;
+    padding: 36px 32px;
     border-color: rgba(248, 240, 228, 0.14);
     border-radius: 2px;
     color: #f7efe4;
@@ -233,16 +236,16 @@ html{scroll-behavior:smooth}
 
 .biography-hero-card .hero-card-number {
     color: #ca8f86;
-    font-size: 60px;
+    font-size: 72px;
 }
 
 .biography-hero-card h2 {
-    font-size: 22px;
+    font-size: 26px;
 }
 
 .biography-hero-card > p {
     color: rgba(247, 239, 228, 0.62);
-    font-size: 13px;
+    font-size: 14px;
     line-height: 1.85;
 }
 
@@ -404,11 +407,8 @@ html{scroll-behavior:smooth}
 .biography-timeline-section {
     position: relative;
     padding-top: 118px;
-    background:
-        linear-gradient(rgba(141, 31, 31, 0.025) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(141, 31, 31, 0.025) 1px, transparent 1px),
-        var(--biography-paper);
-    background-size: 72px 72px;
+    overflow: hidden;
+    background: var(--biography-paper);
 }
 
 .biography-section-heading {
@@ -422,12 +422,118 @@ html{scroll-behavior:smooth}
 }
 
 .biography-timeline {
-    gap: 54px;
+    display: block;
 }
 
 .biography-timeline::before {
+    display: none;
+}
+
+.biography-era {
+    --era-paper: #eee5d6;
+    --era-line: rgba(112, 76, 53, 0.07);
+    position: relative;
+    isolation: isolate;
+    display: grid;
+    gap: 54px;
+    padding: 72px 0 92px;
+    background:
+        linear-gradient(var(--era-line) 1px, transparent 1px),
+        linear-gradient(90deg, var(--era-line) 1px, transparent 1px),
+        var(--era-paper);
+    background-size: 72px 72px;
+    box-shadow: 0 0 0 100vmax var(--era-paper);
+    clip-path: inset(0 -100vmax);
+}
+
+.biography-era + .biography-era {
+    border-top: 1px solid rgba(103, 68, 44, 0.16);
+}
+
+.biography-era::before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    top: 70px;
+    bottom: 70px;
+    left: var(--timeline-center);
     width: 1px;
-    background: linear-gradient(to bottom, transparent, rgba(141, 31, 31, 0.56) 3%, rgba(141, 31, 31, 0.56) 97%, transparent);
+    background: linear-gradient(to bottom, transparent, rgba(141, 31, 31, 0.58) 4%, rgba(141, 31, 31, 0.58) 96%, transparent);
+    transform: translateX(-50%);
+}
+
+.biography-era::after {
+    content: attr(data-era-place) "\A" attr(data-era-years);
+    position: absolute;
+    z-index: -1;
+    right: 1.5%;
+    top: 116px;
+    color: rgba(78, 54, 39, 0.075);
+    font-family: var(--font-serif);
+    font-size: clamp(54px, 7vw, 104px);
+    line-height: 1.05;
+    letter-spacing: 0.06em;
+    text-align: right;
+    white-space: pre;
+    pointer-events: none;
+}
+
+.biography-era:nth-child(even)::after {
+    right: auto;
+    left: 1.5%;
+    text-align: left;
+}
+
+.biography-era-shaoxing {
+    --era-paper: #efe4d1;
+    --era-line: rgba(118, 72, 43, 0.065);
+    background-image:
+        radial-gradient(circle at 8% 20%, rgba(141, 31, 31, 0.075), transparent 25%),
+        linear-gradient(var(--era-line) 1px, transparent 1px),
+        linear-gradient(90deg, var(--era-line) 1px, transparent 1px);
+}
+
+.biography-era-nanjing {
+    --era-paper: #e8e2d8;
+    --era-line: rgba(62, 73, 74, 0.065);
+    background-image:
+        linear-gradient(118deg, transparent 0 72%, rgba(75, 91, 91, 0.045) 72% 72.35%, transparent 72.35%),
+        linear-gradient(var(--era-line) 1px, transparent 1px),
+        linear-gradient(90deg, var(--era-line) 1px, transparent 1px);
+}
+
+.biography-era-japan {
+    --era-paper: #e3e4e1;
+    --era-line: rgba(55, 67, 73, 0.06);
+    background-image:
+        repeating-linear-gradient(0deg, transparent 0 31px, rgba(55, 67, 73, 0.035) 31px 32px),
+        linear-gradient(90deg, transparent 0 86%, rgba(141, 31, 31, 0.055) 86% 86.2%, transparent 86.2%);
+}
+
+.biography-era-return {
+    --era-paper: #ece3d3;
+    --era-line: rgba(121, 80, 47, 0.055);
+    background-image:
+        radial-gradient(circle at 87% 18%, transparent 0 52px, rgba(141, 31, 31, 0.04) 53px 55px, transparent 56px),
+        linear-gradient(var(--era-line) 1px, transparent 1px),
+        linear-gradient(90deg, var(--era-line) 1px, transparent 1px);
+}
+
+.biography-era-beijing {
+    --era-paper: #e5dfd3;
+    --era-line: rgba(60, 52, 45, 0.055);
+    background-image:
+        repeating-linear-gradient(90deg, transparent 0 178px, rgba(60, 52, 45, 0.045) 178px 179px),
+        repeating-linear-gradient(0deg, transparent 0 34px, rgba(60, 52, 45, 0.03) 34px 35px);
+}
+
+.biography-era-shanghai {
+    --era-paper: #d8d1c7;
+    --era-line: rgba(48, 42, 38, 0.07);
+    background-image:
+        linear-gradient(135deg, rgba(44, 39, 36, 0.055) 0 12%, transparent 12% 88%, rgba(141, 31, 31, 0.04) 88%),
+        linear-gradient(var(--era-line) 1px, transparent 1px),
+        linear-gradient(90deg, var(--era-line) 1px, transparent 1px);
 }
 
 .biography-stage {
@@ -572,6 +678,7 @@ html{scroll-behavior:smooth}
     }
 
     .biography-hero .hero-grid {
+        width: min(calc(100% - 48px), 960px);
         grid-template-columns: 1fr;
     }
 
@@ -667,6 +774,28 @@ html{scroll-behavior:smooth}
         --timeline-center: 18px;
     }
 
+    .biography-era {
+        gap: 32px;
+        padding: 50px 0 64px;
+        background-size: 44px 44px;
+    }
+
+    .biography-era::before {
+        top: 52px;
+        bottom: 48px;
+    }
+
+    .biography-era::after {
+        top: 88px;
+        right: 0;
+        font-size: clamp(38px, 13vw, 64px);
+        opacity: 0.48;
+    }
+
+    .biography-era:nth-child(even)::after {
+        left: 46px;
+    }
+
     .biography-stage {
         margin-left: 0;
         padding: 13px 16px 13px 44px;
@@ -699,6 +828,10 @@ html{scroll-behavior:smooth}
 @media (max-width: 560px) {
     .biography-hero {
         padding-top: 56px;
+    }
+
+    .biography-hero .hero-grid {
+        width: min(calc(100% - 36px), 520px);
     }
 
     .biography-hero .hero-description {
