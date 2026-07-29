@@ -16,6 +16,13 @@ test("人物关系页使用社会关系档案馆的展陈结构", () => {
     assert.match(css, /NETWORK ATLAS|\.relationship-map/);
 });
 
+test("首屏人物关系标题保持完整并使用分层展览导语", () => {
+    assert.match(html, /hero-title-prefix/);
+    assert.match(html, /hero-title-subject">人物关系/);
+    assert.match(css, /\.hero-title-subject\s*\{[^}]*white-space:\s*nowrap/s);
+    assert.equal((html.match(/<div class="hero-description">[\s\S]*?<\/div>/) || [""])[0].match(/<p>/g)?.length, 2);
+});
+
 test("人物卡片具有档案编号并在桌面展开为完整档案", () => {
     assert.match(js, /details\.dataset\.record/);
     assert.match(js, /person-index/);

@@ -57,12 +57,25 @@
 .relations-hero .hero-title {
     margin-top: 28px;
     color: #f9f3e9;
-    font-size: clamp(64px, 7.1vw, 128px);
-    line-height: .98;
+    line-height: .92;
     letter-spacing: -.04em;
 }
-.relations-hero .hero-title span { color: #cf8d89; }
-.relations-hero .hero-description { max-width: 670px; margin-top: 34px; color: rgba(245,239,229,.68); font-size: 17px; line-height: 2; }
+.relations-hero .hero-title-prefix {
+    display: block;
+    font-size: clamp(62px, 4.6vw, 78px);
+    letter-spacing: -.02em;
+}
+.relations-hero .hero-title-subject {
+    display: block;
+    width: max-content;
+    max-width: 100%;
+    margin-top: 12px;
+    color: #cf8d89;
+    font-size: clamp(82px, 6.2vw, 112px);
+    white-space: nowrap;
+}
+.relations-hero .hero-description { max-width: 710px; margin-top: 36px; color: rgba(245,239,229,.7); font-size: 17.5px; line-height: 1.9; }
+.relations-hero .hero-description p + p { margin-top: 9px; }
 .relations-hero .hero-actions { margin-top: 40px; }
 .relations-hero .button-secondary { color: #eadbc7; border-color: rgba(234,219,199,.35); background: transparent; }
 .relations-hero .button-secondary:hover { border-color: #eadbc7; }
@@ -200,7 +213,8 @@
 
 @media (max-width: 1100px) {
     .relations-hero .hero-grid { grid-template-columns: minmax(0,1fr) minmax(360px,.75fr); gap: 48px; }
-    .relations-hero .hero-title { font-size: clamp(58px,8vw,88px); }
+    .relations-hero .hero-title-prefix { font-size: clamp(56px,7vw,72px); }
+    .relations-hero .hero-title-subject { font-size: clamp(76px,9vw,96px); }
     .relationship-map::before { width: 560px; height: 560px; }
     .map-node { width: 150px; }
     .person-card-content { padding-left: 34px; }
@@ -230,7 +244,8 @@
 @media (max-width: 620px) {
     .relations-hero { padding: 62px 0 70px; }
     .relations-hero .hero-grid { width: calc(100% - 32px); gap: 42px; }
-    .relations-hero .hero-title { font-size: clamp(48px,15vw,68px); }
+    .relations-hero .hero-title-prefix { font-size: clamp(44px,13vw,58px); }
+    .relations-hero .hero-title-subject { margin-top: 8px; font-size: clamp(58px,17vw,72px); }
     .relations-hero .hero-description { font-size: 15px; }
     .relations-hero-card { padding: 38px 26px 30px; box-shadow: 12px 14px 0 rgba(117,27,27,.2); }
     .relations-hero-card .hero-card-number { margin-top: 34px; font-size: 58px; }
