@@ -256,10 +256,11 @@
 
 .work-card-cover {
     min-width: 0;
-    height: 100%;
+    height: auto;
     margin: 0;
     grid-column: 1;
     grid-row: 1 / -1;
+    align-self: start;
     display: flex;
     flex-direction: column;
     border: 1px solid rgba(103, 68, 44, 0.18);
@@ -268,8 +269,8 @@
 
 .work-card-cover img {
     width: 100%;
-    min-height: 0;
-    flex: 1;
+    height: auto;
+    flex: none;
     display: block;
     object-fit: contain;
 }
@@ -428,7 +429,6 @@
 
     .work-card-cover {
         width: min(100%, 280px);
-        min-height: 380px;
         margin: 0 auto 10px;
         grid-column: 1;
         grid-row: auto;

@@ -21,7 +21,8 @@ test("works cards render complete local covers and stable anchors", () => {
     assert.match(listScript, /card\.append\(createWorkCover\(item\)\)/);
     assert.match(listScript, /function sortWorksChronologically\(records\)/);
     assert.match(listScript, /contentType === "works"[\s\S]*?sortWorksChronologically\(result\.data\)/);
-    assert.match(css, /\.work-card-cover img\s*\{[\s\S]*?object-fit:\s*contain/);
+    assert.match(css, /\.work-card-cover\s*\{[\s\S]*?height:\s*auto[\s\S]*?align-self:\s*start/);
+    assert.match(css, /\.work-card-cover img\s*\{[\s\S]*?height:\s*auto[\s\S]*?flex:\s*none[\s\S]*?object-fit:\s*contain/);
 });
 
 test("works collection uses two desktop reading-room columns and one narrow column", () => {
