@@ -11,7 +11,7 @@
 <link rel="stylesheet" href="assets/css/biography.css">
     <link rel="icon" href="assets/images/favicon.svg" type="image/svg+xml">
 </head>
-<body>
+<body class="biography-page">
 <header class="site-header">
 <div class="container header-inner">
 <a class="brand" href="index.html"><span class="brand-seal">横</span><span class="brand-text"><strong>横眉</strong><small>鲁迅文化数字展馆</small></span></a>
@@ -21,24 +21,44 @@
 </nav>
 <div class="account-actions" data-auth-actions aria-live="polite"><a class="account-link" href="auth.html">登录 / 注册</a></div>
 </div></div></header>
-<main>
+<main id="main-content">
+<div class="biography-reading-progress" aria-hidden="true"><i></i></div>
 <section class="hero biography-hero"><div class="container hero-grid">
 <div class="hero-content"><span class="eyebrow">BIOGRAPHY · 1881—1936</span><h1 class="hero-title">鲁迅<span>生平</span></h1>
 <p class="hero-description">从绍兴新台门里的周樟寿，到在上海持续写作、翻译并扶植青年的鲁迅，十八个节点呈现一位现代知识分子如何在家庭变故、求学迁徙与时代震荡中，不断调整自己的道路。</p>
 <div class="hero-actions"><a class="button button-primary" href="#life-timeline">阅读时间线</a><a class="button button-secondary" href="#biography-references">查看资料来源</a></div></div>
+<div class="biography-hero-exhibit">
+<figure class="biography-hero-portrait">
+<img src="assets/images/biography/09-lu-xun-1930.jpg" alt="1930年的鲁迅半身肖像" width="1920" height="2563" decoding="async" fetchpriority="high">
+<figcaption>鲁迅肖像，1930年 <a href="#image-source-9">[图9]</a></figcaption>
+</figure>
 <aside class="hero-card biography-hero-card"><div class="hero-card-number">02</div><h2>一生中的关键转折</h2>
 <p>时间线以个人经历为主，作品只在影响人生方向的节点简要提及。页面正文为原创整理，史实参照年谱、自传及博物馆资料交叉核对。</p>
 <dl class="biography-summary"><div><dt>时间跨度</dt><dd>55 年</dd></div><div><dt>人生节点</dt><dd>18 个</dd></div><div><dt>授权图片</dt><dd>12 张</dd></div></dl>
 <div class="hero-card-meta">绍兴 · 南京 · 东京 · 仙台 · 北京 · 厦门 · 广州 · 上海</div></aside>
+</div>
 </div></section>
 <section class="biography-overview" aria-labelledby="biography-overview-title"><div class="container biography-overview-grid">
 <div><span class="section-kicker">READING GUIDE</span><h2 id="biography-overview-title">不是一条预先写好的道路</h2></div>
 <div class="biography-overview-copy"><p>鲁迅的一生并非从少年时代便径直通向文学。他先经历传统启蒙，又接触矿务、科学与医学；他曾希望借实业或医疗改变现实，也曾在办刊受挫后长期沉默。每一次方向变化，都与个人经验和时代处境相互作用。</p>
 <p>本页把生平分成六个阶段。桌面端时间线左右交错排列，手机端自动切换为单列。正文中的 <a class="inline-reference" href="#reference-1">[1]</a> 等编号指向参考资料，图片说明中的 <a class="inline-reference" href="#image-source-1">[图1]</a> 指向授权登记。</p></div>
 </div></section>
+<nav class="biography-path" aria-label="鲁迅生平六个阶段">
+<div class="container">
+<div class="biography-path-heading"><span>CHRONOLOGICAL ROUTE</span><strong>沿六个阶段进入一生</strong></div>
+<ol>
+<li><a href="#stage-shaoxing" data-biography-stage-link="stage-shaoxing"><span>01</span><strong>绍兴童年</strong><small>1881—1896</small></a></li>
+<li><a href="#stage-nanjing" data-biography-stage-link="stage-nanjing"><span>02</span><strong>南京求学</strong><small>1898—1902</small></a></li>
+<li><a href="#stage-japan" data-biography-stage-link="stage-japan"><span>03</span><strong>日本留学</strong><small>1902—1909</small></a></li>
+<li><a href="#stage-return" data-biography-stage-link="stage-return"><span>04</span><strong>归国任教</strong><small>1909—1917</small></a></li>
+<li><a href="#stage-beijing" data-biography-stage-link="stage-beijing"><span>05</span><strong>北京新文学</strong><small>1918—1927</small></a></li>
+<li><a href="#stage-shanghai" data-biography-stage-link="stage-shanghai"><span>06</span><strong>上海十年</strong><small>1927—1936</small></a></li>
+</ol>
+</div>
+</nav>
 <section class="biography-timeline-section" id="life-timeline" aria-labelledby="timeline-title"><div class="container">
 <header class="biography-section-heading"><span class="section-kicker">LIFE TIMELINE</span><h2 id="timeline-title">十八个生命节点</h2><p>以时间为经，以地点、选择和思想变化为纬，观察“周树人”如何一步步成为“鲁迅”。</p></header>
-<div class="biography-timeline"><div class="biography-stage" aria-hidden="true"><span>第一阶段</span><strong>绍兴童年与家庭变故</strong></div>
+<div class="biography-timeline"><div class="biography-stage" id="stage-shaoxing" data-biography-stage="stage-shaoxing"><span>第一阶段</span><strong>绍兴童年与家庭变故</strong></div>
 <article class="timeline-item" id="life-1881">
 <div class="timeline-marker" aria-hidden="true">01</div>
 <div class="timeline-card">
@@ -104,7 +124,7 @@
 
 
 </div>
-</article><div class="biography-stage" aria-hidden="true"><span>第二阶段</span><strong>南京求学与接触新学</strong></div>
+</article><div class="biography-stage" id="stage-nanjing" data-biography-stage="stage-nanjing"><span>第二阶段</span><strong>南京求学与接触新学</strong></div>
 <article class="timeline-item" id="life-1898">
 <div class="timeline-marker" aria-hidden="true">06</div>
 <div class="timeline-card">
@@ -140,7 +160,7 @@
 
 
 </div>
-</article><div class="biography-stage" aria-hidden="true"><span>第三阶段</span><strong>日本留学与思想转向</strong></div>
+</article><div class="biography-stage" id="stage-japan" data-biography-stage="stage-japan"><span>第三阶段</span><strong>日本留学与思想转向</strong></div>
 <article class="timeline-item" id="life-1903">
 <div class="timeline-marker" aria-hidden="true">09</div>
 <div class="timeline-card">
@@ -197,7 +217,7 @@
 <figcaption>1909年，鲁迅与许寿裳、蒋抑卮在东京合影。 <a href="#image-source-4">[图4]</a></figcaption>
 </figure>
 </div>
-</article><div class="biography-stage" aria-hidden="true"><span>第四阶段</span><strong>归国任教与进入教育部</strong></div>
+</article><div class="biography-stage" id="stage-return" data-biography-stage="stage-return"><span>第四阶段</span><strong>归国任教与进入教育部</strong></div>
 <article class="timeline-item" id="life-return">
 <div class="timeline-marker" aria-hidden="true">13</div>
 <div class="timeline-card">
@@ -221,7 +241,7 @@
 
 
 </div>
-</article><div class="biography-stage" aria-hidden="true"><span>第五阶段</span><strong>北京时期与新文学实践</strong></div>
+</article><div class="biography-stage" id="stage-beijing" data-biography-stage="stage-beijing"><span>第五阶段</span><strong>北京时期与新文学实践</strong></div>
 <article class="timeline-item" id="life-1917">
 <div class="timeline-marker" aria-hidden="true">15</div>
 <div class="timeline-card">
@@ -263,7 +283,7 @@
 <figcaption>1927年10月，鲁迅与许广平等人在上海合影。 <a href="#image-source-7">[图7]</a></figcaption>
 </figure>
 </div>
-</article><div class="biography-stage" aria-hidden="true"><span>第六阶段</span><strong>上海十年与生命终章</strong></div>
+</article><div class="biography-stage" id="stage-shanghai" data-biography-stage="stage-shanghai"><span>第六阶段</span><strong>上海十年与生命终章</strong></div>
 <article class="timeline-item timeline-item-featured" id="life-1927">
 <div class="timeline-marker" aria-hidden="true">18</div>
 <div class="timeline-card">
@@ -302,4 +322,5 @@
 <footer class="site-footer"><div class="container"><p>© 2026 横眉·鲁迅文化数字展馆 ·《数据技术实训》课程大作业</p><div class="footer-links"><a class="footer-link active" href="biography.html">鲁迅生平</a><a class="footer-link" href="works.html">代表作品</a><a class="footer-link" href="gallery.html">历史影像</a></div></div></footer>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.110.7"></script>
 <script type="module" src="assets/js/auth-state.js"></script>
+<script type="module" src="assets/js/biography.js"></script>
 </body></html>
