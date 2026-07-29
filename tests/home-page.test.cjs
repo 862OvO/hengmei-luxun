@@ -77,3 +77,9 @@ test("今日回响只读取公开审核留言并保留稳定回退", () => {
     assert.match(script, /textContent/);
     assert.doesNotMatch(script, /innerHTML/);
 });
+
+test("literature cards show complete covers instead of narrow crops", () => {
+    assert.match(css, /\.work-panel\s*\{[\s\S]*?grid-template-rows:\s*auto 1fr/);
+    assert.match(css, /\.work-panel figure img\s*\{[\s\S]*?object-fit:\s*contain/);
+    assert.doesNotMatch(css, /grid-template-columns:\s*112px minmax\(0, 1fr\)/);
+});
