@@ -163,6 +163,28 @@ function createArticleCover(item) {
     return cover;
 }
 
+function createWorkCover(item) {
+    const cover = createElement(
+        "figure",
+        "work-card-cover"
+    );
+    const image = document.createElement("img");
+
+    image.src = item.image_path ?? "";
+    image.alt = item.metadata?.image_alt ?? `${item.title}封面`;
+    image.loading = "lazy";
+    image.decoding = "async";
+
+    const caption = createElement(
+        "figcaption",
+        "",
+        item.metadata?.image_caption ?? `${item.title}视觉封面`
+    );
+
+    cover.append(image, caption);
+    return cover;
+}
+
 function createArticleFocus(metadata) {
     const focus = createElement(
         "div",
@@ -187,6 +209,12 @@ function createContentCard(
             "article",
             "content-card"
         );
+
+    if (item.content_type === "works") {
+        card.classList.add("content-card--work");
+        card.id = `work-${item.slug}`;
+        card.append(createWorkCover(item));
+    }
 
     if (item.content_type === "gallery") {
         card.classList.add(
@@ -233,7 +261,9 @@ const detailLink =
     createElement(
         "a",
         "content-detail-link",
-        "查看详情"
+        item.content_type === "works"
+            ? "打开作品档案"
+            : "查看详情"
     );
 
 detailLink.href =
@@ -312,6 +342,15 @@ function getArticleSearchText(item) {
         ...(item.metadata?.keywords ?? []),
         ...(item.metadata?.key_questions ?? [])
     ].filter(Boolean).join(" ").toLocaleLowerCase("zh-CN");
+}
+
+function sortWorksChronologically(records) {
+    return [...records].sort((left, right) => {
+        const leftYear = Number.parseInt(left.metadata?.year, 10);
+        const rightYear = Number.parseInt(right.metadata?.year, 10);
+
+        return leftYear - rightYear;
+    });
 }
 
 async function renderRecords(container, records) {
@@ -550,7 +589,11 @@ async function initializeContentList() {
         if (contentType === "articles") {
             initializeArticleControls(result.data, grid);
         } else {
-            await renderRecords(grid, result.data);
+            const records = contentType === "works"
+                ? sortWorksChronologically(result.data)
+                : result.data;
+
+            await renderRecords(grid, records);
         }
     } catch (error) {
         countElements.forEach(
