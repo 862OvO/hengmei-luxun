@@ -234,7 +234,7 @@
 
 .content-card--work {
     scroll-margin-top: 120px;
-    min-height: 490px;
+    min-height: 0;
     padding: 18px;
     display: grid;
     grid-template-columns: minmax(210px, 0.72fr) minmax(0, 1.28fr);

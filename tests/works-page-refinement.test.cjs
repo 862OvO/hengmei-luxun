@@ -27,6 +27,7 @@ test("works cards render complete local covers and stable anchors", () => {
 
 test("works collection uses two desktop reading-room columns and one narrow column", () => {
     assert.match(css, /\.works-page \.content-grid\s*\{[\s\S]*?repeat\(2,/);
+    assert.match(css, /\.content-card--work\s*\{[\s\S]*?min-height:\s*0/);
     assert.match(css, /@media \(max-width:\s*1180px\)[\s\S]*?\.works-page \.content-grid\s*\{[\s\S]*?grid-template-columns:\s*1fr/);
     assert.match(css, /@media \(max-width:\s*560px\)[\s\S]*?\.content-card--work\s*\{[\s\S]*?grid-template-columns:\s*1fr/);
 });
