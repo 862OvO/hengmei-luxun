@@ -47,3 +47,17 @@ test('窄屏作品详情把侧栏和正文重置到同一网格列', () => {
         /\.detail-article--works\s+\.detail-sidebar\s*,\s*\.detail-article--works\s+\.detail-content\s*\{[^}]*grid-column:\s*1\s*;[^}]*grid-row:\s*auto\s*;/s
     );
 });
+
+test('narrow article and gallery details reuse the single-column works fix', () => {
+    const css = fs.readFileSync(cssPath, 'utf8');
+    const mediaBlock = readMediaBlock(css, 'max-width: 900px');
+
+    assert.match(
+        mediaBlock,
+        /\.detail-article--articles\s+\.detail-layout\s*,\s*\.detail-article--gallery\s+\.detail-layout\s*\{[^}]*grid-template-columns:\s*minmax\(0, 1fr\)/s
+    );
+    assert.match(
+        mediaBlock,
+        /\.detail-article--articles\s+\.detail-sidebar\s*,[\s\S]*?\.detail-article--gallery\s+\.detail-content\s*\{[^}]*grid-column:\s*1\s*;[^}]*grid-row:\s*auto\s*;[^}]*min-width:\s*0\s*;/s
+    );
+});

@@ -83,3 +83,8 @@ test("literature cards show complete covers instead of narrow crops", () => {
     assert.match(css, /\.work-panel figure img\s*\{[\s\S]*?object-fit:\s*contain/);
     assert.doesNotMatch(css, /grid-template-columns:\s*112px minmax\(0, 1fr\)/);
 });
+
+test("mobile hero portrait keeps its complete intrinsic proportion", () => {
+    assert.match(css, /\.portrait-frame img:first-child\s*\{[\s\S]*?height:\s*auto/);
+    assert.match(css, /\.portrait-frame img:first-child\s*\{[\s\S]*?object-fit:\s*contain/);
+});

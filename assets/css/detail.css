@@ -704,6 +704,21 @@
 }
 
 @media (max-width: 900px) {
+    .detail-article--articles .detail-layout,
+    .detail-article--gallery .detail-layout {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .detail-article--articles .detail-sidebar,
+    .detail-article--articles .detail-content,
+    .detail-article--gallery .detail-sidebar,
+    .detail-article--gallery .detail-content {
+        grid-column: 1;
+        grid-row: auto;
+        min-width: 0;
+    }
+
     .detail-article--works {
         display: block;
     }

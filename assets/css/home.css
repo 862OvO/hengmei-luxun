@@ -351,10 +351,11 @@ html {
 
 .portrait-frame img:first-child {
     width: 100%;
+    height: auto;
     max-height: 65vh;
     display: block;
-    object-fit: cover;
-    object-position: center 24%;
+    object-fit: contain;
+    object-position: center;
 }
 
 .portrait-frame::after {
@@ -1169,7 +1170,9 @@ html {
     }
 
     .portrait-frame img:first-child {
+        height: auto;
         max-height: none;
+        object-fit: contain;
     }
 
     .home-scroll-cue {
