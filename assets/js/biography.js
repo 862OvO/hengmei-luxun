@@ -1,7 +1,7 @@
 const timeline = document.querySelector(".biography-timeline-section");
 const progress = document.querySelector(".biography-reading-progress i");
 const revealItems = document.querySelectorAll(
-    ".timeline-item, .biography-stage, .reference-panel"
+    ".timeline-item, .biography-stage, .biography-era-wall, .reference-panel"
 );
 const stageSections = document.querySelectorAll("[data-biography-stage]");
 const stageLinks = document.querySelectorAll("[data-biography-stage-link]");

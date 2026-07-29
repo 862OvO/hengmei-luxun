@@ -536,6 +536,182 @@ html{scroll-behavior:smooth}
         linear-gradient(90deg, var(--era-line) 1px, transparent 1px);
 }
 
+.biography-era-wall {
+    position: absolute;
+    z-index: 1;
+    top: 190px;
+    right: 0;
+    width: calc(50% - 54px);
+    min-height: 390px;
+    padding: 14px;
+    display: grid;
+    grid-template-columns: minmax(175px, 0.82fr) minmax(0, 1.18fr);
+    gap: 20px;
+    border: 1px solid rgba(103, 68, 44, 0.2);
+    color: #3f3933;
+    background: rgba(243, 236, 223, 0.72);
+    box-shadow: 18px 22px 55px rgba(53, 40, 31, 0.1);
+    backdrop-filter: blur(6px);
+}
+
+.biography-era:nth-child(even) .biography-era-wall {
+    right: auto;
+    left: 0;
+}
+
+.biography-era-wall::before {
+    content: "";
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    width: 42px;
+    height: 42px;
+    border-top: 2px solid rgba(141, 31, 31, 0.58);
+    border-right: 2px solid rgba(141, 31, 31, 0.58);
+}
+
+.biography-era-wall figure {
+    min-width: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid rgba(103, 68, 44, 0.16);
+    background: rgba(77, 66, 57, 0.08);
+}
+
+.biography-era-wall figure img {
+    width: 100%;
+    height: 300px;
+    flex: none;
+    display: block;
+    object-fit: contain;
+    filter: sepia(0.14) contrast(0.98);
+}
+
+.biography-era-wall figcaption {
+    padding: 9px 10px;
+    border-top: 1px solid rgba(103, 68, 44, 0.14);
+    color: rgba(63, 57, 51, 0.7);
+    background: rgba(255, 255, 255, 0.34);
+    font-size: 10px;
+    line-height: 1.6;
+}
+
+.biography-era-wall figcaption a {
+    color: var(--color-red);
+    font-weight: 700;
+}
+
+.biography-era-wall-copy {
+    min-width: 0;
+    padding: 18px 12px 14px 0;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.biography-era-wall-index {
+    color: var(--color-red);
+    font-family: Georgia, serif;
+    font-size: 10px;
+    letter-spacing: 2.5px;
+}
+
+.biography-era-wall h3 {
+    margin-top: 13px;
+    font-family: var(--font-serif);
+    font-size: clamp(22px, 1.7vw, 28px);
+    font-weight: 500;
+    line-height: 1.45;
+}
+
+.biography-era-wall ul {
+    margin-top: 18px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+}
+
+.biography-era-wall li {
+    padding: 5px 8px;
+    border: 1px solid rgba(141, 31, 31, 0.22);
+    color: rgba(89, 55, 42, 0.82);
+    font-size: 10px;
+    letter-spacing: 0.08em;
+}
+
+.biography-era-wall p {
+    margin-top: 16px;
+    color: rgba(63, 57, 51, 0.72);
+    font-size: 12px;
+    line-height: 1.85;
+}
+
+.biography-era-wall-route {
+    grid-template-columns: 0.8fr 1.2fr;
+    background:
+        linear-gradient(120deg, rgba(65, 81, 82, 0.07), transparent 46%),
+        rgba(238, 237, 231, 0.82);
+}
+
+.biography-era-route {
+    padding: 26px 20px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    border: 1px solid rgba(65, 81, 82, 0.16);
+    font-family: var(--font-serif);
+}
+
+.biography-era-route span {
+    font-size: 14px;
+    letter-spacing: 0.12em;
+}
+
+.biography-era-route i {
+    width: 1px;
+    height: 28px;
+    margin: 5px 0 5px 7px;
+    display: block;
+    background: linear-gradient(rgba(141, 31, 31, 0.7), rgba(141, 31, 31, 0.18));
+}
+
+.biography-era:nth-child(even) .timeline-item:nth-of-type(odd) .timeline-card {
+    grid-column: 3;
+}
+
+.biography-era:nth-child(even) .timeline-item:nth-of-type(even) .timeline-card {
+    grid-column: 1;
+}
+
+.biography-era:nth-child(even) .timeline-item:nth-of-type(odd) .timeline-card::after {
+    right: auto;
+    left: -12px;
+    border-width: 11px 12px 11px 0;
+    border-color: transparent var(--color-border) transparent transparent;
+}
+
+.biography-era:nth-child(even) .timeline-item:nth-of-type(even) .timeline-card::after {
+    right: -12px;
+    left: auto;
+    border-width: 11px 0 11px 12px;
+    border-color: transparent transparent transparent var(--color-border);
+}
+
+.biography-era-wall-wide {
+    position: relative;
+    top: auto;
+    right: auto;
+    width: min(880px, calc(100% - 96px));
+    min-height: 330px;
+    margin: 0 auto;
+    grid-template-columns: minmax(300px, 0.95fr) minmax(0, 1.05fr);
+}
+
+.biography-era-wall-wide figure img {
+    height: 300px;
+}
+
 .biography-stage {
     scroll-margin-top: 130px;
     max-width: min(610px, calc(100% - 40px));
@@ -659,6 +835,7 @@ html{scroll-behavior:smooth}
 
 .biography-enhanced .timeline-item,
 .biography-enhanced .biography-stage,
+.biography-enhanced .biography-era-wall,
 .biography-enhanced .reference-panel {
     opacity: 0;
     transform: translateY(24px);
@@ -667,6 +844,7 @@ html{scroll-behavior:smooth}
 
 .biography-enhanced .timeline-item.is-visible,
 .biography-enhanced .biography-stage.is-visible,
+.biography-enhanced .biography-era-wall.is-visible,
 .biography-enhanced .reference-panel.is-visible {
     opacity: 1;
     transform: translateY(0);
@@ -688,6 +866,32 @@ html{scroll-behavior:smooth}
 
     .biography-hero-exhibit {
         width: min(100%, 760px);
+    }
+
+    .biography-era-wall {
+        display: none;
+    }
+
+    .biography-era:nth-child(even) .timeline-item:nth-of-type(odd) .timeline-card {
+        grid-column: 1;
+    }
+
+    .biography-era:nth-child(even) .timeline-item:nth-of-type(even) .timeline-card {
+        grid-column: 3;
+    }
+
+    .biography-era:nth-child(even) .timeline-item:nth-of-type(odd) .timeline-card::after {
+        right: -12px;
+        left: auto;
+        border-width: 11px 0 11px 12px;
+        border-color: transparent transparent transparent var(--color-border);
+    }
+
+    .biography-era:nth-child(even) .timeline-item:nth-of-type(even) .timeline-card::after {
+        right: auto;
+        left: -12px;
+        border-width: 11px 12px 11px 0;
+        border-color: transparent var(--color-border) transparent transparent;
     }
 
     .biography-path .container {
@@ -887,6 +1091,7 @@ html{scroll-behavior:smooth}
 @media (prefers-reduced-motion: reduce) {
     .biography-enhanced .timeline-item,
     .biography-enhanced .biography-stage,
+    .biography-enhanced .biography-era-wall,
     .biography-enhanced .reference-panel {
         opacity: 1;
         transform: none;

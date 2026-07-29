@@ -24,6 +24,14 @@ test("biography desktop hero and era scenes use exhibition-scale layouts", () =>
     assert.match(css, /content:\s*attr\(data-era-place\)[\s\S]*?attr\(data-era-years\)/);
 });
 
+test("biography eras fill desktop negative space with six factual exhibit walls", () => {
+    assert.equal((html.match(/class="biography-era-wall(?: [^"]+)?"/g) ?? []).length, 6);
+    assert.equal((html.match(/class="biography-era-wall-index"/g) ?? []).length, 6);
+    assert.match(html, /class="biography-era-route"/);
+    assert.match(css, /\.biography-era-wall\s*\{[\s\S]*?position:\s*absolute/);
+    assert.match(css, /@media \(max-width:\s*1120px\)[\s\S]*?\.biography-era-wall\s*\{[\s\S]*?display:\s*none/);
+});
+
 test("biography hero uses a complete documented portrait", () => {
     assert.match(html, /class="biography-hero-portrait"/);
     assert.match(html, /09-lu-xun-1930\.jpg/);
