@@ -9,6 +9,7 @@ import {
 
 import "./header-search.js";
 import "./footer-links.js";
+import "./common-frame.js";
 
 const AUTH_ACTIONS_SELECTOR =
     "[data-auth-actions]";

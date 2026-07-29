@@ -1,6 +1,15 @@
 const FOOTER_CONTAINER_SELECTOR =
     ".site-footer .container";
 
+const FOOTER_LINKS = [
+    ["index.html", "展馆首页"],
+    ["biography.html", "鲁迅生平"],
+    ["works.html", "代表作品"],
+    ["articles.html", "作品赏析"],
+    ["gallery.html", "历史影像"],
+    ["messages.html", "文化留言"]
+];
+
 function getCurrentPageName() {
     return (
         window.location.pathname
@@ -10,22 +19,20 @@ function getCurrentPageName() {
     );
 }
 
-function createMessageLink() {
+function createFooterLink(href, label) {
     const link =
         document.createElement("a");
 
     link.className =
         "footer-link";
 
-    link.href =
-        "messages.html";
+    link.href = href;
 
-    link.textContent =
-        "文化留言板";
+    link.textContent = label;
 
     if (
         getCurrentPageName() ===
-        "messages.html"
+        href
     ) {
         link.classList.add(
             "active"
@@ -46,18 +53,10 @@ function initializeFooterLinks() {
             FOOTER_CONTAINER_SELECTOR
         )
         .forEach((container) => {
-            if (
-                container.querySelector(
-                    "[data-footer-links]"
-                )
-            ) {
-                return;
-            }
-
             const navigation =
-                document.createElement(
-                    "nav"
-                );
+                container.querySelector(
+                    ".footer-links"
+                ) ?? document.createElement("nav");
 
             navigation.className =
                 "footer-links";
@@ -70,13 +69,16 @@ function initializeFooterLinks() {
                 "页脚导航"
             );
 
-            navigation.append(
-                createMessageLink()
+            navigation.replaceChildren(
+                ...FOOTER_LINKS.map(
+                    ([href, label]) =>
+                        createFooterLink(href, label)
+                )
             );
 
-            container.append(
-                navigation
-            );
+            if (!navigation.isConnected) {
+                container.append(navigation);
+            }
         });
 }
 

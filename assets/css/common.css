@@ -795,3 +795,269 @@ button.favorite-button.is-not-favorite:disabled {
     background: rgba(255, 255, 255, 0.36);
 }
 
+/* ========================================
+   全站公共框架精修
+   ======================================== */
+
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+body > main {
+    width: 100%;
+    flex: 1 0 auto;
+}
+
+:where(a, button, input, textarea, select, [tabindex]):focus-visible {
+    outline: 2px solid var(--color-red);
+    outline-offset: 4px;
+}
+
+.skip-link {
+    position: fixed;
+    z-index: 100;
+    top: 10px;
+    left: 10px;
+    padding: 10px 15px;
+    color: var(--color-white);
+    background: var(--color-red);
+    transform: translateY(-160%);
+    transition: transform 0.18s ease;
+}
+
+.skip-link:focus {
+    transform: translateY(0);
+}
+
+.site-header {
+    isolation: isolate;
+    box-shadow: 0 8px 30px rgba(44, 34, 27, 0.045);
+}
+
+.site-header::after {
+    content: "";
+    position: absolute;
+    right: 0;
+    bottom: -1px;
+    left: 0;
+    height: 1px;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(141, 31, 31, 0.38),
+        transparent
+    );
+    pointer-events: none;
+}
+
+.site-header:not(.auth-header) .header-inner {
+    min-height: 76px;
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto auto;
+    grid-template-areas: "brand nav search account";
+    gap: 18px;
+    align-items: center;
+    padding: 0;
+}
+
+.site-header:not(.auth-header) .header-tools {
+    display: contents;
+}
+
+.site-header:not(.auth-header) .brand {
+    grid-area: brand;
+    min-width: max-content;
+}
+
+.site-header:not(.auth-header) .header-tools .site-nav {
+    grid-area: nav;
+    width: auto;
+    min-width: 0;
+    justify-content: flex-end;
+    flex-wrap: nowrap;
+    gap: 1px;
+    padding: 0;
+    border: 0;
+}
+
+.site-header:not(.auth-header) .header-search {
+    grid-area: search;
+}
+
+.site-header:not(.auth-header) .account-actions {
+    grid-area: account;
+    min-width: 0;
+}
+
+.site-header:not(.auth-header) .nav-link {
+    min-height: 42px;
+    padding: 10px 8px;
+    display: inline-flex;
+    align-items: center;
+    flex: 0 0 auto;
+    font-size: 13px;
+}
+
+.site-header:not(.auth-header) .nav-link::after {
+    right: 8px;
+    bottom: 4px;
+    left: 8px;
+}
+
+.site-header:not(.auth-header) .account-actions {
+    padding-left: 12px;
+    gap: 5px;
+}
+
+.site-header:not(.auth-header) .account-link,
+.site-header:not(.auth-header) .account-button {
+    padding-right: 7px;
+    padding-left: 7px;
+    font-size: 12px;
+}
+
+.site-footer {
+    position: relative;
+    margin-top: auto;
+    padding: 38px 0 34px;
+    border-top: 1px solid rgba(182, 148, 98, 0.22);
+    color: rgba(248, 240, 228, 0.58);
+    background:
+        linear-gradient(90deg, rgba(141, 31, 31, 0.08), transparent 35%),
+        #1d1a18;
+}
+
+.site-footer p {
+    color: rgba(248, 240, 228, 0.62);
+    letter-spacing: 0.04em;
+}
+
+.site-footer small {
+    color: rgba(248, 240, 228, 0.4);
+}
+
+.footer-links {
+    margin-top: 18px;
+    flex-wrap: wrap;
+    gap: 9px 23px;
+}
+
+.footer-link,
+.home-footer .footer-link {
+    min-height: 32px;
+    display: inline-flex;
+    align-items: center;
+    color: #d3ae77;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+@media (max-width: 1180px) {
+    .site-header:not(.auth-header) .header-inner {
+        min-height: 0;
+        grid-template-columns: minmax(0, 1fr) auto auto;
+        grid-template-areas:
+            "brand search account"
+            "nav nav nav";
+        gap: 0 10px;
+        padding: 9px 0 0;
+    }
+
+    .site-header:not(.auth-header) .header-tools .site-nav {
+        justify-content: flex-start;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        padding: 5px 0 7px;
+        border-top: 1px solid rgba(141, 31, 31, 0.11);
+        white-space: nowrap;
+        scrollbar-width: none;
+        overscroll-behavior-inline: contain;
+    }
+
+    .site-header:not(.auth-header) .header-tools .site-nav::-webkit-scrollbar {
+        display: none;
+    }
+
+    .site-header:not(.auth-header) .account-actions {
+        min-height: 38px;
+        padding-left: 10px;
+        border-left: 1px solid var(--color-border);
+    }
+
+    .header-search-form {
+        top: calc(100% + 10px);
+    }
+}
+
+@media (max-width: 620px) {
+    .site-header:not(.auth-header) .header-inner {
+        width: min(calc(100% - 24px), var(--container-width));
+        grid-template-columns: minmax(0, 1fr) auto auto;
+        gap: 0 5px;
+    }
+
+    .site-header:not(.auth-header) .brand {
+        gap: 9px;
+    }
+
+    .site-header:not(.auth-header) .brand-seal {
+        width: 38px;
+        height: 38px;
+        font-size: 21px;
+        box-shadow: 3px 3px 0 rgba(101, 20, 20, 0.12);
+    }
+
+    .site-header:not(.auth-header) .brand-text strong {
+        font-size: 18px;
+        letter-spacing: 2px;
+    }
+
+    .site-header:not(.auth-header) .brand-text small {
+        display: none;
+    }
+
+    .site-header:not(.auth-header) .header-search-toggle {
+        width: 34px;
+        height: 34px;
+    }
+
+    .site-header:not(.auth-header) .account-actions {
+        padding-left: 5px;
+        gap: 1px;
+    }
+
+    .site-header:not(.auth-header) .account-link,
+    .site-header:not(.auth-header) .account-button {
+        min-height: 32px;
+        padding: 3px 4px;
+        font-size: 11px;
+    }
+
+    .site-header:not(.auth-header) .account-divider {
+        margin: 0 1px;
+    }
+
+    .site-header:not(.auth-header) .nav-link {
+        min-height: 40px;
+        padding: 8px 10px;
+        font-size: 12px;
+    }
+
+    .header-search-form {
+        top: 96px;
+    }
+
+    .site-footer {
+        padding: 32px 0 28px;
+    }
+
+    .site-footer p {
+        line-height: 1.8;
+    }
+
+    .footer-links {
+        gap: 7px 17px;
+    }
+}
