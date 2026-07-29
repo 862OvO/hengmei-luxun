@@ -1102,3 +1102,213 @@ html{scroll-behavior:smooth}
         transition: none;
     }
 }
+
+/* Desktop archive stream: full-width records replace the alternating timeline. */
+@media (min-width: 1121px) {
+    .biography-era {
+        gap: 0;
+        padding: 82px 0 104px;
+    }
+
+    .biography-era::before {
+        top: 112px;
+        bottom: 70px;
+        left: 48px;
+        background: linear-gradient(to bottom, transparent, rgba(141, 31, 31, 0.62) 3%, rgba(141, 31, 31, 0.62) 97%, transparent);
+    }
+
+    .biography-era::after,
+    .biography-era:nth-child(even)::after {
+        top: 76px;
+        right: 18px;
+        left: auto;
+        text-align: right;
+    }
+
+    .biography-stage {
+        width: 100%;
+        max-width: none;
+        margin: 0;
+        padding: 22px 34px 22px 112px;
+        justify-content: space-between;
+        border-color: rgba(141, 31, 31, 0.34);
+        background: rgba(247, 241, 231, 0.9);
+        box-shadow: 0 15px 42px rgba(53, 40, 31, 0.08);
+    }
+
+    .biography-stage span {
+        order: 2;
+    }
+
+    .biography-stage strong {
+        font-size: 24px;
+    }
+
+    .biography-era-wall,
+    .biography-era:nth-child(even) .biography-era-wall,
+    .biography-era-wall-wide {
+        position: relative;
+        top: auto;
+        right: auto;
+        left: auto;
+        width: calc(100% - 96px);
+        min-height: 0;
+        margin: 28px 0 34px 96px;
+        grid-template-columns: minmax(280px, 0.72fr) minmax(0, 1.28fr);
+        gap: 30px;
+        background: rgba(243, 236, 223, 0.8);
+    }
+
+    .biography-era-wall figure img,
+    .biography-era-wall-wide figure img {
+        height: 280px;
+    }
+
+    .biography-era-wall-copy {
+        padding: 28px 34px 24px 0;
+    }
+
+    .biography-era-wall h3 {
+        max-width: 720px;
+        font-size: clamp(28px, 2.4vw, 38px);
+    }
+
+    .biography-era-wall p {
+        max-width: 760px;
+        font-size: 14px;
+        line-height: 1.95;
+    }
+
+    .biography-era-wall-route {
+        grid-template-columns: minmax(280px, 0.72fr) minmax(0, 1.28fr);
+    }
+
+    .biography-era-route {
+        min-height: 280px;
+        display: grid;
+        grid-template-columns: auto 1fr auto 1fr auto 1fr auto;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .biography-era-route span {
+        writing-mode: vertical-rl;
+        font-size: 13px;
+    }
+
+    .biography-era-route i {
+        width: auto;
+        height: 1px;
+        margin: 0;
+        background: linear-gradient(90deg, rgba(141, 31, 31, 0.65), rgba(141, 31, 31, 0.14));
+    }
+
+    .timeline-item,
+    .biography-era:nth-child(even) .timeline-item {
+        margin-top: 28px;
+        display: grid;
+        grid-template-columns: 96px minmax(0, 1fr);
+        align-items: start;
+    }
+
+    .timeline-item + .timeline-item {
+        margin-top: 34px;
+    }
+
+    .timeline-marker,
+    .timeline-item-featured .timeline-marker {
+        position: relative;
+        top: auto;
+        left: auto;
+        grid-column: 1;
+        grid-row: 1;
+        width: 50px;
+        height: 50px;
+        margin: 30px auto 0 23px;
+        transform: none;
+    }
+
+    .timeline-card,
+    .timeline-item-featured .timeline-card,
+    .timeline-item:nth-of-type(odd) .timeline-card,
+    .timeline-item:nth-of-type(even) .timeline-card,
+    .biography-era:nth-child(even) .timeline-item:nth-of-type(odd) .timeline-card,
+    .biography-era:nth-child(even) .timeline-item:nth-of-type(even) .timeline-card {
+        grid-column: 2;
+        width: 100%;
+        margin: 0;
+        padding: 38px 42px;
+        display: grid;
+        grid-template-columns: minmax(0, 1.55fr) minmax(280px, 0.75fr);
+        column-gap: 40px;
+        align-items: start;
+    }
+
+    .timeline-card::after,
+    .timeline-item:nth-of-type(odd) .timeline-card::after,
+    .timeline-item:nth-of-type(even) .timeline-card::after,
+    .biography-era:nth-child(even) .timeline-item:nth-of-type(odd) .timeline-card::after,
+    .biography-era:nth-child(even) .timeline-item:nth-of-type(even) .timeline-card::after,
+    .timeline-item-featured .timeline-card::after {
+        display: none;
+    }
+
+    .timeline-card-header {
+        grid-column: 1 / -1;
+    }
+
+    .timeline-card > p {
+        grid-column: 1;
+        margin-top: 24px;
+        font-size: 16px;
+        line-height: 2.1;
+    }
+
+    .timeline-card > p + p {
+        margin-top: 18px;
+    }
+
+    .timeline-card > .timeline-figure {
+        grid-column: 2;
+        grid-row: 2 / span 4;
+        margin-top: 24px;
+        align-self: stretch;
+    }
+
+    .timeline-card > .timeline-figure img {
+        height: 100%;
+        min-height: 280px;
+        max-height: 460px;
+    }
+
+    .timeline-card:not(:has(> .timeline-figure)):not(:has(> .timeline-gallery)) > p {
+        grid-column: 1 / -1;
+        columns: 2;
+        column-gap: 54px;
+        column-rule: 1px solid rgba(141, 31, 31, 0.12);
+    }
+
+    .timeline-item-featured .timeline-card {
+        grid-template-columns: 1fr;
+        padding: 48px;
+    }
+
+    .timeline-item-featured .timeline-card > p,
+    .timeline-item-featured .timeline-gallery {
+        grid-column: 1;
+    }
+
+    .timeline-gallery {
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+    }
+
+    .timeline-gallery-wide {
+        grid-column: auto;
+    }
+
+    .timeline-gallery .timeline-figure img,
+    .timeline-gallery .timeline-gallery-wide img {
+        height: 300px;
+        max-height: 300px;
+    }
+}

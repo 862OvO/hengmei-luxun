@@ -24,11 +24,12 @@ test("biography desktop hero and era scenes use exhibition-scale layouts", () =>
     assert.match(css, /content:\s*attr\(data-era-place\)[\s\S]*?attr\(data-era-years\)/);
 });
 
-test("biography eras fill desktop negative space with six factual exhibit walls", () => {
+test("biography eras use six factual chapter exhibits and a full-width desktop archive stream", () => {
     assert.equal((html.match(/class="biography-era-wall(?: [^"]+)?"/g) ?? []).length, 6);
     assert.equal((html.match(/class="biography-era-wall-index"/g) ?? []).length, 6);
     assert.match(html, /class="biography-era-route"/);
-    assert.match(css, /\.biography-era-wall\s*\{[\s\S]*?position:\s*absolute/);
+    assert.match(css, /@media \(min-width:\s*1121px\)[\s\S]*?\.timeline-item,[\s\S]*?grid-template-columns:\s*96px minmax\(0, 1fr\)/);
+    assert.match(css, /\.timeline-card:not\(:has\(> \.timeline-figure\)\):not\(:has\(> \.timeline-gallery\)\) > p\s*\{[\s\S]*?columns:\s*2/);
     assert.match(css, /@media \(max-width:\s*1120px\)[\s\S]*?\.biography-era-wall\s*\{[\s\S]*?display:\s*none/);
 });
 
