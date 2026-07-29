@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="assets/css/relations.css">
     <link rel="icon" href="assets/images/favicon.svg" type="image/svg+xml">
 </head>
-<body>
+<body class="relations-page">
     <header class="site-header">
         <div class="container header-inner">
             <a class="brand" href="index.html"><span class="brand-seal">横</span><span class="brand-text"><strong>横眉</strong><small>鲁迅文化数字展馆</small></span></a>
@@ -24,7 +24,7 @@
         </div>
     </header>
 
-    <main>
+    <main id="main-content">
         <section class="hero relations-hero">
             <div class="container hero-grid">
                 <div class="hero-content">
@@ -34,11 +34,17 @@
                     <div class="hero-actions"><a class="button button-primary" href="#relationship-map">浏览关系图</a><a class="button button-secondary" href="#interaction-timeline">查看交往时间线</a></div>
                 </div>
                 <aside class="hero-card relations-hero-card">
+                    <div class="relations-hero-card-label"><span>RELATION ARCHIVE</span><span>NO. 04</span></div>
                     <div class="hero-card-number">04</div>
                     <h2>一张可阅读的交往网络</h2>
                     <p>页面不把人物简化成名单：关系图帮助定位，人物卡补充背景，时间线呈现关系如何随迁徙、写作与时代变化展开。</p>
                     <dl class="relations-summary"><div><dt>重要人物</dt><dd>12 位</dd></div><div><dt>关系类别</dt><dd>3 类</dd></div><div><dt>关键节点</dt><dd>12 个</dd></div></dl>
                     <div class="hero-card-meta">家人与亲属 · 师长与教育 · 友人与同人</div>
+                    <div class="relations-hero-legend" aria-label="关系类别图例">
+                        <span class="is-family">家人与亲属</span>
+                        <span class="is-mentor">师长与教育</span>
+                        <span class="is-peer">友人与同人</span>
+                    </div>
                 </aside>
             </div>
         </section>
@@ -53,6 +59,7 @@
         <section class="relationship-map-section" id="relationship-map" aria-labelledby="relationship-map-title">
             <div class="container">
                 <header class="relations-section-heading"><span class="section-kicker">RELATION MAP</span><h2 id="relationship-map-title">以鲁迅为中心的关系图</h2><p>按类别筛选，再选择人物进入详细卡片。</p></header>
+                <div class="archive-strip" aria-hidden="true"><span>NETWORK ATLAS</span><span>12 PEOPLE</span><span>1881—1936</span></div>
                 <div class="relation-filters" role="group" aria-label="筛选人物关系">
                     <button class="relation-filter is-active" type="button" data-filter="all" aria-pressed="true">全部 <span>12</span></button>
                     <button class="relation-filter" type="button" data-filter="family" aria-pressed="false">家人与亲属 <span>5</span></button>
@@ -70,6 +77,7 @@
         <section class="people-section" id="people" aria-labelledby="people-title">
             <div class="container">
                 <header class="relations-section-heading"><span class="section-kicker">PEOPLE</span><h2 id="people-title">十二位重要交往者</h2><p>展开卡片，阅读人物背景、关系变化与代表性交往节点。</p></header>
+                <div class="archive-strip archive-strip--light" aria-hidden="true"><span>PERSONNEL FILES</span><span>03 CATEGORIES</span><span>12 RECORDS</span></div>
                 <div class="people-grid" data-people-grid><p class="relations-loading">正在载入人物资料……</p></div>
             </div>
         </section>
@@ -77,6 +85,7 @@
         <section class="interaction-section" id="interaction-timeline" aria-labelledby="interaction-title">
             <div class="container">
                 <header class="relations-section-heading"><span class="section-kicker">INTERACTION TIMELINE</span><h2 id="interaction-title">关键交往时间线</h2><p>十二个节点把人物关系放回鲁迅的人生进程，而不是停留在孤立的简介里。</p></header>
+                <div class="archive-strip" aria-hidden="true"><span>CHRONOLOGY</span><span>YEAR / PERSON / EVENT</span><span>12 ENTRIES</span></div>
                 <ol class="interaction-timeline" data-timeline></ol>
             </div>
         </section>

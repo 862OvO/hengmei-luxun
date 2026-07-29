@@ -50,10 +50,11 @@ function renderPeople(people) {
     const root = document.querySelector("[data-people-grid]");
     root.replaceChildren();
 
-    people.forEach((person) => {
+    people.forEach((person, index) => {
         const details = element("details", `person-card person-card--${person.category}`);
         details.id = `person-${person.id}`;
         details.dataset.personId = person.id;
+        details.dataset.record = String(index + 1).padStart(2, "0");
 
         const summary = element("summary", "person-card-summary");
         const portrait = element("span", "person-portrait");
@@ -69,6 +70,7 @@ function renderPeople(people) {
         }
 
         const heading = element("span", "person-heading");
+        heading.append(element("span", "person-index", `FILE ${String(index + 1).padStart(2, "0")}`));
         heading.append(element("span", "person-category", CATEGORY_LABELS[person.category]));
         heading.append(element("strong", "person-name", person.name));
         heading.append(element("span", "person-years", person.years));
@@ -97,9 +99,11 @@ function renderTimeline(people) {
     root.replaceChildren();
     [...people]
         .sort((a, b) => Number(a.event.year) - Number(b.event.year))
-        .forEach((person) => {
+        .forEach((person, index) => {
             const item = element("li", `interaction-item interaction-item--${person.category}`);
             item.dataset.personId = person.id;
+            item.dataset.record = String(index + 1).padStart(2, "0");
+            item.append(element("span", "interaction-index", String(index + 1).padStart(2, "0")));
             const year = element("time", "interaction-year", person.event.year);
             year.dateTime = person.event.year;
             const copy = element("div", "interaction-copy");
