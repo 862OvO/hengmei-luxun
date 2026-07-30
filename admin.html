@@ -20,7 +20,7 @@
     <link rel="icon" href="assets/images/favicon.svg" type="image/svg+xml">
 </head>
 
-<body>
+<body class="admin-page">
     <header class="site-header">
         <div class="container header-inner">
             <a class="brand" href="index.html">
@@ -56,7 +56,7 @@
         </div>
     </header>
 
-    <main class="admin-main">
+    <main class="admin-main" id="main-content">
         <div class="container">
             <div class="admin-state" data-admin-loading>
                 <strong>正在验证管理员身份</strong>
@@ -74,15 +74,27 @@
 
             <div class="admin-shell" data-admin-app hidden>
                 <section class="admin-hero">
-                    <div class="admin-kicker">ADMINISTRATION</div>
-                    <h1 class="admin-title">管理后台</h1>
-                    <p class="admin-description">
-                        管理文化内容、草稿与回收站。普通用户不能直接修改后台数据，所有操作均受管理员身份和数据库 RLS 双重保护。
-                    </p>
-                    <div class="admin-identity">
-                        当前管理员：
-                        <span data-admin-nickname>管理员</span>
+                    <div class="admin-hero-copy">
+                        <div class="admin-kicker">EDITORIAL DESK · NO. 12</div>
+                        <h1 class="admin-title">展馆<span>编辑部</span></h1>
+                        <p class="admin-description">
+                            管理馆藏内容、留言与用户状态。所有写入操作均经过管理员身份和数据库 RLS 双重校验。
+                        </p>
+                        <div class="admin-hero-actions">
+                            <a href="profile.html">返回个人中心</a>
+                            <a href="index.html">查看线上展馆</a>
+                        </div>
                     </div>
+
+                    <aside class="admin-identity" aria-label="当前管理会话">
+                        <span>AUTHORIZED EDITOR</span>
+                        <strong data-admin-nickname>管理员</strong>
+                        <small>当前管理会话 · 权限已验证</small>
+                        <dl>
+                            <div><dt>工作模块</dt><dd>5</dd></div>
+                            <div><dt>数据保护</dt><dd>RLS</dd></div>
+                        </dl>
+                    </aside>
                 </section>
 
                 <section class="admin-workspace">
@@ -90,11 +102,14 @@
                         class="admin-tabs"
                         role="tablist"
                         aria-label="后台功能"
+                        aria-orientation="vertical"
                     >
                         <button
                             class="admin-tab active"
                             type="button"
                             role="tab"
+                            id="admin-tab-contents"
+                            aria-controls="admin-panel-contents"
                             data-admin-tab="contents"
                             aria-selected="true"
                         >内容管理</button>
@@ -103,6 +118,8 @@
                             class="admin-tab"
                             type="button"
                             role="tab"
+                            id="admin-tab-editor"
+                            aria-controls="admin-panel-editor"
                             data-admin-tab="editor"
                             aria-selected="false"
                         >新增 / 编辑</button>
@@ -111,6 +128,8 @@
                             class="admin-tab"
                             type="button"
                             role="tab"
+                            id="admin-tab-trash"
+                            aria-controls="admin-panel-trash"
                             data-admin-tab="trash"
                             aria-selected="false"
                         >回收站</button>
@@ -119,6 +138,8 @@
                             class="admin-tab"
                             type="button"
                             role="tab"
+                            id="admin-tab-messages"
+                            aria-controls="admin-panel-messages"
                             data-admin-tab="messages"
                             aria-selected="false"
                         >留言管理</button>
@@ -127,6 +148,8 @@
                             class="admin-tab"
                             type="button"
                             role="tab"
+                            id="admin-tab-users"
+                            aria-controls="admin-panel-users"
                             data-admin-tab="users"
                             aria-selected="false"
                         >用户管理</button>
@@ -135,6 +158,9 @@
                     <section
                         class="admin-panel"
                         data-admin-panel="contents"
+                        id="admin-panel-contents"
+                        role="tabpanel"
+                        aria-labelledby="admin-tab-contents"
                     >
                         <div class="admin-panel-heading">
                             <h2>内容管理</h2>
@@ -219,6 +245,9 @@
                     <section
                         class="admin-panel"
                         data-admin-panel="editor"
+                        id="admin-panel-editor"
+                        role="tabpanel"
+                        aria-labelledby="admin-tab-editor"
                         hidden
                     >
                         <div class="admin-panel-heading">
@@ -392,6 +421,9 @@
                     <section
                         class="admin-panel"
                         data-admin-panel="trash"
+                        id="admin-panel-trash"
+                        role="tabpanel"
+                        aria-labelledby="admin-tab-trash"
                         hidden
                     >
                         <div class="admin-panel-heading">
@@ -421,6 +453,9 @@
                     <section
                         class="admin-panel"
                         data-admin-panel="messages"
+                        id="admin-panel-messages"
+                        role="tabpanel"
+                        aria-labelledby="admin-tab-messages"
                         hidden
                     >
                         <div class="admin-panel-heading">
@@ -515,6 +550,9 @@
                     <section
                         class="admin-panel"
                         data-admin-panel="users"
+                        id="admin-panel-users"
+                        role="tabpanel"
+                        aria-labelledby="admin-tab-users"
                         hidden
                     >
                         <div class="admin-panel-heading">

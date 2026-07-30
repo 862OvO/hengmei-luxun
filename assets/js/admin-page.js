@@ -234,6 +234,9 @@ function activatePanel(panelName) {
                 "aria-selected",
                 String(isActive)
             );
+
+            button.tabIndex =
+                isActive ? 0 : -1;
         });
 
     document
@@ -256,17 +259,78 @@ function activatePanel(panelName) {
 }
 
 function initializeTabs() {
-    document
-        .querySelectorAll(
+    const tabList =
+        getElement(".admin-tabs");
+
+    const tabs = [
+        ...document.querySelectorAll(
             "[data-admin-tab]"
         )
-        .forEach((button) => {
+    ];
+
+    const desktopTabs =
+        window.matchMedia(
+            "(min-width: 1081px)"
+        );
+
+    const syncOrientation = () => {
+        tabList?.setAttribute(
+            "aria-orientation",
+            desktopTabs.matches
+                ? "vertical"
+                : "horizontal"
+        );
+    };
+
+    syncOrientation();
+    desktopTabs.addEventListener?.(
+        "change",
+        syncOrientation
+    );
+
+    tabs.forEach((button, index) => {
             button.addEventListener(
                 "click",
                 () => {
                     activatePanel(
                         button.dataset.adminTab
                     );
+                }
+            );
+
+            button.addEventListener(
+                "keydown",
+                (event) => {
+                    const previousKeys =
+                        desktopTabs.matches
+                            ? ["ArrowUp"]
+                            : ["ArrowLeft"];
+
+                    const nextKeys =
+                        desktopTabs.matches
+                            ? ["ArrowDown"]
+                            : ["ArrowRight"];
+
+                    const direction =
+                        previousKeys.includes(event.key)
+                            ? -1
+                            : nextKeys.includes(event.key)
+                                ? 1
+                                : 0;
+
+                    if (!direction) return;
+
+                    event.preventDefault();
+
+                    const target = tabs[
+                        (index + direction + tabs.length) %
+                        tabs.length
+                    ];
+
+                    activatePanel(
+                        target.dataset.adminTab
+                    );
+                    target.focus();
                 }
             );
         });
