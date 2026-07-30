@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="assets/css/variables.css">
     <link rel="stylesheet" href="assets/css/common.css">
     <link rel="stylesheet" href="assets/css/auth.css">
+    <link rel="stylesheet" href="assets/css/profile.css">
     <link rel="icon" href="assets/images/favicon.svg" type="image/svg+xml">
 </head>
 
@@ -46,24 +47,40 @@
                 </h1>
 
                 <p class="auth-intro-description">
-                    在这里查看账号资料、邮箱验证状态和注册时间，
-                    并管理您在数字展馆中使用的唯一昵称。
+                    保存你的观展身份，集中进入收藏、留言与账号设置，
+                    让每一次阅读都能回到同一份个人档案。
                 </p>
 
-                <div class="auth-intro-divider"></div>
-
-                <div class="profile-intro-note">
-                    <span class="profile-intro-number">10</span>
-
+                <section class="profile-identity" aria-label="观展身份">
+                    <span class="profile-monogram" id="profile-monogram" aria-hidden="true">横</span>
                     <div>
-                        <h2>用户资料管理</h2>
-
-                        <p>
-                            第一阶段仅开放昵称修改功能。
-                            登录邮箱暂不支持修改，以减少重新验证和安全风险。
-                        </p>
+                        <span>MEMBER ARCHIVE · NO. 10</span>
+                        <strong id="profile-identity-nickname">正在读取身份</strong>
+                        <small id="profile-account-type">数字展馆注册观众</small>
                     </div>
-                </div>
+                </section>
+
+                <nav class="profile-shortcuts" aria-label="个人中心快捷入口">
+                    <a href="favorites.html">
+                        <span id="profile-favorite-count">--</span>
+                        <strong>我的收藏</strong>
+                        <small>返回已保存的作品与影像</small>
+                    </a>
+                    <a href="messages.html">
+                        <span id="profile-message-count">--</span>
+                        <strong>我的留言</strong>
+                        <small>查看并管理公开留言</small>
+                    </a>
+                    <a href="admin.html" id="profile-admin-link" hidden>
+                        <span>管</span>
+                        <strong>管理后台</strong>
+                        <small>编辑馆藏与维护展馆内容</small>
+                    </a>
+                </nav>
+
+                <p class="profile-security-note">
+                    登录邮箱仅用于身份验证，暂不开放修改；个人资料与活动记录均受数据库行级权限保护。
+                </p>
 
                 <a class="profile-back-link" href="index.html">
                     继续浏览数字展馆
@@ -103,6 +120,16 @@
                         <div class="profile-detail-item">
                             <dt>唯一昵称</dt>
                             <dd id="profile-nickname">尚未加载</dd>
+                        </div>
+
+                        <div class="profile-detail-item">
+                            <dt>账户身份</dt>
+                            <dd id="profile-role">尚未加载</dd>
+                        </div>
+
+                        <div class="profile-detail-item">
+                            <dt>账户状态</dt>
+                            <dd><span class="profile-status" id="profile-account-status">尚未加载</span></dd>
                         </div>
 
                         <div class="profile-detail-item">
@@ -186,13 +213,10 @@
                         </form>
                     </section>
 
-                    <button
-                        class="profile-logout-button"
-                        id="profile-logout"
-                        type="button"
-                    >
-                        退出当前账号
-                    </button>
+                    <div class="profile-account-actions">
+                        <a href="index.html">继续浏览展馆</a>
+                        <button class="profile-logout-button" id="profile-logout" type="button">退出当前账号</button>
+                    </div>
                 </div>
 
                 <p class="auth-panel-footer">

@@ -31,6 +31,30 @@ const profileEmailStatus =
 const profileCreatedAt =
     document.querySelector("#profile-created-at");
 
+const profileRole =
+    document.querySelector("#profile-role");
+
+const profileAccountStatus =
+    document.querySelector("#profile-account-status");
+
+const profileMonogram =
+    document.querySelector("#profile-monogram");
+
+const profileIdentityNickname =
+    document.querySelector("#profile-identity-nickname");
+
+const profileAccountType =
+    document.querySelector("#profile-account-type");
+
+const profileFavoriteCount =
+    document.querySelector("#profile-favorite-count");
+
+const profileMessageCount =
+    document.querySelector("#profile-message-count");
+
+const profileAdminLink =
+    document.querySelector("#profile-admin-link");
+
 const nicknameInput =
     document.querySelector(
         "#profile-nickname-input"
@@ -139,6 +163,31 @@ function redirectToLogin() {
     );
 }
 
+function setCount(element, result) {
+    if (!element) return;
+    element.textContent =
+        result.status === "fulfilled" && !result.value.error
+            ? String(result.value.count ?? 0)
+            : "—";
+}
+
+async function loadActivitySummary(userId) {
+    const results = await Promise.allSettled([
+        supabaseClient
+            .from("favorites")
+            .select("id", { count: "exact", head: true })
+            .eq("user_id", userId),
+        supabaseClient
+            .from("messages")
+            .select("id", { count: "exact", head: true })
+            .eq("user_id", userId)
+            .eq("status", "visible")
+    ]);
+
+    setCount(profileFavoriteCount, results[0]);
+    setCount(profileMessageCount, results[1]);
+}
+
 async function loadProfile() {
     if (!isSupabaseConfigured()) {
         profileLoading.hidden = true;
@@ -177,7 +226,7 @@ async function loadProfile() {
         } = await supabaseClient
             .from("profiles")
             .select(
-                "nickname, created_at, updated_at"
+                "nickname, role, account_status, created_at, updated_at"
             )
             .eq("id", currentUser.id)
             .single();
@@ -191,11 +240,36 @@ async function loadProfile() {
         profileNickname.textContent =
             profile.nickname;
 
+        profileIdentityNickname.textContent =
+            profile.nickname;
+
+        profileMonogram.textContent =
+            [...profile.nickname][0] ?? "横";
+
         profileEmail.textContent =
             currentUser.email || "暂无邮箱";
 
         profileCreatedAt.textContent =
             formatDate(profile.created_at);
+
+        const isAdmin = profile.role === "admin";
+        profileRole.textContent = isAdmin
+            ? "展馆管理员"
+            : "注册观众";
+        profileAccountType.textContent = isAdmin
+            ? "数字展馆内容管理员"
+            : "数字展馆注册观众";
+        profileAdminLink.hidden = !isAdmin;
+
+        const statusLabels = {
+            active: "正常使用",
+            banned: "访问受限",
+            pending_deletion: "等待注销"
+        };
+        profileAccountStatus.textContent =
+            statusLabels[profile.account_status] ?? "状态未知";
+        profileAccountStatus.dataset.status =
+            profile.account_status ?? "unknown";
 
         nicknameInput.value =
             profile.nickname;
@@ -221,6 +295,12 @@ async function loadProfile() {
 
         profileLoading.hidden = true;
         profileContent.hidden = false;
+
+        loadActivitySummary(currentUser.id).catch((error) => {
+            console.warn("Profile summary failed:", error?.message);
+            profileFavoriteCount.textContent = "—";
+            profileMessageCount.textContent = "—";
+        });
     } catch (error) {
         console.error(
             "Profile loading failed:",
@@ -306,6 +386,12 @@ profileForm?.addEventListener(
 
             profileNickname.textContent =
                 updatedProfile.nickname;
+
+            profileIdentityNickname.textContent =
+                updatedProfile.nickname;
+
+            profileMonogram.textContent =
+                [...updatedProfile.nickname][0] ?? "横";
 
             nicknameInput.value =
                 updatedProfile.nickname;
