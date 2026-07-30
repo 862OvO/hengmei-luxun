@@ -33,6 +33,13 @@ test("竖幅衬底和灯箱不会把图片容器强制拉长", () => {
     assert.match(css, /\.lightbox-media img \{ width:auto; height:auto;/);
 });
 
+test("同一年代同一行的档案卡片保持等高且操作区底部对齐", () => {
+    assert.match(css, /\.gallery-grid \{[^}]*align-items:stretch/);
+    assert.match(css, /\.gallery-card \{[^}]*height:100%;[^}]*display:flex;[^}]*flex-direction:column/);
+    assert.match(css, /\.gallery-card-copy \{[^}]*flex:1;[^}]*display:flex;[^}]*flex-direction:column/);
+    assert.match(css, /\.gallery-card-actions \{ margin-top:auto;/);
+});
+
 test("历史影像详情使用专属深色展陈头部且窄屏仍为单列", () => {
     assert.match(detailCss, /\.detail-article--gallery \.detail-heading/);
     assert.match(detailCss, /#211b18/);
