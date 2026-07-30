@@ -690,20 +690,29 @@
 
 .detail-article--gallery .detail-heading {
     background:
-        linear-gradient(110deg, rgba(141, 31, 31, 0.07), transparent 60%),
-        #eee5d7;
+        linear-gradient(110deg, rgba(141, 31, 31, 0.4), transparent 60%),
+        repeating-linear-gradient(0deg, transparent 0 42px, rgba(255, 250, 240, .035) 42px 43px),
+        #211b18;
+    color: #fffaf0;
 }
 
 .detail-article--gallery .detail-heading::after {
     content: "影";
+    color: rgba(255, 250, 240, .045);
 }
+
+.detail-article--gallery .detail-heading .detail-type { color: #d8b77f; }
+.detail-article--gallery .detail-heading .detail-summary { color: rgba(255, 250, 240, .72); }
+.detail-article--gallery .detail-heading .favorite-button { border-color: #a63831; }
 
 .detail-article--gallery .detail-layout {
     grid-template-columns: minmax(280px, 0.4fr) minmax(0, 0.6fr);
 }
 
 .detail-article--gallery .detail-image-wrapper {
-    background: #25211f;
+    margin-bottom: 0;
+    border-color: rgba(255, 250, 240, .12);
+    background: #171412;
 }
 
 .detail-article--gallery .detail-image {
@@ -711,6 +720,26 @@
     max-height: 620px;
     object-fit: contain;
 }
+
+.detail-article--gallery .detail-sidebar {
+    padding: 34px;
+    color: #f8f0df;
+    border-right-color: rgba(255, 250, 240, .1);
+    background: linear-gradient(160deg, rgba(141,31,31,.18), transparent 45%), #2a221e;
+}
+
+.detail-article--gallery .detail-meta-title,
+.detail-article--gallery .detail-related-title,
+.detail-article--gallery .detail-image-credit-title { color: #d8b77f; }
+.detail-article--gallery .detail-meta-row,
+.detail-article--gallery .detail-related,
+.detail-article--gallery .detail-related-list li,
+.detail-article--gallery .detail-image-credit-row { border-color: rgba(255, 250, 240, .1); }
+.detail-article--gallery .detail-meta-row dt,
+.detail-article--gallery .detail-image-credit-row dt { color: rgba(255, 250, 240, .5); }
+.detail-article--gallery .detail-meta-row dd { color: rgba(255, 250, 240, .88); }
+.detail-article--gallery .detail-related-list a { color: rgba(255, 250, 240, .7); }
+.detail-article--gallery .detail-content { background: #faf7f0; }
 
 .detail-article--works {
     display: grid;

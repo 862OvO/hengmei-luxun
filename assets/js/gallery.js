@@ -42,6 +42,14 @@ function createCard(item, index) {
     image.alt = item.metadata.alt;
     image.loading = "lazy";
     image.decoding = "async";
+    const classifyImage = () => {
+        const ratio = image.naturalWidth / image.naturalHeight;
+        media.classList.toggle("is-portrait", ratio < 0.86);
+        media.classList.toggle("is-square", ratio >= 0.86 && ratio <= 1.2);
+        media.classList.toggle("is-landscape", ratio > 1.2);
+    };
+    image.addEventListener("load", classifyImage, { once: true });
+    if (image.complete && image.naturalWidth) classifyImage();
     const badge = element("span", "gallery-card-badge", item.metadata.category);
     const zoom = element("button", "gallery-zoom", "＋");
     zoom.type = "button";
@@ -50,6 +58,7 @@ function createCard(item, index) {
     media.append(image, badge, zoom);
 
     const copy = element("div", "gallery-card-copy");
+    copy.append(element("span", "gallery-card-number", String(index + 1).padStart(2, "0")));
     copy.append(element("div", "gallery-card-time", item.metadata.timeline_label));
     const title = element("h4", "", item.title);
     const summary = element("p", "gallery-card-summary", item.summary);
