@@ -16,6 +16,18 @@ test("首页首行标题在各断点保持单行并使用独立字号", () => {
     assert.match(css, /\.home-hero h1\s*\{[^}]*flex-direction:\s*column[^}]*gap:\s*4px[^}]*white-space:\s*nowrap/s);
 });
 
+test("mobile exhibition heroes keep eyebrows clear of the sticky header", () => {
+    const css = read("assets/css/common.css");
+    assert.match(css, /@media \(max-width: 680px\)[\s\S]*?padding-top:\s*118px !important/);
+    assert.match(css, /\.relations-summary,[\s\S]*?grid-template-columns:\s*repeat\(3/);
+});
+
+test("desktop biography and works follow the shared exhibition height", () => {
+    for (const file of ["assets/css/biography.css", "assets/css/works.css"]) {
+        assert.match(read(file), /min-height:\s*min\(820px, calc\(100vh - 76px\)\)/, file);
+    }
+});
+
 test("人物关系标题只强调主题行", () => {
     const css = read("assets/css/relations.css");
     assert.match(css, /\.hero-title-prefix\s*\{[^}]*color:\s*#f9f3e9/s);

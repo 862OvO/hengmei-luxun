@@ -843,8 +843,11 @@ input[readonly] {
 }
 
 @media(max-width:460px) {
-    .admin-hero { padding:38px 22px 33px; }
-    .admin-identity { padding:28px 22px 23px; }
+    .admin-hero { gap:26px; padding:32px 21px 28px; }
+    .admin-title { font-size:46px; }
+    .admin-description { margin-top:18px; line-height:1.75; }
+    .admin-hero-actions { margin-top:20px; }
+    .admin-identity { padding:24px 20px 20px; }
     .admin-panel { padding:25px 15px 30px; }
     .admin-panel-heading { padding-left:15px; }
     .admin-panel-heading h2 { font-size:27px; }

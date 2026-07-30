@@ -1031,7 +1031,7 @@ html{scroll-behavior:smooth}
 
 @media (max-width: 560px) {
     .biography-hero {
-        padding-top: 56px;
+        padding: 116px 0 54px;
     }
 
     .biography-hero .hero-grid {
@@ -1044,18 +1044,29 @@ html{scroll-behavior:smooth}
 
     .biography-hero .hero-actions {
         align-items: stretch;
-        flex-direction: column;
+        flex-direction: row;
     }
+
+    .biography-hero .hero-actions .button { min-width:0; flex:1 1 0; justify-content:center; padding-inline:9px; white-space:nowrap; }
 
     .biography-hero-exhibit {
         grid-template-columns: 1fr;
-        gap: 28px;
+        gap: 20px;
     }
 
     .biography-hero-portrait {
-        width: min(82vw, 310px);
+        width: min(64vw, 235px);
         justify-self: center;
         margin-bottom: 0;
+    }
+
+    .biography-hero-card {
+        padding: 22px 18px;
+    }
+
+    .biography-hero-card .hero-card-number {
+        margin-top: 14px;
+        font-size: 52px;
     }
 
     .biography-summary {
@@ -1100,6 +1111,14 @@ html{scroll-behavior:smooth}
 
     .timeline-card {
         transition: none;
+    }
+}
+
+@media (min-width: 1121px) {
+    .biography-hero {
+        min-height: min(820px, calc(100vh - 76px));
+        display: grid;
+        align-items: center;
     }
 }
 

@@ -1268,9 +1268,9 @@ html {
     }
 
     .home-hero-grid {
-        padding-top: 55px;
-        padding-bottom: 64px;
-        gap: 58px;
+        padding-top: 116px;
+        padding-bottom: 54px;
+        gap: 34px;
     }
 
     .home-overline {
@@ -1329,7 +1329,7 @@ html {
     }
 
     .home-portrait {
-        width: calc(100% - 30px);
+        width: min(70vw, 270px);
     }
 
     .portrait-signature {

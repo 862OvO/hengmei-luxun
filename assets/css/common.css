@@ -980,6 +980,21 @@ body > main {
         display: none;
     }
 
+    .site-header:not(.auth-header) .header-tools .site-nav.can-scroll-right {
+        -webkit-mask-image: linear-gradient(to right, #000 0, #000 calc(100% - 34px), transparent 100%);
+        mask-image: linear-gradient(to right, #000 0, #000 calc(100% - 34px), transparent 100%);
+    }
+
+    .site-header:not(.auth-header) .header-tools .site-nav.can-scroll-left {
+        -webkit-mask-image: linear-gradient(to right, transparent 0, #000 34px, #000 100%);
+        mask-image: linear-gradient(to right, transparent 0, #000 34px, #000 100%);
+    }
+
+    .site-header:not(.auth-header) .header-tools .site-nav.can-scroll-left.can-scroll-right {
+        -webkit-mask-image: linear-gradient(to right, transparent 0, #000 34px, #000 calc(100% - 34px), transparent 100%);
+        mask-image: linear-gradient(to right, transparent 0, #000 34px, #000 calc(100% - 34px), transparent 100%);
+    }
+
     .site-header:not(.auth-header) .account-actions {
         min-height: 38px;
         padding-left: 10px;
@@ -989,6 +1004,133 @@ body > main {
     .header-search-form {
         top: calc(100% + 10px);
     }
+}
+
+/* Shared exhibition rhythm: keep the first mobile screen informative and
+   prevent the sticky two-row header from covering each section eyebrow. */
+@media (max-width: 680px) {
+    .relations-hero,
+    .quotes-hero,
+    .history-hero,
+    .articles-hero,
+    .gallery-hero {
+        padding-top: 118px !important;
+        padding-bottom: 54px !important;
+    }
+
+    .relations-hero .hero-grid,
+    .quotes-hero .hero-grid,
+    .history-hero .hero-grid,
+    .articles-hero .hero-grid,
+    .gallery-hero .hero-grid {
+        gap: 30px !important;
+    }
+
+    .relations-hero .eyebrow,
+    .quotes-hero .eyebrow,
+    .history-hero .eyebrow,
+    .articles-hero .eyebrow,
+    .gallery-hero .eyebrow {
+        display: flex;
+        min-height: 18px;
+        line-height: 1.5;
+    }
+
+    .relations-hero .hero-description,
+    .quotes-hero .hero-description,
+    .history-hero .hero-description,
+    .articles-hero .hero-description,
+    .gallery-hero .hero-description {
+        margin-top: 22px;
+        line-height: 1.9;
+    }
+
+    .relations-hero .hero-actions,
+    .quotes-hero .hero-actions,
+    .history-hero .hero-actions,
+    .articles-hero .hero-actions,
+    .gallery-hero .hero-actions {
+        margin-top: 26px;
+        gap: 10px;
+        align-items: stretch;
+        flex-direction: row;
+    }
+
+    .relations-hero .hero-actions .button,
+    .quotes-hero .hero-actions .button,
+    .history-hero .hero-actions .button,
+    .articles-hero .hero-actions .button,
+    .gallery-hero .hero-actions .button {
+        min-width: 0;
+        flex: 1 1 0;
+        justify-content: center;
+        padding-inline: 9px;
+        white-space: nowrap;
+    }
+
+    .relations-hero-card,
+    .quotes-hero-card,
+    .history-hero-card,
+    .articles-hero-card,
+    .gallery-hero-card {
+        padding: 30px 22px 25px !important;
+        box-shadow: 8px 10px 0 rgba(110, 28, 24, 0.18) !important;
+    }
+
+    .relations-hero-card .hero-card-number,
+    .quotes-hero-card .hero-card-number,
+    .history-hero-card .hero-card-number,
+    .articles-hero-card .hero-card-number,
+    .gallery-hero-card .hero-card-number {
+        margin-top: 24px !important;
+        font-size: 52px !important;
+    }
+
+    .relations-summary,
+    .quotes-summary,
+    .gallery-summary {
+        grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    }
+
+    .relations-summary div,
+    .quotes-summary div,
+    .gallery-summary div {
+        min-width: 0;
+        display: block !important;
+        padding: 14px 5px !important;
+        border-top: 0 !important;
+        border-left: 1px solid rgba(189, 155, 98, 0.16) !important;
+        text-align: center !important;
+    }
+
+    .relations-summary div:first-child,
+    .quotes-summary div:first-child,
+    .gallery-summary div:first-child {
+        border-left: 0 !important;
+    }
+
+    .relations-summary dt,
+    .quotes-summary dt,
+    .gallery-summary dt {
+        font-size: 9px;
+    }
+
+    .relations-summary dd,
+    .quotes-summary dd,
+    .gallery-summary dd {
+        margin-top: 7px;
+        font-size: 18px;
+    }
+}
+
+:is(.relations-hero-card, .quotes-hero-card, .history-hero-card, .articles-hero-card, .gallery-hero-card) > p {
+    color: rgba(244, 236, 223, 0.72) !important;
+}
+
+:is(.relations-hero-card, .quotes-hero-card, .history-hero-card, .articles-hero-card, .gallery-hero-card) .hero-card-meta {
+    color: rgba(244, 236, 223, 0.62) !important;
+    font-size: 12px;
+    line-height: 1.7;
 }
 
 @media (max-width: 620px) {

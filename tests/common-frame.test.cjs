@@ -40,6 +40,13 @@ test("the shared footer provides the six principal exhibition entrances", () => 
     assert.match(css, /\.site-footer\s*\{[\s\S]*?#1d1a18/);
 });
 
+test("the narrow navigation exposes hidden destinations without a scrollbar", () => {
+    assert.match(commonFrame, /updateNavigationOverflow/);
+    assert.match(commonFrame, /can-scroll-left/);
+    assert.match(commonFrame, /can-scroll-right/);
+    assert.match(css, /\.can-scroll-left\.can-scroll-right[\s\S]*?mask-image/);
+});
+
 test("the public frame preserves visible keyboard focus", () => {
     assert.match(css, /:focus-visible\s*\{[\s\S]*?outline:\s*2px solid var\(--color-red\)/);
 });

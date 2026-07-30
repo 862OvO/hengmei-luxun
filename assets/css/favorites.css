@@ -289,9 +289,12 @@
 }
 
 @media(max-width:460px) {
-    .favorites-heading { padding:39px 23px 34px; }
-    .favorites-dossier { padding:30px 22px 24px; }
-    .favorites-dossier-number { font-size:54px; }
+    .favorites-heading { gap:28px; padding:32px 21px 28px; }
+    .favorites-title { margin-top:16px; font-size:46px; }
+    .favorites-description { margin-top:19px; line-height:1.75; }
+    .favorites-profile-link { margin-top:20px; }
+    .favorites-dossier { padding:25px 19px 20px; box-shadow:8px 10px 0 rgba(97,25,22,.2); }
+    .favorites-dossier-number { font-size:48px; }
     .favorite-tabs { display:grid; grid-template-columns:1fr 1fr; width:100%; }
     .favorite-tab { padding:0 8px; }
     .favorite-card { grid-template-columns:104px minmax(0,1fr); gap:14px; padding:13px; }

@@ -150,14 +150,16 @@
 @media(max-width:600px) {
     .profile-main { padding:34px 0 56px; }
     .profile-layout { width:calc(100% - 28px); gap:24px; }
-    .profile-intro { padding:35px 24px 30px; box-shadow:10px 12px 0 rgba(126,40,31,.12); }
-    .profile-intro .auth-intro-title { font-size:44px; }
+    .profile-intro { padding:30px 21px 25px; box-shadow:8px 10px 0 rgba(126,40,31,.12); }
+    .profile-intro .auth-intro-title { margin-top:14px; font-size:38px; }
+    .profile-intro .auth-intro-description { margin-top:16px; font-size:14px; line-height:1.75; }
     .profile-identity { grid-template-columns:58px minmax(0,1fr); gap:14px; }
     .profile-monogram { width:56px; height:56px; font-size:27px; }
     .profile-identity strong { font-size:21px; }
-    .profile-shortcuts { grid-template-columns:1fr; }
+    .profile-shortcuts { grid-template-columns:repeat(2,minmax(0,1fr)); }
     .profile-shortcuts a,
-    .profile-shortcuts #profile-admin-link { grid-column:1; min-height:96px; }
+    .profile-shortcuts #profile-admin-link { min-height:80px; }
+    .profile-shortcuts #profile-admin-link { grid-column:1/-1; }
     .profile-panel { padding:31px 21px 26px; }
     .profile-details { grid-template-columns:1fr; }
     .profile-detail-item { min-height:0; padding:14px 0; }

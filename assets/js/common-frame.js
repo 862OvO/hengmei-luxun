@@ -61,7 +61,42 @@ function centerActiveNavigation() {
                 (navigation.clientWidth - active.offsetWidth) / 2;
 
             navigation.scrollLeft = Math.max(0, target);
+            updateNavigationOverflow(navigation);
         });
+}
+
+function updateNavigationOverflow(navigation) {
+    const maxScroll = Math.max(
+        0,
+        navigation.scrollWidth - navigation.clientWidth
+    );
+    const tolerance = 2;
+
+    navigation.classList.toggle(
+        "can-scroll-left",
+        navigation.scrollLeft > tolerance
+    );
+    navigation.classList.toggle(
+        "can-scroll-right",
+        navigation.scrollLeft < maxScroll - tolerance
+    );
+}
+
+function initializeNavigationOverflow() {
+    document
+        .querySelectorAll(`${STANDARD_HEADER_SELECTOR} .site-nav`)
+        .forEach((navigation) => {
+            updateNavigationOverflow(navigation);
+            navigation.addEventListener("scroll", () => {
+                updateNavigationOverflow(navigation);
+            }, { passive: true });
+        });
+}
+
+function refreshNavigationOverflow() {
+    document
+        .querySelectorAll(`${STANDARD_HEADER_SELECTOR} .site-nav`)
+        .forEach(updateNavigationOverflow);
 }
 
 function initializeCommonFrame() {
@@ -74,9 +109,13 @@ function initializeCommonFrame() {
     const main = ensureMainTarget();
     ensureSkipLink(main);
     labelBrand();
+    initializeNavigationOverflow();
 
     window.requestAnimationFrame(centerActiveNavigation);
-    window.addEventListener("resize", centerActiveNavigation);
+    window.addEventListener("resize", () => {
+        centerActiveNavigation();
+        refreshNavigationOverflow();
+    });
 }
 
 initializeCommonFrame();

@@ -74,6 +74,7 @@
     border-color: rgba(213, 185, 139, .22);
     border-radius: 0;
     background:
+        repeating-linear-gradient(0deg, transparent 0, transparent 45px, rgba(213, 185, 139, .045) 46px),
         linear-gradient(145deg, rgba(141, 31, 31, .28), transparent 55%),
         #261f1c;
     box-shadow: 28px 30px 0 rgba(126,40,31,.2), 0 30px 80px rgba(0,0,0,.26);

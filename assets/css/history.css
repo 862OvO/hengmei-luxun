@@ -13,7 +13,7 @@
 .history-hero .button-secondary{color:#f0e5d5;border-color:rgba(240,229,213,.32);background:transparent}
 .history-hero .button-secondary:hover{border-color:#f0e5d5}
 
-.history-hero-card{position:relative;min-height:515px;padding:48px 44px 38px;border:1px solid rgba(189,155,98,.25);border-radius:0;color:var(--history-cream);background:linear-gradient(145deg,rgba(82,37,29,.9),rgba(28,21,17,.96));box-shadow:28px 30px 0 rgba(126,40,31,.2),0 30px 80px rgba(0,0,0,.26)}
+.history-hero-card{position:relative;min-height:515px;padding:48px 44px 38px;border:1px solid rgba(189,155,98,.25);border-radius:0;color:var(--history-cream);background:repeating-linear-gradient(90deg,transparent 0,transparent 72px,rgba(189,155,98,.045) 73px),linear-gradient(145deg,rgba(82,37,29,.9),rgba(28,21,17,.96));box-shadow:28px 30px 0 rgba(126,40,31,.2),0 30px 80px rgba(0,0,0,.26)}
 .history-hero-card::before{content:"HISTORICAL ARCHIVE  /  06";display:block;padding-bottom:18px;border-bottom:1px solid rgba(189,155,98,.17);color:var(--history-gold);font-size:9px;letter-spacing:2.5px}
 .history-hero-card::after{content:"";position:absolute;right:18px;bottom:18px;width:52px;height:52px;border-right:2px solid rgba(189,155,98,.48);border-bottom:2px solid rgba(189,155,98,.48)}
 .history-hero-card .hero-card-number{margin-top:34px;color:#d98d86;font-size:76px;line-height:1}

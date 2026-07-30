@@ -16,7 +16,7 @@
 .quotes-hero .button-secondary{color:#f0e5d6;border-color:rgba(240,229,214,.32);background:transparent}
 .quotes-hero .button-secondary:hover{border-color:#f0e5d6}
 
-.quotes-hero-card{position:relative;min-height:510px;padding:46px 44px 38px;border:1px solid rgba(197,166,107,.25);border-radius:0;color:#f4ecdf;background:linear-gradient(145deg,rgba(84,30,29,.88),rgba(27,20,17,.96));box-shadow:28px 30px 0 rgba(128,31,31,.2),0 30px 80px rgba(0,0,0,.26)}
+.quotes-hero-card{position:relative;min-height:510px;padding:46px 44px 38px;border:1px solid rgba(197,166,107,.25);border-radius:0;color:#f4ecdf;background:radial-gradient(circle at 78% 18%,rgba(215,143,137,.13),transparent 31%),linear-gradient(145deg,rgba(84,30,29,.88),rgba(27,20,17,.96));box-shadow:28px 30px 0 rgba(128,31,31,.2),0 30px 80px rgba(0,0,0,.26)}
 .quotes-hero-card::before,.quotes-hero-card::after{content:"";position:absolute;width:52px;height:52px;pointer-events:none}
 .quotes-hero-card::before{top:18px;left:18px;border-top:2px solid #bf4c47;border-left:2px solid #bf4c47}
 .quotes-hero-card::after{right:18px;bottom:18px;border-right:2px solid rgba(197,166,107,.5);border-bottom:2px solid rgba(197,166,107,.5)}
