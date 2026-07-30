@@ -1,5 +1,5 @@
 const CATEGORY_LABELS = { crisis: "民族危机", reform: "制度变革", society: "社会教育", culture: "文学文化" };
-const state = { data: null, filter: "all" };
+const state = { data: null, filter: "all", expanded: false };
 
 function el(tag, className, text) {
     const node = document.createElement(tag);
@@ -8,10 +8,36 @@ function el(tag, className, text) {
     return node;
 }
 
+function initialTimelineLimit() {
+    return window.matchMedia("(max-width: 700px)").matches ? 6 : 10;
+}
+
+function updateTimelineAction(root, total, shown) {
+    let button = document.querySelector("[data-history-more]");
+    if (shown >= total) {
+        button?.remove();
+        return;
+    }
+    if (!button) {
+        button = el("button", "progressive-list-action");
+        button.type = "button";
+        button.dataset.historyMore = "";
+        button.addEventListener("click", () => {
+            state.expanded = true;
+            setFilter(state.filter, true);
+        });
+        root.after(button);
+    }
+    button.textContent = `继续展开其余 ${total - shown} 个时代节点`;
+}
+
 function renderTimeline(events) {
     const root = document.querySelector("[data-history-timeline]");
+    const visibleEvents = state.filter === "all" && !state.expanded
+        ? events.slice(0, initialTimelineLimit())
+        : events;
     root.replaceChildren();
-    events.forEach((event, index) => {
+    visibleEvents.forEach((event, index) => {
         const article = el("article", `history-event history-event--${event.category}`);
         article.id = `history-${event.id}`;
         const rail = el("div", "history-event-rail");
@@ -30,6 +56,7 @@ function renderTimeline(events) {
         event.references.forEach((id) => { const link = el("a", "", `[${id}]`); link.href = `#history-reference-${id}`; refs.append(link, " "); });
         body.append(impact, links, refs); details.append(summary, body); article.append(rail, details); root.append(article);
     });
+    updateTimelineAction(root, events.length, visibleEvents.length);
 }
 
 function renderThemes(themes) {
@@ -67,15 +94,21 @@ function renderReferences(references) {
     });
 }
 
-function setFilter(filter) {
+function setFilter(filter, preserveExpanded = false) {
     state.filter = filter;
+    if (!preserveExpanded) state.expanded = filter !== "all";
     const events = filter === "all" ? state.data.events : state.data.events.filter((event) => event.category === filter);
     document.querySelectorAll("[data-history-filter]").forEach((button) => {
         const active = button.dataset.historyFilter === filter; button.classList.toggle("is-active", active); button.setAttribute("aria-pressed", String(active));
     });
     renderTimeline(events);
     const label = filter === "all" ? "全部" : CATEGORY_LABELS[filter];
-    document.querySelector("[data-history-status]").textContent = `当前显示${label} ${events.length} 个节点。`;
+    const shown = filter === "all" && !state.expanded
+        ? Math.min(events.length, initialTimelineLimit())
+        : events.length;
+    document.querySelector("[data-history-status]").textContent = shown === events.length
+        ? `当前显示${label} ${events.length} 个节点。`
+        : `当前显示 ${shown} / ${events.length} 个节点。`;
 }
 
 async function init() {
@@ -85,10 +118,22 @@ async function init() {
         document.querySelectorAll("[data-history-filter]").forEach((button) => button.addEventListener("click", () => setFilter(button.dataset.historyFilter)));
         document.addEventListener("click", (event) => {
             const link = event.target.closest('a[href^="#history-"]'); if (!link || link.closest(".history-event-refs")) return;
-            const card = document.querySelector(`${link.getAttribute("href")} details`); if (card) card.open = true;
+            let card = document.querySelector(`${link.getAttribute("href")} details`);
+            if (!card) {
+                state.expanded = true;
+                setFilter("all", true);
+                card = document.querySelector(`${link.getAttribute("href")} details`);
+            }
+            if (card) card.open = true;
         });
     } catch (error) {
-        document.querySelector("[data-history-timeline]").replaceChildren(el("p", "history-error", "时代资料暂时无法载入，请刷新页面后重试。"));
+        const failure = el("div", "history-error");
+        failure.append(el("p", "", "时代资料暂时无法载入，请检查网络连接后重试。"));
+        const retry = el("button", "state-retry", "重新加载");
+        retry.type = "button";
+        retry.addEventListener("click", init);
+        failure.append(retry);
+        document.querySelector("[data-history-timeline]").replaceChildren(failure);
         console.error("Failed to load history data:", error);
     }
 }

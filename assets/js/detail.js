@@ -1029,7 +1029,8 @@ function initializeDetailEnhancements(item, elements) {
 function showState(
     stateElement,
     title,
-    message
+    message,
+    retry = null
 ) {
     stateElement.hidden = false;
 
@@ -1045,6 +1046,17 @@ function showState(
             message
         )
     );
+
+    if (retry) {
+        const retryButton = createElement(
+            "button",
+            "state-retry",
+            "重新加载"
+        );
+        retryButton.type = "button";
+        retryButton.addEventListener("click", retry);
+        stateElement.append(retryButton);
+    }
 }
 
 function renderContent(
@@ -1317,7 +1329,8 @@ updateActiveNavigation(
         showState(
             elements.state,
             "内容读取失败",
-            "请检查网络连接并刷新页面后重试。"
+            "请检查网络连接后重新加载。",
+            initializeDetailPage
         );
 
         elements.source.textContent =

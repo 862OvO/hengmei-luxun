@@ -248,7 +248,8 @@ function updateCounter(elements) {
 function renderState(
     elements,
     title,
-    message
+    message,
+    retry = null
 ) {
     const stateElement =
         createElement(
@@ -268,6 +269,21 @@ function renderState(
             message
         )
     );
+
+    if (retry) {
+        const retryButton = createElement(
+            "button",
+            "state-retry",
+            "重新加载"
+        );
+
+        retryButton.type = "button";
+        retryButton.addEventListener(
+            "click",
+            retry
+        );
+        stateElement.append(retryButton);
+    }
 
     elements.list.replaceChildren(
         stateElement
@@ -838,7 +854,8 @@ async function loadAndRenderMessages() {
         renderState(
             elements,
             "留言读取失败",
-            "请检查网络连接并刷新页面。"
+            "请检查网络连接后重新加载。",
+            loadAndRenderMessages
         );
 
         showToast(

@@ -267,6 +267,7 @@
     .map-node { padding: 7px; }
     .map-node-avatar { flex-basis: 34px; width: 34px; height: 34px; font-size: 15px; }
     .map-node-copy strong { font-size: 14px; }
+    .map-node-copy small, .person-index, .person-category, .interaction-person { font-size: 12px; }
     .person-card::after { right: 38px; font-size: 58px; }
     .person-card-summary { min-height: 138px; grid-template-columns: 76px 1fr 26px; gap: 14px; padding: 18px 16px; }
     .person-portrait { width: 76px; height: 94px; }

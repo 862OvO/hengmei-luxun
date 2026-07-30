@@ -460,7 +460,8 @@ function renderEmpty(container) {
 
 function renderError(
     container,
-    error
+    error,
+    retry
 ) {
     console.error(
         "Content list failed:",
@@ -482,9 +483,18 @@ function renderError(
         createElement(
             "span",
             "",
-            "请刷新页面后重试。"
+            "请检查网络连接后重新加载。"
         )
     );
+
+    const retryButton = createElement(
+        "button",
+        "state-retry",
+        "重新加载"
+    );
+    retryButton.type = "button";
+    retryButton.addEventListener("click", retry);
+    errorState.append(retryButton);
 
     container.replaceChildren(
         errorState
@@ -602,7 +612,7 @@ async function initializeContentList() {
             }
         );
 
-        renderError(grid, error);
+        renderError(grid, error, initializeContentList);
     }
 }
 

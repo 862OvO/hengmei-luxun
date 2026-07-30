@@ -91,6 +91,7 @@
 .quote-copy{padding:0;border:0;background:none;cursor:pointer}
 .quote-copy:hover,.quote-origin:hover{text-decoration:underline;text-underline-offset:3px}
 .quotes-loading,.quotes-error,.quote-empty{grid-column:1/-1;padding:42px;border:1px dashed var(--color-border);color:var(--color-ink-soft);text-align:center}
+.quote-library .progressive-list-action{border-color:rgba(128,31,31,.38);background:rgba(250,247,240,.72)}
 .quote-empty{margin-top:10px}
 .copy-toast{position:fixed;right:24px;bottom:24px;z-index:50;padding:13px 20px;border-radius:0;color:#fff;background:var(--quote-wine);box-shadow:var(--shadow-card)}
 
@@ -149,6 +150,8 @@
   .quote-card{min-height:auto;padding:23px 20px 20px}
   .quote-text{font-size:24px}
   .quote-source{align-items:flex-start;flex-direction:column;gap:3px}
+  .quote-category,.quote-source span,.quote-tags span,.quote-copy,.quote-origin,.quote-reference-item small{font-size:12px}
+  .quote-context summary{width:auto;display:flex;align-items:center;font-size:13px}
   .quotes-reference-list{grid-template-columns:1fr}
   .copy-toast{right:14px;bottom:14px;left:14px;text-align:center}
 }

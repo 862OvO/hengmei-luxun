@@ -174,7 +174,12 @@ async function init() {
             button.addEventListener("click", () => setFilter(button.dataset.filter));
         });
     } catch (error) {
-        const message = element("p", "relations-error", "人物资料暂时无法载入，请刷新页面后重试。");
+        const message = element("div", "relations-error");
+        message.append(element("p", "", "人物资料暂时无法载入，请检查网络连接后重试。"));
+        const retry = element("button", "state-retry", "重新加载");
+        retry.type = "button";
+        retry.addEventListener("click", init);
+        message.append(retry);
         document.querySelector("[data-people-grid]").replaceChildren(message);
         document.querySelector("[data-map-status]").textContent = "人物资料载入失败。";
         console.error("Failed to load relationship data:", error);

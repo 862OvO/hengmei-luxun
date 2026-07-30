@@ -10,6 +10,8 @@ const eras = [
 let records = [];
 let visibleRecords = [];
 let activeIndex = 0;
+const viewState = { filter: "all", query: "", expanded: false };
+let progressiveUpdate = null;
 
 const element = (tag, className, text) => {
     const node = document.createElement(tag);
@@ -73,10 +75,36 @@ function createCard(item, index) {
     return card;
 }
 
-async function render(items) {
+function progressiveGalleryItems(items) {
+    if (viewState.filter !== "all" || viewState.query || viewState.expanded) return items;
+    const perEra = window.matchMedia("(max-width: 700px)").matches ? 2 : 4;
+    return eras.flatMap(([key]) => items.filter((item) => item.metadata.era === key).slice(0, perEra));
+}
+
+function updateGalleryAction(timeline, total, shown) {
+    let button = document.querySelector("[data-gallery-more]");
+    if (shown >= total) {
+        button?.remove();
+        return;
+    }
+    if (!button) {
+        button = element("button", "progressive-list-action");
+        button.type = "button";
+        button.dataset.galleryMore = "";
+        button.addEventListener("click", () => {
+            viewState.expanded = true;
+            progressiveUpdate?.();
+        });
+        timeline.after(button);
+    }
+    button.textContent = `继续查看其余 ${total - shown} 份影像档案`;
+}
+
+async function render(items, total = items.length) {
     const timeline = page.querySelector("[data-gallery-timeline]");
     visibleRecords = items;
     if (items.length === 0) {
+        document.querySelector("[data-gallery-more]")?.remove();
         const state = element("div", "gallery-state");
         state.append(element("strong", "", "没有符合条件的影像"), element("span", "", "请调整类型或搜索关键词。"));
         timeline.replaceChildren(state);
@@ -95,6 +123,7 @@ async function render(items) {
         fragment.append(section);
     });
     timeline.replaceChildren(fragment);
+    updateGalleryAction(timeline, total, items.length);
     await initializeFavoriteButtons(timeline);
 }
 
@@ -106,16 +135,23 @@ function setupControls() {
     const search = page.querySelector("[data-gallery-search]");
     const buttons = [...page.querySelectorAll("[data-gallery-filter]")];
     const result = page.querySelector("[data-gallery-result]");
-    let filter = "all";
     const update = () => {
-        const query = search.value.trim().toLocaleLowerCase("zh-CN");
-        const filtered = records.filter((item) => (filter === "all" || item.metadata.category === filter) && (!query || searchText(item).includes(query)));
-        result.textContent = `当前显示 ${filtered.length} 份，共 ${records.length} 份`;
-        render(filtered);
+        viewState.query = search.value.trim().toLocaleLowerCase("zh-CN");
+        const filtered = records.filter((item) => (viewState.filter === "all" || item.metadata.category === viewState.filter) && (!viewState.query || searchText(item).includes(viewState.query)));
+        const visible = progressiveGalleryItems(filtered);
+        result.textContent = visible.length === filtered.length
+            ? `当前显示 ${filtered.length} 份，共 ${records.length} 份`
+            : `当前展示 ${visible.length} / ${filtered.length} 份，共 ${records.length} 份`;
+        render(visible, filtered.length);
     };
-    search.addEventListener("input", update);
+    progressiveUpdate = update;
+    search.addEventListener("input", () => {
+        viewState.expanded = Boolean(search.value.trim());
+        update();
+    });
     buttons.forEach((button) => button.addEventListener("click", () => {
-        filter = button.dataset.galleryFilter ?? "all";
+        viewState.filter = button.dataset.galleryFilter ?? "all";
+        viewState.expanded = viewState.filter !== "all";
         buttons.forEach((item) => item.setAttribute("aria-pressed", String(item === button)));
         update();
     }));
@@ -160,7 +196,13 @@ async function initialize() {
     } catch (error) {
         console.error("Gallery failed:", error);
         source.textContent = "数据来源：读取失败";
-        page.querySelector("[data-gallery-timeline]").textContent = "影像档案读取失败，请刷新后重试。";
+        const failure = element("div", "gallery-state");
+        failure.append(element("strong", "", "影像档案读取失败"), element("span", "", "请检查网络连接后重新加载。"));
+        const retry = element("button", "state-retry", "重新加载");
+        retry.type = "button";
+        retry.addEventListener("click", initialize);
+        failure.append(retry);
+        page.querySelector("[data-gallery-timeline]").replaceChildren(failure);
     }
 }
 initialize();

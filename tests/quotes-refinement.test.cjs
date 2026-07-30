@@ -6,6 +6,7 @@ const path = require("node:path");
 const root = path.resolve(__dirname, "..");
 const html = fs.readFileSync(path.join(root, "quotes.html"), "utf8");
 const css = fs.readFileSync(path.join(root, "assets/css/quotes.css"), "utf8");
+const js = fs.readFileSync(path.join(root, "assets/js/quotes.js"), "utf8");
 
 test("经典语录页采用思想摘录馆展陈结构", () => {
     assert.match(html, /class="quotes-page"/);
@@ -24,4 +25,11 @@ test("语录馆桌面三列并逐级收束为移动端单列", () => {
 test("精选语录展示完整肖像并避免移动端标题孤字", () => {
     assert.match(css, /\.featured-quote img\{[^}]*height:auto[^}]*object-fit:contain/s);
     assert.match(css, /@media\(max-width:600px\)[\s\S]*\.featured-quote h2\{[^}]*white-space:nowrap/);
+});
+
+test("语录长列表首屏分段展示并可继续展开", () => {
+    assert.match(js, /function initialLimit\(\)/);
+    assert.match(js, /data-quote-more/);
+    assert.match(js, /继续查看其余/);
+    assert.match(js, /state\.expanded=true/);
 });

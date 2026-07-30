@@ -6,6 +6,7 @@ const path = require("node:path");
 const root = path.resolve(__dirname, "..");
 const html = fs.readFileSync(path.join(root, "history.html"), "utf8");
 const css = fs.readFileSync(path.join(root, "assets/css/history.css"), "utf8");
+const js = fs.readFileSync(path.join(root, "assets/js/history.js"), "utf8");
 
 test("时代背景页采用历史长卷展陈结构", () => {
     assert.match(html, /class="history-page"/);
@@ -31,4 +32,11 @@ test("六部作品坐标使用独立深色年代索引", () => {
     assert.match(css, /\.works-context\{[^}]*background:linear-gradient/s);
     assert.match(css, /\.works-context-grid\{[^}]*grid-template-columns:repeat\(3,minmax\(0,1fr\)\)/s);
     assert.match(css, /WORKS COORDINATES/);
+});
+
+test("时代节点默认分段展示且站内锚点可自动展开完整时间线", () => {
+    assert.match(js, /function initialTimelineLimit\(\)/);
+    assert.match(js, /data-history-more/);
+    assert.match(js, /if \(!card\)\s*\{/);
+    assert.match(js, /setFilter\("all", true\)/);
 });

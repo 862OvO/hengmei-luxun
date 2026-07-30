@@ -150,7 +150,8 @@ function updateUrl(query) {
 
 function renderState(
     title,
-    message
+    message,
+    retry = null
 ) {
     const resultsContainer =
         document.querySelector(
@@ -175,6 +176,20 @@ function renderState(
             message
         )
     );
+
+    if (retry) {
+        const retryButton = createElement(
+            "button",
+            "state-retry",
+            "重新检索"
+        );
+        retryButton.type = "button";
+        retryButton.addEventListener(
+            "click",
+            retry
+        );
+        state.append(retryButton);
+    }
 
     resultsContainer.replaceChildren(
         state
@@ -483,7 +498,8 @@ async function performSearch(
 
         renderState(
             "搜索服务暂时不可用",
-            "请检查网络连接并刷新页面后重试。"
+            "请检查网络连接后重新检索。",
+            () => performSearch(normalizedQuery)
         );
     }
 }

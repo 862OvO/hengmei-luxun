@@ -1074,7 +1074,7 @@ html{scroll-behavior:smooth}
     }
 
     .biography-summary dt {
-        font-size: 9px;
+        font-size: 12px;
     }
 
     .biography-summary dd {
@@ -1111,6 +1111,16 @@ html{scroll-behavior:smooth}
 
     .timeline-card {
         transition: none;
+    }
+}
+
+@media print {
+    .biography-enhanced .timeline-item,
+    .biography-enhanced .biography-stage,
+    .biography-enhanced .biography-era-wall,
+    .biography-enhanced .reference-panel {
+        opacity: 1 !important;
+        transform: none !important;
     }
 }
 

@@ -22,6 +22,7 @@ const state = {
 };
 
 let toastTimer = null;
+let tabsInitialized = false;
 
 function createElement(
     tagName,
@@ -513,7 +514,8 @@ function updateCounts() {
 function renderState(
     title,
     message,
-    showBrowseLink = false
+    showBrowseLink = false,
+    retry = null
 ) {
     const grid =
         document.querySelector(
@@ -557,6 +559,21 @@ function renderState(
         });
 
         stateElement.append(links);
+    }
+
+    if (retry) {
+        const retryButton = createElement(
+            "button",
+            "state-retry",
+            "重新加载"
+        );
+
+        retryButton.type = "button";
+        retryButton.addEventListener(
+            "click",
+            retry
+        );
+        stateElement.append(retryButton);
     }
 
     grid.replaceChildren(
@@ -607,6 +624,12 @@ function renderPage() {
 }
 
 function initializeTabs() {
+    if (tabsInitialized) {
+        return;
+    }
+
+    tabsInitialized = true;
+
     document
         .querySelectorAll(
             "[data-favorite-tab]"
@@ -664,7 +687,9 @@ async function initializeFavoritesPage() {
 
         renderState(
             "收藏读取失败",
-            "请检查网络连接并刷新页面后重试。"
+            "请检查网络连接后重新加载。",
+            false,
+            initializeFavoritesPage
         );
     }
 }

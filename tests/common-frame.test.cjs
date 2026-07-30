@@ -50,3 +50,16 @@ test("the narrow navigation exposes hidden destinations without a scrollbar", ()
 test("the public frame preserves visible keyboard focus", () => {
     assert.match(css, /:focus-visible\s*\{[\s\S]*?outline:\s*2px solid var\(--color-red\)/);
 });
+
+test("long exhibition pages provide reading progress and a return-to-top control", () => {
+    assert.match(commonFrame, /initializeReadingTools/);
+    assert.match(commonFrame, /--reading-progress/);
+    assert.match(commonFrame, /返回页面顶部/);
+    assert.match(commonFrame, /scrollHeight > window\.innerHeight \* 3/);
+    assert.match(css, /\.reading-tools-top\s*\{[^}]*width:\s*48px;[^}]*height:\s*48px/s);
+});
+
+test("mobile functional controls preserve a 44 pixel touch target", () => {
+    assert.match(css, /main :is\(button, input, select, textarea, summary\)\s*\{\s*min-height:\s*44px/);
+    assert.match(css, /\.state-retry\s*\{[^}]*min-height:\s*44px/s);
+});

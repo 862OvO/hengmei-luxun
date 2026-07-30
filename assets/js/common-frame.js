@@ -99,6 +99,59 @@ function refreshNavigationOverflow() {
         .forEach(updateNavigationOverflow);
 }
 
+function initializeReadingTools() {
+    const main = document.querySelector("main");
+
+    if (!main || document.querySelector("[data-reading-tools]")) {
+        return;
+    }
+
+    const tools = document.createElement("div");
+    const meter = document.createElement("span");
+    const button = document.createElement("button");
+
+    tools.className = "reading-tools";
+    tools.dataset.readingTools = "";
+    meter.className = "reading-tools-meter";
+    meter.setAttribute("aria-hidden", "true");
+    button.className = "reading-tools-top";
+    button.type = "button";
+    button.textContent = "↑";
+    button.setAttribute("aria-label", "返回页面顶部");
+    tools.append(meter, button);
+    document.body.append(tools);
+
+    const update = () => {
+        const scrollRange = Math.max(
+            1,
+            document.documentElement.scrollHeight - window.innerHeight
+        );
+        const progress = Math.min(1, Math.max(0, window.scrollY / scrollRange));
+        const isLongPage = document.documentElement.scrollHeight > window.innerHeight * 3;
+
+        tools.style.setProperty("--reading-progress", `${progress * 100}%`);
+        tools.classList.toggle("is-available", isLongPage);
+        tools.classList.toggle("is-visible", isLongPage && window.scrollY > window.innerHeight * 0.75);
+    };
+
+    button.addEventListener("click", () => {
+        window.scrollTo({
+            top: 0,
+            behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches
+                ? "auto"
+                : "smooth"
+        });
+    });
+    window.addEventListener("scroll", update, { passive: true });
+    window.addEventListener("resize", update);
+
+    if ("ResizeObserver" in window) {
+        new ResizeObserver(update).observe(main);
+    }
+
+    update();
+}
+
 function initializeCommonFrame() {
     if (!document.querySelector(STANDARD_HEADER_SELECTOR)) {
         return;
@@ -110,6 +163,7 @@ function initializeCommonFrame() {
     ensureSkipLink(main);
     labelBrand();
     initializeNavigationOverflow();
+    initializeReadingTools();
 
     window.requestAnimationFrame(centerActiveNavigation);
     window.addEventListener("resize", () => {

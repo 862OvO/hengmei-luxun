@@ -46,3 +46,10 @@ test("历史影像详情使用专属深色展陈头部且窄屏仍为单列", ()
     assert.match(detailCss, /@media \(max-width: 900px\)/);
     assert.match(detailCss, /\.detail-article--articles \.detail-layout,\s*\.detail-article--gallery \.detail-layout/);
 });
+
+test("历史影像按年代分段展示并保留完整筛选结果", () => {
+    assert.match(js, /function progressiveGalleryItems/);
+    assert.match(js, /data-gallery-more/);
+    assert.match(js, /继续查看其余/);
+    assert.match(js, /viewState\.filter !== "all"/);
+});
