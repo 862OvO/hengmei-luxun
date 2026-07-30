@@ -164,6 +164,10 @@ function createCardImage(item) {
             "favorite-card-image"
         );
 
+    wrapper.classList.add(
+        `favorite-card-image--${item.content_type}`
+    );
+
     const isPlaceholder =
         !item.image_path ||
         item.image_path.includes(
@@ -186,11 +190,31 @@ function createCardImage(item) {
         const image =
             document.createElement("img");
 
-        image.src = item.image_path;
-
         image.alt =
             item.metadata?.alt ||
             item.title;
+
+        image.loading = "lazy";
+
+        image.addEventListener(
+            "load",
+            () => {
+                const ratio =
+                    image.naturalWidth /
+                    image.naturalHeight;
+
+                wrapper.classList.toggle(
+                    "is-portrait",
+                    ratio < 0.82
+                );
+
+                wrapper.classList.toggle(
+                    "is-landscape",
+                    ratio > 1.22
+                );
+            },
+            { once: true }
+        );
 
         image.addEventListener(
             "error",
@@ -209,6 +233,8 @@ function createCardImage(item) {
                 once: true
             }
         );
+
+        image.src = item.image_path;
 
         wrapper.append(image);
     }
@@ -293,6 +319,10 @@ function createFavoriteCard(item) {
             "article",
             "favorite-card"
         );
+
+    card.classList.add(
+        `favorite-card--${item.content_type}`
+    );
 
     if (!item.is_available) {
         card.classList.add(
@@ -426,6 +456,20 @@ function updateCounts() {
 
     document
         .querySelectorAll(
+            "[data-favorite-type-count]"
+        )
+        .forEach((element) => {
+            element.textContent = String(
+                state.items.filter(
+                    (item) =>
+                        item.content_type ===
+                        element.dataset.favoriteTypeCount
+                ).length
+            );
+        });
+
+    document
+        .querySelectorAll(
             "[data-favorite-tab]"
         )
         .forEach((button) => {
@@ -497,16 +541,22 @@ function renderState(
     );
 
     if (showBrowseLink) {
-        const link =
-            createElement(
-                "a",
-                "",
-                "前往代表作品"
-            );
+        const links = createElement(
+            "div",
+            "favorites-state-links"
+        );
 
-        link.href = "works.html";
+        [
+            ["浏览代表作品", "works.html"],
+            ["阅读作品赏析", "articles.html"],
+            ["查看历史影像", "gallery.html"]
+        ].forEach(([label, href]) => {
+            const link = createElement("a", "", label);
+            link.href = href;
+            links.append(link);
+        });
 
-        stateElement.append(link);
+        stateElement.append(links);
     }
 
     grid.replaceChildren(

@@ -44,7 +44,7 @@
     <link rel="icon" href="assets/images/favicon.svg" type="image/svg+xml">
 </head>
 
-<body>
+<body class="favorites-page">
     <header class="site-header">
         <div class="container header-inner">
             <a
@@ -120,40 +120,55 @@
 
     <main class="favorites-main">
         <div class="container">
-            <section class="favorites-heading">
-                <div class="favorites-kicker">
-                    PERSONAL COLLECTION
+            <section class="favorites-heading" aria-labelledby="favorites-title">
+                <div class="favorites-heading-copy">
+                    <div class="favorites-kicker">
+                        PRIVATE COLLECTION · NO. 11
+                    </div>
+
+                    <h1 class="favorites-title" id="favorites-title">
+                        我的<span>收藏</span>
+                    </h1>
+
+                    <p class="favorites-description">
+                        把阅读途中留下的作品、赏析与历史影像，收进一份可随时返回的私人档案。
+                        已下架内容仍保留题名与分类记录。
+                    </p>
+
+                    <a class="favorites-profile-link" href="profile.html">
+                        返回个人中心
+                    </a>
                 </div>
 
-                <h1 class="favorites-title">
-                    我的收藏
-                </h1>
+                <aside class="favorites-dossier" aria-label="收藏概览">
+                    <span class="favorites-dossier-number" data-favorite-total>0</span>
+                    <strong>件个人藏品</strong>
+                    <p>登录账号专属 · 云端同步</p>
 
-                <p class="favorites-description">
-                    集中查看收藏的代表作品、作品赏析与历史影像。
-                    已下架内容会保留标题和分类信息，但不再公开正文。
-                </p>
-
-                <div class="favorites-overview">
-                    <span class="favorites-overview-item">
-                        收藏总数：
-                        <strong data-favorite-total>
-                            0
-                        </strong>
-                    </span>
-
-                    <span class="favorites-overview-item">
-                        登录账号专属
-                    </span>
-
-                    <span class="favorites-overview-item">
-                        云端同步
-                    </span>
-                </div>
+                    <dl class="favorites-type-summary">
+                        <div>
+                            <dt>作品</dt>
+                            <dd data-favorite-type-count="works">0</dd>
+                        </div>
+                        <div>
+                            <dt>赏析</dt>
+                            <dd data-favorite-type-count="articles">0</dd>
+                        </div>
+                        <div>
+                            <dt>影像</dt>
+                            <dd data-favorite-type-count="gallery">0</dd>
+                        </div>
+                    </dl>
+                </aside>
             </section>
 
             <section class="favorites-panel">
                 <div class="favorites-toolbar">
+                    <div class="favorites-toolbar-heading">
+                        <span>COLLECTION INDEX</span>
+                        <strong>藏品目录</strong>
+                    </div>
+
                     <div
                         class="favorite-tabs"
                         aria-label="收藏分类"
@@ -224,7 +239,7 @@
                         data-favorites-source
                         aria-live="polite"
                     >
-                        数据来源：正在读取
+                        正在连接个人云端档案
                     </div>
                 </div>
 
