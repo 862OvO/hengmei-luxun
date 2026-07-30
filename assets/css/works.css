@@ -50,7 +50,7 @@
 .works-hero .hero-title {
     color: #f7efe4;
     font-size: clamp(72px, 6vw, 104px);
-    font-weight: 500;
+    font-weight: 700;
 }
 
 .works-hero .hero-title span {

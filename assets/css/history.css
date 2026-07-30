@@ -6,7 +6,7 @@
 .history-hero .hero-grid{position:relative;z-index:1;width:min(1480px,calc(100% - 64px));display:grid;grid-template-columns:minmax(0,1.12fr) minmax(430px,.68fr);gap:clamp(70px,9vw,150px);align-items:center}
 .history-hero .hero-content{max-width:800px}
 .history-hero .eyebrow{color:var(--history-gold);letter-spacing:5px}
-.history-hero .hero-title{margin-top:28px;line-height:.94;letter-spacing:-.045em}
+.history-hero .hero-title{margin-top:28px;line-height:.94;letter-spacing:-.045em;font-weight:700}
 .history-hero .hero-title span{display:block;width:max-content;max-width:100%;margin-top:9px;color:#d68e88;font-size:clamp(94px,7vw,126px);white-space:nowrap}
 .history-hero .hero-description{max-width:710px;margin-top:36px;color:rgba(241,232,218,.68);font-size:17px;line-height:2}
 .history-hero .hero-actions{margin-top:39px}

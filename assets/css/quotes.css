@@ -8,8 +8,8 @@
 .quotes-hero .hero-content{max-width:800px}
 .quotes-hero .eyebrow{color:var(--quote-gold);letter-spacing:5px}
 .quotes-hero .hero-title{margin-top:28px;line-height:.95;letter-spacing:-.045em}
-.quotes-hero .hero-title span{display:block;color:#f7f0e5;font-size:clamp(62px,4.8vw,82px);font-weight:400}
-.quotes-hero .hero-title strong{display:block;width:max-content;max-width:100%;margin-top:10px;color:#d58e89;font-family:var(--font-serif);font-size:clamp(82px,6.4vw,116px);font-weight:400;white-space:nowrap}
+.quotes-hero .hero-title span{display:block;color:#f7f0e5;font-size:clamp(62px,4.8vw,82px);font-weight:700}
+.quotes-hero .hero-title strong{display:block;width:max-content;max-width:100%;margin-top:10px;color:#d58e89;font-family:var(--font-serif);font-size:clamp(82px,6.4vw,116px);font-weight:700;white-space:nowrap}
 .quotes-hero .hero-description{max-width:700px;margin-top:36px;color:rgba(244,236,223,.69);font-size:17px;line-height:2}
 .quotes-hero .hero-actions{margin-top:38px}
 .quotes-hero .button{font-family:inherit;cursor:pointer}

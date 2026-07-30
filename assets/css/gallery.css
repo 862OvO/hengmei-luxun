@@ -52,7 +52,7 @@
 
 .gallery-hero .hero-content { max-width: 800px; }
 .gallery-hero .eyebrow { color: var(--gallery-gold); letter-spacing: 5px; }
-.gallery-hero .hero-title { margin-top: 28px; color: #faf4ea; line-height: .94; letter-spacing: -.035em; }
+.gallery-hero .hero-title { margin-top: 28px; color: #faf4ea; line-height: .94; letter-spacing: -.035em; font-weight: 700; }
 .gallery-hero .hero-title span { width: max-content; max-width: 100%; margin-top: 10px; display: block; color: #d58d88; font-size: clamp(82px,6.5vw,116px); white-space: nowrap; }
 .gallery-hero .hero-description { max-width: 710px; margin-top: 36px; color: rgba(241,232,218,.68); font-size: 17px; line-height: 2; }
 .gallery-hero .hero-actions { margin-top: 40px; }

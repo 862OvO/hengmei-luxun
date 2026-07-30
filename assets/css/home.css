@@ -156,6 +156,7 @@ html {
 .home-hero-grid {
     position: relative;
     z-index: 2;
+    width: min(calc(100% - 64px), 1480px);
     padding-top: 74px;
     padding-bottom: 92px;
     display: grid;
@@ -187,18 +188,36 @@ html {
 }
 
 .home-hero h1 {
-    max-width: 760px;
+    max-width: none;
     margin-top: 28px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
     font-family: var(--font-serif);
-    font-size: clamp(48px, 6.7vw, 91px);
-    font-weight: 500;
-    line-height: 1.23;
+    font-size: clamp(52px, 4.7vw, 70px);
+    font-weight: 700;
+    line-height: 1.05;
     letter-spacing: 0.06em;
+    white-space: nowrap;
 }
 
-.home-hero h1 span {
+.home-hero h1 .home-title-line {
     display: block;
+    width: max-content;
+    max-width: 100%;
+    color: #f8f0e4;
+    font-size: clamp(52px, 4.7vw, 70px);
+    white-space: nowrap;
+}
+
+.home-hero h1 .home-title-subject,
+.home-hero h1 > span:not(.home-title-line) {
+    display: block;
+    margin-top: 0;
     color: #cf9a92;
+    font-size: clamp(66px, 6.7vw, 98px);
+    white-space: nowrap;
 }
 
 .home-hero blockquote {
@@ -1116,7 +1135,16 @@ html {
     }
 
     .home-hero h1 {
-        font-size: clamp(45px, 7vw, 70px);
+        font-size: clamp(43px, 6.2vw, 60px);
+    }
+
+    .home-hero h1 .home-title-line {
+        font-size: clamp(43px, 6.2vw, 60px);
+    }
+
+    .home-hero h1 .home-title-subject,
+    .home-hero h1 > span:not(.home-title-line) {
+        font-size: clamp(58px, 7.8vw, 76px);
     }
 
     .home-section-grid,
@@ -1256,8 +1284,18 @@ html {
 
     .home-hero h1 {
         margin-top: 21px;
-        font-size: clamp(39px, 12.8vw, 56px);
+        font-size: clamp(31px, 8.7vw, 43px);
         letter-spacing: 0.02em;
+    }
+
+    .home-hero h1 .home-title-line {
+        font-size: clamp(31px, 8.7vw, 43px);
+    }
+
+    .home-hero h1 .home-title-subject,
+    .home-hero h1 > span:not(.home-title-line) {
+        margin-top: 0;
+        font-size: clamp(43px, 12.5vw, 58px);
     }
 
     .home-hero blockquote {

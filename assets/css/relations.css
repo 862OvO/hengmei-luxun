@@ -59,9 +59,11 @@
     color: #f9f3e9;
     line-height: .92;
     letter-spacing: -.04em;
+    font-weight: 700;
 }
 .relations-hero .hero-title-prefix {
     display: block;
+    color: #f9f3e9;
     font-size: clamp(62px, 4.6vw, 78px);
     letter-spacing: -.02em;
 }
